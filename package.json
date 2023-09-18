@@ -1,0 +1,24 @@
+{
+  "name": "new-set",
+  "version": "0.3.0",
+  "description": "",
+  "main": "src/app.ts",
+  "scripts": {
+    "start": "node dist/app.js",
+    "build": "tsc -p ."
+  },
+  "keywords": [],
+  "author": "alik",
+  "license": "CUSTOM",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "express": "^4.18.2",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/express": "^4.17.17",
+    "express": "^4.18.2",
+    "typescript": "^5.1.6"
+  }
+}
