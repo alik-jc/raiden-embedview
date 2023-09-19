@@ -1,7 +1,7 @@
 # ✓ Set conmuter
 > This is a simple conmuter used to manage the player options in aniyae.net
 
-### ✅ Set Alpha version 0.0.2 (2021-09-01)
+### ✅ Set Alpha version 0.0.2 (2021-09-19)
 
 ### **:rocket: Usage**
 
