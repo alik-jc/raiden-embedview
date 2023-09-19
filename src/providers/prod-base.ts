@@ -1,5 +1,9 @@
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 export function basePlayerPage(conmutatedValue: string, image: string ): string {
-    const catframe = 'https://aria.js.cdn.aniyae.net/js/catFrame.js';
+    const catframe = process.env.CAT_FRAME || '';
     return `
         <script src="${catframe}"></script>
         <!-- Import fontawesome -->
