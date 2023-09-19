@@ -1,5 +1,9 @@
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 export const errorWebsite = (uriParameter: string) => {
-    const catframe = 'https://aria.js.cdn.aniyae.net/js/catFrame.js';
+    const catframe = process.env.CAT_FRAME || '';
     return `
     <script src="${catframe}"></script>
     <!-- Favicon -->

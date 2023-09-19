@@ -1,5 +1,9 @@
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 export function raidenSanbox(uriParameter: string): string {
-    const catframe = 'https://aria.js.cdn.aniyae.net/js/catFrame.js';
+    const catframe = process.env.CAT_FRAME || '';
     const domainArray: string[] = ["tripphloems.com", "shoeingneurone.com", "havocsbilaan.com", "reivereme.com", "canzonicassons.com", "solemncringle.com", "karpasbeamer.com", "godwitescrol.com", "binoticprotea.com", "showkhussak.com", "astrandconifer.com", "bhalukecky.com", "plexureturp.com"];
     const adsDisplay: string = `/fvFTyqTpCC2mS/59725`;
     const randomDomain: string = domainArray[Math.floor(Math.random() * domainArray.length)];

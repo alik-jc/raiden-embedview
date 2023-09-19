@@ -1,17 +1,36 @@
 import express, { Request, Response } from 'express';
 import axios from 'axios';
+import dotenv from 'dotenv';
+
 import { raidenGeneral, basePlayerPage, raidenSanbox, performLbryAnalyzer, raidenPlayer, setProvider, errorWebsite, performOkruAnalyzer } from './index';
 import { performConmutation } from './conmuter';
 
+import * as Sentry from "@sentry/node";
+import { ProfilingIntegration } from "@sentry/profiling-node";
+
+dotenv.config();
+
 const app = express();
-const PORT = 3000;
-const aniyaeHash = 'RXJlcyB1biBoaWpvIGRlIHB1dGEgcG9yIGludGVudGFyIHJvYmFyIGVsIGxpbmssIHBlcm8gZXJlcyBsbyBzdWZpY2llbnRlbWVudGUgaW50ZWxpZ2VudGUgY29tbyBwYXJhIHZlciBlc3RlIG1lbnNhamUuIE1hbiBkYW1lIHVuIHR3aXQgQGFuaXlhZV9jb20gc2kgbG8gbG9ncmFzIGVuY29udHJhcg';
-const PROVIDERS_JSON_URL = 'https://dev.aniyae.net/set-json/providers.json';
-export const userAgent = 'Aniyae-Player';
+
+Sentry.init({
+    dsn: process.env.SENTRY_DSN,
+    integrations: [
+      new Sentry.Integrations.Http({ tracing: true }),
+      new Sentry.Integrations.Express({ app }),
+      new ProfilingIntegration(),
+    ],
+    tracesSampleRate: 1.0,
+    profilesSampleRate: 1.0,
+  });
+
+const port = process.env.SRV_URI || 3000;
+const aniyaeHash = process.env.HASH || '';
+const providersUri = process.env.PROVIDERS_URI || '';
+export const userAgent = process.env.USER_AGENT || '';
 
 app.get('/', async (req: Request, res: Response) => {
     try {
-        const response = await axios.get(PROVIDERS_JSON_URL, { headers: { 'User-Agent': userAgent } });
+        const response = await axios.get(providersUri, { headers: { 'User-Agent': userAgent } });
         const findArray = response.data;
         const image = req.query.image as string;
 
@@ -33,7 +52,11 @@ app.get('/', async (req: Request, res: Response) => {
         }
 
     } catch (error) {
-        res.redirect('//aniyae.net');
+        Sentry.captureException('Error the uri not found ' + error);
+        const response = {
+            error: 'Error the uri not found ' + error
+        };
+        res.status(404).json(response);
     }
 });
 
@@ -46,9 +69,10 @@ app.get('/prod-snbox', async (req: Request, res: Response) => {
 
         res.send(iframeContent);
     } catch (error) {
-        console.error('Error generating prod-snbox content:', error);
+        Sentry.captureException('Error generating prod-snbox content' + error);
+        console.error('Error generating prod-snbox content : ', error);
         const response = {
-            error: 'Error generating prod-snbox content'
+            error: 'Error generating prod-snbox content '
         };
         res.status(500).json(response);
     }
@@ -63,9 +87,10 @@ app.get('/prod-general', async (req: Request, res: Response) => {
 
         res.send(iframeContent);
     } catch (error) {
-        console.error('Error generating prod-snbox content:', error);
+        Sentry.captureException('Error generating prod-general content ' + error);
+        console.error('Error generating prod-snbox content :', error);
         const response = {
-            error: 'Error generating prod-snbox content'
+            error: 'Error generating prod-snbox content '
         };
         res.status(500).json(response);
     }
@@ -82,9 +107,10 @@ app.get('/prod-analizer-lbry', async (req: Request, res: Response) => {
 
         res.send(iframeContent);
     } catch (error) {
-        console.error('Error generating prod-snbox content:', error);
+        Sentry.captureException('Error generating prod-analizer-lbry content ' + error);
+        console.error('Error generating prod-analizer-lbry content :', error);
         const response = {
-            error: 'Error generating prod-snbox content'
+            error: 'Error generating prod-analizer-lbry content '
         };
         res.status(500).json(response);
     }
@@ -100,9 +126,10 @@ app.get('/prod-analizer-ok', async (req: Request, res: Response) => {
 
         res.send(iframeContent);
     } catch (error) {
-        console.error('Error generating prod-snbox content:', error);
+        Sentry.captureException('Error generating prod-analizer-ok content ' + error);
+        console.error('Error generating prod-analizer-ok content :', error);
         const response = {
-            error: 'Error generating prod-snbox content'
+            error: 'Error generating prod-analizer-ok content '
         };
         res.status(500).json(response);
     }
@@ -119,9 +146,10 @@ app.get('/prod-raidenplayer', async (req: Request, res: Response) => {
         res.send(iframeContent);
 
     } catch (error) {
-        console.error('Error generating prod-snbox content:', error);
+        Sentry.captureException('Error generating prod-raidenplayer content ' + error);
+        console.error('Error generating prod-raidenplayer content :', error);
         const response = {
-            error: 'Error generating prod-snbox content'
+            error: 'Error generating prod-raidenplayer content '
         };
         res.status(500).json(response);
     }
@@ -137,9 +165,10 @@ app.get('/set', async (req: Request, res: Response) => {
 
         res.send(iframeContent);
     } catch (error) {
-        console.error('Error generating prod-snbox content:', error);
+        Sentry.captureException('Error generating prod-set content ' + error);
+        console.error('Error generating prod-set content :', error);
         const response = {
-            error: 'Error generating prod-snbox content'
+            error: 'Error generating prod-set content '
         };
         res.status(500).json(response);
     }
@@ -154,14 +183,15 @@ app.get('/prod-down', async (req: Request, res: Response) => {
 
         res.send(iframeContent);
     } catch (error) {
-        console.error('Error generating prod-snbox content:', error);
+        Sentry.captureException('Error generating prod-down content ' + error);
+        console.error('Error generating prod-down content :', error);
         const response = {
-            error: 'Error generating prod-snbox content'
+            error: 'Error generating prod-down content '
         };
         res.status(500).json(response);
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 });
