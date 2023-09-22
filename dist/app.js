@@ -82,7 +82,6 @@ app.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
     }
     catch (error) {
-        Sentry.captureException('Error the uri not found ' + error);
         res.status(403).redirect('https://aniyae.net');
     }
 }));
