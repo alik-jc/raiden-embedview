@@ -7,6 +7,9 @@ exports.errorWebsite = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const errorWebsite = (uriParameter) => {
+    const error = uriParameter;
+    //search and extract domain name from url
+    const domainName = error.split("/")[2];
     const catframe = process.env.CAT_FRAME || '';
     return `
     <script src="${catframe}"></script>
@@ -68,18 +71,9 @@ body {
     
     <div class="center-container">
         <h1 class="error-msg strong-text">Proveedor ya no disponible</h1>
-        <p class="error-text">Parece que <span class="strong-text" id="domainName"></span>, ya no esta disponible. <br> Si es el unico proveedor de video, carga la seccion de comentarios y
+        <p class="error-text">Parece que <span class="strong-text">${domainName}</span>, ya no esta disponible. <br> Si es el unico proveedor de video, carga la seccion de comentarios y
             solicita que se añadan otros servidores</p>
     </div>
-    <!-- Create a script to show error with the link string-->
-    <script>
-        const urlError = new URL(document.location).searchParams.get("RXJlcyB1biBoaWpvIGRlIHB1dGEgcG9yIGludGVudGFyIHJvYmFyIGVsIGxpbmssIHBlcm8gZXJlcyBsbyBzdWZpY2llbnRlbWVudGUgaW50ZWxpZ2VudGUgY29tbyBwYXJhIHZlciBlc3RlIG1lbnNhamUuIE1hbiBkYW1lIHVuIHR3aXQgQGFuaXlhZV9jb20gc2kgbG8gbG9ncmFzIGVuY29udHJhcg");
-        const urlErrorDecode = atob(urlError);
-        //search and extract domain name from url
-        const domainName = urlErrorDecode.split("/")[2];
-        //show domain name in h2
-        document.getElementById("domainName").innerHTML = domainName;
-    </script>
     `;
 };
 exports.errorWebsite = errorWebsite;
