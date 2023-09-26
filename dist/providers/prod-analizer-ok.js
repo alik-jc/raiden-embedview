@@ -10,5 +10,8 @@ const performOkruAnalyzer = (decodedUri) => {
         const newUri = decodedUri.replace(finded, okru[finded]);
         return newUri;
     }
+    else {
+        return decodedUri;
+    }
 };
 exports.performOkruAnalyzer = performOkruAnalyzer;
