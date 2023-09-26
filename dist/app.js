@@ -186,6 +186,24 @@ app.get('/set', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(500).json(response);
     }
 }));
+app.get('/ext', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const uriParameter = req.query[aniyaeHash];
+        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        const response = {
+            'Esta uri ya no sera soportadad en Aniyae, hemos enviado un reporte para veridicarla': decodedUri
+        };
+        Sentry.captureException('Filelion uri encontrada, lista para clonar manualmente ' + decodedUri);
+        res.send(response);
+    }
+    catch (error) {
+        console.error('Error generating prod-ext content :', error);
+        const response = {
+            error: 'Error generating prod-ext content '
+        };
+        res.status(500).json(response);
+    }
+}));
 app.get('/prod-down', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const uriParameter = req.query[aniyaeHash];

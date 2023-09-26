@@ -20,5 +20,5 @@ __exportStar(require("./providers/prod-general"), exports);
 __exportStar(require("./providers/prod-analyzer-lbry"), exports);
 __exportStar(require("./providers/prod-raidenplayer"), exports);
 __exportStar(require("./providers/prod-analizer-ok"), exports);
-__exportStar(require("./providers/set"), exports);
+__exportStar(require("./providers/prod-set"), exports);
 __exportStar(require("./providers/prod-down"), exports);

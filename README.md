@@ -18,12 +18,12 @@
 ### **:wrench: Project Structure**
 - **src** - Contains all the source code of the project
 - **src/providers** - Contains all embed and logic providers for the project
-- **src/set.ts** - Contains the main logic for generate link proxy and embed withouth popup's
 - **src/app.ts** - Contains the main routes for the project
 - **src/conmuter.ts** - Contains the main entry point for the project
 - **src/index.html** - Exports all modules in providers folder
 
 ### **:wrench: Providers**
+- **src/providers/prod-set.ts** - Contains the main logic for generate link proxy and embed withouth popup's
 - **src/providers/prod-analizer-ok.ts** - Contains the logic for analize and restrucure url for ok.ru
 - **src/providers/prod-analizer-lbry.ts** - Contains the logic for analize and restrucure url for lbry.tv
 - **src/providers/prod-base.ts** - Contains the logic for genereate base url for embed
