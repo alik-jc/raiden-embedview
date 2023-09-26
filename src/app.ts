@@ -177,9 +177,10 @@ app.get('/ext', async (req: Request, res: Response) => {
         const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
 
         const response = {
-            'Esta uri ya no sera soportadad en Aniyae, hemos enviado un reporte para veridicarla': decodedUri
+           Error: 'Esta uri ya no sera soportada en Aniyae, hemos enviado un reporte para su verificación',
+           Uri : decodedUri
         };
-        Sentry.captureException('Filelion uri encontrada, lista para clonar manualmente ' + decodedUri);
+        Sentry.captureException('Filelion.online uri encontrada, lista para clonar manualmente ' + decodedUri);
         res.send(response);
     } catch (error) {
         console.error('Error generating prod-ext content :', error);
