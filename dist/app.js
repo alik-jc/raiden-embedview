@@ -186,6 +186,23 @@ app.get('/set', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(500).json(response);
     }
 }));
+app.get('/qls', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const uriParameter = req.query[aniyaeHash];
+        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        const setAnalyzer = yield (0, index_1.qlsProvider)(decodedUri);
+        const iframeContent = (0, index_1.raidenGeneral)(setAnalyzer);
+        res.send(iframeContent);
+    }
+    catch (error) {
+        Sentry.captureException('Error generating prod-set content ' + error);
+        console.error('Error generating prod-set content :', error);
+        const response = {
+            error: 'Error generating prod-set content '
+        };
+        res.status(500).json(response);
+    }
+}));
 app.get('/ext', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const uriParameter = req.query[aniyaeHash];
