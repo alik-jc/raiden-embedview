@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import axios from 'axios';
 import dotenv from 'dotenv';
 
-import { raidenGeneral, basePlayerPage, raidenSanbox, performLbryAnalyzer, raidenPlayer, setProvider, errorWebsite, performOkruAnalyzer } from './index';
+import { raidenGeneral, basePlayerPage, raidenSanbox, performLbryAnalyzer, raidenPlayer, setProvider, errorWebsite, performOkruAnalyzer, qlsProvider } from './index';
 import { performConmutation } from './conmuter';
 
 import * as Sentry from "@sentry/node";
@@ -158,6 +158,25 @@ app.get('/set', async (req: Request, res: Response) => {
         const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
 
         const setAnalyzer = await setProvider(decodedUri);
+        const iframeContent = raidenGeneral(setAnalyzer);
+
+        res.send(iframeContent);
+    } catch (error) {
+        Sentry.captureException('Error generating prod-set content ' + error);
+        console.error('Error generating prod-set content :', error);
+        const response = {
+            error: 'Error generating prod-set content '
+        };
+        res.status(500).json(response);
+    }
+});
+
+app.get('/qls', async (req: Request, res: Response) => {
+    try {
+        const uriParameter = req.query[aniyaeHash] as string;
+        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+
+        const setAnalyzer = await qlsProvider(decodedUri);
         const iframeContent = raidenGeneral(setAnalyzer);
 
         res.send(iframeContent);
