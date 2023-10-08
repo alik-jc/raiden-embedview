@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import axios from 'axios';
 import dotenv from 'dotenv';
 
-import { raidenGeneral, basePlayerPage, raidenSanbox, performLbryAnalyzer, raidenPlayer, setProvider, errorWebsite, performOkruAnalyzer, qlsProvider } from './index';
+import { raidenGeneral, basePlayerPage, raidenSanbox, performLbryAnalyzer, raidenPlayer, setProvider, errorWebsite, performOkruAnalyzer, performWishAnalyzer, qlsProvider } from './index';
 import { performConmutation } from './conmuter';
 
 import * as Sentry from "@sentry/node";
@@ -119,6 +119,25 @@ app.get('/prod-analizer-ok', async (req: Request, res: Response) => {
         const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
 
         const analizerOkContent = performOkruAnalyzer(decodedUri);
+        const iframeContent = raidenSanbox(analizerOkContent || '');
+
+        res.send(iframeContent);
+    } catch (error) {
+        Sentry.captureException('Error generating prod-analizer-ok content ' + error);
+        console.error('Error generating prod-analizer-ok content :', error);
+        const response = {
+            error: 'Error generating prod-analizer-ok content '
+        };
+        res.status(500).json(response);
+    }
+});
+
+app.get('/prod-analizer-wish', async (req: Request, res: Response) => {
+    try {
+        const uriParameter = req.query[aniyaeHash] as string;
+        const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
+
+        const analizerOkContent = performWishAnalyzer(decodedUri);
         const iframeContent = raidenSanbox(analizerOkContent || '');
 
         res.send(iframeContent);
