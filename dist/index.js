@@ -19,7 +19,7 @@ __exportStar(require("./providers/prod-snbox"), exports);
 __exportStar(require("./providers/prod-general"), exports);
 __exportStar(require("./providers/prod-analyzer-lbry"), exports);
 __exportStar(require("./providers/prod-raidenplayer"), exports);
-__exportStar(require("./providers/prod-analizer-ok"), exports);
+__exportStar(require("./providers/prod-uri-analizer"), exports);
 __exportStar(require("./providers/prod-set"), exports);
 __exportStar(require("./providers/prod-qls"), exports);
 __exportStar(require("./providers/prod-down"), exports);

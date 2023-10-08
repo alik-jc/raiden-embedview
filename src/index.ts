@@ -3,7 +3,7 @@ export * from './providers/prod-snbox';
 export * from './providers/prod-general';
 export * from './providers/prod-analyzer-lbry';
 export * from './providers/prod-raidenplayer';
-export * from './providers/prod-analizer-ok';
+export * from './providers/prod-uri-analizer';
 export * from './providers/prod-set';
 export * from './providers/prod-qls';
 export * from './providers/prod-down';
