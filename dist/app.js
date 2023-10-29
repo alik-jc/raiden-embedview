@@ -89,8 +89,8 @@ app.get('/prod-snbox', (req, res) => __awaiter(void 0, void 0, void 0, function*
     try {
         const uriParameter = req.query[aniyaeHash];
         const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
-        const iframeContent = (0, index_1.raidenSanbox)(decodedUri);
-        res.send(iframeContent);
+        const renderContent = (0, index_1.raidenSanbox)(decodedUri);
+        res.send(renderContent);
     }
     catch (error) {
         Sentry.captureException('Error generating prod-snbox content' + error);
@@ -105,8 +105,8 @@ app.get('/prod-general', (req, res) => __awaiter(void 0, void 0, void 0, functio
     try {
         const uriParameter = req.query[aniyaeHash];
         const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
-        const iframeContent = (0, index_1.raidenGeneral)(decodedUri);
-        res.send(iframeContent);
+        const renderContent = (0, index_1.raidenGeneral)(decodedUri);
+        res.send(renderContent);
     }
     catch (error) {
         Sentry.captureException('Error generating prod-general content ' + error);
@@ -117,20 +117,20 @@ app.get('/prod-general', (req, res) => __awaiter(void 0, void 0, void 0, functio
         res.status(500).json(response);
     }
 }));
-app.get('/prod-analizer-lbry', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.get('/provisional', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const uriParameter = req.query[aniyaeHash];
-        const image = req.query.image;
+        const animeTitle = req.query.animeTitle;
+        const postUri = req.query.postTitle;
         const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
-        const analizerLbryContent = (0, index_1.performLbryAnalyzer)(decodedUri);
-        const iframeContent = (0, index_1.raidenPlayer)(analizerLbryContent, image);
-        res.send(iframeContent);
+        const renderContent = (0, index_1.pilarDown)(decodedUri, animeTitle);
+        Sentry.captureException('Se ha detectado un pilar, con el titulo' + animeTitle + ':' + postUri);
+        res.send(renderContent);
     }
     catch (error) {
-        Sentry.captureException('Error generating prod-analizer-lbry content ' + error);
-        console.error('Error generating prod-analizer-lbry content :', error);
+        Sentry.captureException('Error generating pilar down page ' + error);
         const response = {
-            error: 'Error generating prod-analizer-lbry content '
+            error: 'Error generating pilar down page'
         };
         res.status(500).json(response);
     }
@@ -140,8 +140,8 @@ app.get('/prod-analizer-ok', (req, res) => __awaiter(void 0, void 0, void 0, fun
         const uriParameter = req.query[aniyaeHash];
         const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
         const analizerOkContent = (0, index_1.performOkruAnalyzer)(decodedUri);
-        const iframeContent = (0, index_1.raidenSanbox)(analizerOkContent || '');
-        res.send(iframeContent);
+        const renderContent = (0, index_1.raidenSanbox)(analizerOkContent || '');
+        res.send(renderContent);
     }
     catch (error) {
         Sentry.captureException('Error generating prod-analizer-ok content ' + error);
@@ -157,14 +157,14 @@ app.get('/prod-analizer-wish', (req, res) => __awaiter(void 0, void 0, void 0, f
         const uriParameter = req.query[aniyaeHash];
         const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
         const analizerOkContent = (0, index_1.performWishAnalyzer)(decodedUri);
-        const iframeContent = (0, index_1.raidenSanbox)(analizerOkContent || '');
-        res.send(iframeContent);
+        const renderContent = (0, index_1.raidenSanbox)(analizerOkContent || '');
+        res.send(renderContent);
     }
     catch (error) {
-        Sentry.captureException('Error generating prod-analizer-ok content ' + error);
-        console.error('Error generating prod-analizer-ok content :', error);
+        Sentry.captureException('Error generating prod-analizer-wish content ' + error);
+        console.error('Error generating prod-analizer-wish content :', error);
         const response = {
-            error: 'Error generating prod-analizer-ok content '
+            error: 'Error generating prod-analizer-wish content '
         };
         res.status(500).json(response);
     }
@@ -174,8 +174,8 @@ app.get('/prod-raidenplayer', (req, res) => __awaiter(void 0, void 0, void 0, fu
         const uriParameter = req.query[aniyaeHash];
         const image = req.query.image;
         const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
-        const iframeContent = (0, index_1.raidenPlayer)(decodedUri, image);
-        res.send(iframeContent);
+        const renderContent = (0, index_1.raidenPlayer)(decodedUri, image);
+        res.send(renderContent);
     }
     catch (error) {
         Sentry.captureException('Error generating prod-raidenplayer content ' + error);
@@ -191,8 +191,8 @@ app.get('/set', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const uriParameter = req.query[aniyaeHash];
         const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
         const setAnalyzer = yield (0, index_1.setProvider)(decodedUri);
-        const iframeContent = (0, index_1.raidenGeneral)(setAnalyzer);
-        res.send(iframeContent);
+        const renderContent = (0, index_1.raidenGeneral)(setAnalyzer);
+        res.send(renderContent);
     }
     catch (error) {
         Sentry.captureException('Error generating prod-set content ' + error);
@@ -208,8 +208,8 @@ app.get('/qls', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const uriParameter = req.query[aniyaeHash];
         const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
         const setAnalyzer = yield (0, index_1.qlsProvider)(decodedUri);
-        const iframeContent = (0, index_1.raidenGeneral)(setAnalyzer);
-        res.send(iframeContent);
+        const renderContent = (0, index_1.raidenGeneral)(setAnalyzer);
+        res.send(renderContent);
     }
     catch (error) {
         Sentry.captureException('Error generating prod-set content ' + error);
@@ -243,8 +243,8 @@ app.get('/prod-down', (req, res) => __awaiter(void 0, void 0, void 0, function* 
     try {
         const uriParameter = req.query[aniyaeHash];
         const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
-        const iframeContent = (0, index_1.errorWebsite)(decodedUri);
-        res.send(iframeContent);
+        const renderContent = (0, index_1.errorWebsite)(decodedUri);
+        res.send(renderContent);
     }
     catch (error) {
         Sentry.captureException('Error generating prod-down content ' + error);
