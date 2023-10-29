@@ -93,26 +93,6 @@ app.get('/prod-general', async (req: Request, res: Response) => {
     }
 });
 
-app.get('/provisional', async (req: Request, res: Response) => {
-    try {
-        const uriParameter = req.query[aniyaeHash] as string;
-        const animeTitle = req.query.animeTitle as string;
-        const postUri = req.query.postTitle as string;
-        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
-
-        const renderContent = pilarDown(decodedUri, animeTitle);
-        Sentry.captureException('Se ha detectado un pilar, con el titulo' + animeTitle + ':' + postUri);
-
-        res.send(renderContent);
-    } catch (error) {
-        Sentry.captureException('Error generating pilar down page ' + error);
-        const response = {
-            error: 'Error generating pilar down page'
-        };
-        res.status(500).json(response);
-    }
-});
-
 app.get('/prod-analizer-ok', async (req: Request, res: Response) => {
     try {
         const uriParameter = req.query[aniyaeHash] as string;
@@ -224,6 +204,26 @@ app.get('/ext', async (req: Request, res: Response) => {
         console.error('Error generating prod-ext content :', error);
         const response = {
             error: 'Error generating prod-ext content '
+        };
+        res.status(500).json(response);
+    }
+});
+
+app.get('/provisional', async (req: Request, res: Response) => {
+    try {
+        const uriParameter = req.query[aniyaeHash] as string;
+        const animeTitle = req.query.animeTitle as string;
+        const postUri = req.query.postTitle as string;
+        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+
+        const renderContent = pilarDown(decodedUri, animeTitle);
+        Sentry.captureException(new Error(`Se ha detectado un pilar, con el titulo ${animeTitle}:${postUri}`), { level: 'warning' });
+
+        res.send(renderContent);
+    } catch (error) {
+        Sentry.captureException('Error generating pilar down page ' + error);
+        const response = {
+            error: 'Error generating pilar down page'
         };
         res.status(500).json(response);
     }

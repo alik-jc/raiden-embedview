@@ -117,24 +117,6 @@ app.get('/prod-general', (req, res) => __awaiter(void 0, void 0, void 0, functio
         res.status(500).json(response);
     }
 }));
-app.get('/provisional', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const uriParameter = req.query[aniyaeHash];
-        const animeTitle = req.query.animeTitle;
-        const postUri = req.query.postTitle;
-        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
-        const renderContent = (0, index_1.pilarDown)(decodedUri, animeTitle);
-        Sentry.captureException('Se ha detectado un pilar, con el titulo' + animeTitle + ':' + postUri);
-        res.send(renderContent);
-    }
-    catch (error) {
-        Sentry.captureException('Error generating pilar down page ' + error);
-        const response = {
-            error: 'Error generating pilar down page'
-        };
-        res.status(500).json(response);
-    }
-}));
 app.get('/prod-analizer-ok', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const uriParameter = req.query[aniyaeHash];
@@ -235,6 +217,24 @@ app.get('/ext', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         console.error('Error generating prod-ext content :', error);
         const response = {
             error: 'Error generating prod-ext content '
+        };
+        res.status(500).json(response);
+    }
+}));
+app.get('/provisional', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const uriParameter = req.query[aniyaeHash];
+        const animeTitle = req.query.animeTitle;
+        const postUri = req.query.postTitle;
+        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        const renderContent = (0, index_1.pilarDown)(decodedUri, animeTitle);
+        Sentry.captureException(new Error(`Se ha detectado un pilar, con el titulo ${animeTitle}:${postUri}`), { level: 'warning' });
+        res.send(renderContent);
+    }
+    catch (error) {
+        Sentry.captureException('Error generating pilar down page ' + error);
+        const response = {
+            error: 'Error generating pilar down page'
         };
         res.status(500).json(response);
     }
