@@ -24,8 +24,9 @@
 
 ### **:wrench: Providers**
 - **src/providers/prod-set.ts** - Contains the main logic for generate link proxy and embed withouth popup's
+- **src/providers/prod-qls.ts** - Contains the main logic for generate link proxy and embed withouth popup's
 - **src/providers/prod-analizer-ok.ts** - Contains the logic for analize and restrucure url for ok.ru
-- **src/providers/prod-analizer-lbry.ts** - Contains the logic for analize and restrucure url for lbry.tv
+- **src/providers/prod-analizer-wish.ts** - Contains the logic for analize and restrucure url for wish links
 - **src/providers/prod-base.ts** - Contains the logic for genereate base url for embed
 - **src/providers/prod-raidenplayer.ts** - Contains the logic for genereate raidenplayer native player
 - **src/providers/prod-snbox.ts** - Contains the logic for genereate sanboxed embed
@@ -59,7 +60,7 @@ Optimized for [Vercel](https://vercel.com/) deploy
 _*alik.io*_
 
 > You can follow me on
-> [github](https://github.com/alik-jc)&nbsp;&middot;&nbsp;[twitter](https://twitter.com/aliforus)
+> [github](https://github.com/alik-jc)
 
 ### **:memo: License**
 
