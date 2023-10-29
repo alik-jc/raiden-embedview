@@ -33,6 +33,8 @@ app.get('/', async (req: Request, res: Response) => {
         const response = await axios.get(providersUri, { headers: { 'User-Agent': userAgent } });
         const findArray = response.data;
         const image = req.query.image as string;
+        const animeTitle = req.query.animeTitle as string;
+        const postUri = req.query.postTitle as string;
 
         const uriParameter = req.query[aniyaeHash] as string;
         const base = Buffer.from(uriParameter, 'base64').toString('utf-8');
@@ -40,7 +42,7 @@ app.get('/', async (req: Request, res: Response) => {
         const conmutatedValue = performConmutation(base, findArray);
         if (conmutatedValue) {
             const response = '/' + conmutatedValue + '/?' + aniyaeHash + '=' + uriParameter;
-            const playerPage = basePlayerPage(response, image);
+            const playerPage = basePlayerPage(response, image, animeTitle, postUri);
             res.send(playerPage);
         } else {
             const uriParser = new URL(base);

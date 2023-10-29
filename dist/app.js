@@ -64,12 +64,14 @@ app.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield axios_1.default.get(providersUri, { headers: { 'User-Agent': exports.userAgent } });
         const findArray = response.data;
         const image = req.query.image;
+        const animeTitle = req.query.animeTitle;
+        const postUri = req.query.postTitle;
         const uriParameter = req.query[aniyaeHash];
         const base = Buffer.from(uriParameter, 'base64').toString('utf-8');
         const conmutatedValue = (0, conmuter_1.performConmutation)(base, findArray);
         if (conmutatedValue) {
             const response = '/' + conmutatedValue + '/?' + aniyaeHash + '=' + uriParameter;
-            const playerPage = (0, index_1.basePlayerPage)(response, image);
+            const playerPage = (0, index_1.basePlayerPage)(response, image, animeTitle, postUri);
             res.send(playerPage);
         }
         else {

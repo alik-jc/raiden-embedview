@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export function basePlayerPage(conmutatedValue: string, image: string ): string {
+export function basePlayerPage(conmutatedValue: string, image: string, animeTitle: string, postUri: string): string {
     const catframe = process.env.CAT_FRAME || '';
     return `
         <script src="${catframe}"></script>
@@ -50,7 +50,7 @@ export function basePlayerPage(conmutatedValue: string, image: string ): string 
         <div class="container">
             <div class="container-general">
                 <div class="container-player">
-                    <a id="player" class="player-button" href="${conmutatedValue}&image=${image}"><i class="player-icon fa fa-play" style="font-size:100px;color:#ffff"></i></a>
+                    <a id="player" class="player-button" href="${conmutatedValue}&image=${image}&animeTitle=${animeTitle}&postTitle=${postUri}"><i class="player-icon fa fa-play" style="font-size:100px;color:#ffff"></i></a>
                 </div>
             </div>
         </div>
