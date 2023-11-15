@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.performWishAnalyzer = exports.performOkruAnalyzer = void 0;
+exports.performFilelionAnalyzer = exports.performWishAnalyzer = exports.performOkruAnalyzer = void 0;
 const performOkruAnalyzer = (decodedUri) => {
     if (decodedUri.includes("http://ok.ru")) {
         const okru = {
@@ -29,3 +29,18 @@ const performWishAnalyzer = (decodedUri) => {
     }
 };
 exports.performWishAnalyzer = performWishAnalyzer;
+const performFilelionAnalyzer = (decodedUri) => {
+    if (decodedUri.includes('https://filelions.com' || 'https://fviplions.com')) {
+        const filelion = {
+            "https://filelions.com": "https://filelions.co",
+            "https://fviplions.com": "https://filelions.co"
+        };
+        const finded = Object.keys(filelion).find(key => decodedUri.includes(key));
+        const newUri = decodedUri.replace(finded, filelion[finded]);
+        return newUri;
+    }
+    else {
+        return decodedUri;
+    }
+};
+exports.performFilelionAnalyzer = performFilelionAnalyzer;

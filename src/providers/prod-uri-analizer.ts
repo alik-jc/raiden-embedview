@@ -10,6 +10,7 @@ type wish = {
 type filelion = {
     [key: string]: string;
     "https://filelions.com": string;
+    "https://fviplions.com": string;
 }
 export const performOkruAnalyzer = (decodedUri: string) => {
     if (decodedUri.includes("http://ok.ru")) {
@@ -39,9 +40,10 @@ export const performWishAnalyzer = (decodedUri: string) => {
 }
 
 export const performFilelionAnalyzer = (decodedUri: string) => {
-    if (decodedUri.includes('https://filelions.com')) {
+    if (decodedUri.includes('https://filelions.com' || 'https://fviplions.com')) {
         const filelion: filelion = {
             "https://filelions.com": "https://filelions.co",
+            "https://fviplions.com": "https://filelions.co"
         }
         const finded = Object.keys(filelion).find(key => decodedUri.includes(key));
         const newUri = decodedUri.replace(finded!, filelion[finded!]);

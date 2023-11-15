@@ -123,8 +123,8 @@ app.get('/prod-analizer-ok', (req, res) => __awaiter(void 0, void 0, void 0, fun
     try {
         const uriParameter = req.query[aniyaeHash];
         const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
-        const analizerOkContent = (0, index_1.performOkruAnalyzer)(decodedUri);
-        const renderContent = (0, index_1.raidenSanbox)(analizerOkContent || '');
+        const OkContent = (0, index_1.performOkruAnalyzer)(decodedUri);
+        const renderContent = (0, index_1.raidenSanbox)(OkContent || '');
         res.send(renderContent);
     }
     catch (error) {
@@ -140,13 +140,30 @@ app.get('/prod-analizer-wish', (req, res) => __awaiter(void 0, void 0, void 0, f
     try {
         const uriParameter = req.query[aniyaeHash];
         const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
-        const analizerOkContent = (0, index_1.performWishAnalyzer)(decodedUri);
-        const renderContent = (0, index_1.raidenSanbox)(analizerOkContent || '');
+        const wishContent = (0, index_1.performWishAnalyzer)(decodedUri);
+        const renderContent = (0, index_1.raidenSanbox)(wishContent || '');
         res.send(renderContent);
     }
     catch (error) {
         Sentry.captureException('Error generating prod-analizer-wish content ' + error);
         console.error('Error generating prod-analizer-wish content :', error);
+        const response = {
+            error: 'Error generating prod-analizer-wish content '
+        };
+        res.status(500).json(response);
+    }
+}));
+app.get('/prod-analizer-lions', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const uriParameter = req.query[aniyaeHash];
+        const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
+        const lionsContent = (0, index_1.performFilelionAnalyzer)(decodedUri);
+        const renderContent = (0, index_1.raidenGeneral)(lionsContent || '');
+        res.send(renderContent);
+    }
+    catch (error) {
+        Sentry.captureException('Error generating prod-analizer-lion content ' + error);
+        console.error('Error generating prod-analizer-lion content :', error);
         const response = {
             error: 'Error generating prod-analizer-wish content '
         };
