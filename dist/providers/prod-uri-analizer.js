@@ -30,7 +30,7 @@ const performWishAnalyzer = (decodedUri) => {
 };
 exports.performWishAnalyzer = performWishAnalyzer;
 const performFilelionAnalyzer = (decodedUri) => {
-    if (decodedUri.includes('https://filelions.com' || 'https://fviplions.com')) {
+    if (decodedUri.includes('https://filelions.com') || decodedUri.includes('https://fviplions.com')) {
         const filelion = {
             "https://filelions.com": "https://filelions.co",
             "https://fviplions.com": "https://filelions.co"

@@ -40,7 +40,7 @@ export const performWishAnalyzer = (decodedUri: string) => {
 }
 
 export const performFilelionAnalyzer = (decodedUri: string) => {
-    if (decodedUri.includes('https://filelions.com' || 'https://fviplions.com')) {
+    if (decodedUri.includes('https://filelions.com') || decodedUri.includes('https://fviplions.com')) {
         const filelion: filelion = {
             "https://filelions.com": "https://filelions.co",
             "https://fviplions.com": "https://filelions.co"
