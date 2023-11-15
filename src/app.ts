@@ -2,7 +2,22 @@ import express, { Request, Response } from 'express';
 import axios from 'axios';
 import dotenv from 'dotenv';
 
-import { raidenGeneral, basePlayerPage, raidenSanbox, pilarDown, raidenPlayer, setProvider, errorWebsite, performOkruAnalyzer, performWishAnalyzer, qlsProvider } from './index';
+import {
+
+    raidenGeneral,
+    basePlayerPage,
+    raidenSanbox,
+    pilarDown,
+    raidenPlayer,
+    setProvider,
+    errorWebsite,
+    performOkruAnalyzer,
+    performWishAnalyzer,
+    qlsProvider,
+    performFilelionAnalyzer
+
+    } from './index';
+
 import { performConmutation } from './conmuter';
 
 import * as Sentry from "@sentry/node";
@@ -100,8 +115,8 @@ app.get('/prod-analizer-ok', async (req: Request, res: Response) => {
         const uriParameter = req.query[aniyaeHash] as string;
         const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
 
-        const analizerOkContent = performOkruAnalyzer(decodedUri);
-        const renderContent = raidenSanbox(analizerOkContent || '');
+        const OkContent = performOkruAnalyzer(decodedUri);
+        const renderContent = raidenSanbox(OkContent || '');
 
         res.send(renderContent);
     } catch (error) {
@@ -119,8 +134,8 @@ app.get('/prod-analizer-wish', async (req: Request, res: Response) => {
         const uriParameter = req.query[aniyaeHash] as string;
         const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
 
-        const analizerOkContent = performWishAnalyzer(decodedUri);
-        const renderContent = raidenSanbox(analizerOkContent || '');
+        const wishContent = performWishAnalyzer(decodedUri);
+        const renderContent = raidenSanbox(wishContent || '');
 
         res.send(renderContent);
     } catch (error) {
@@ -133,6 +148,24 @@ app.get('/prod-analizer-wish', async (req: Request, res: Response) => {
     }
 });
 
+app.get('/prod-analizer-lions', async (req: Request, res: Response) => {
+    try {
+        const uriParameter = req.query[aniyaeHash] as string;
+        const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
+
+        const lionsContent = performFilelionAnalyzer(decodedUri);
+        const renderContent = raidenGeneral(lionsContent || '');
+
+        res.send(renderContent);
+    } catch (error) {
+        Sentry.captureException('Error generating prod-analizer-lion content ' + error);
+        console.error('Error generating prod-analizer-lion content :', error);
+        const response = {
+            error: 'Error generating prod-analizer-wish content '
+        };
+        res.status(500).json(response);
+    }
+});
 
 app.get('/prod-raidenplayer', async (req: Request, res: Response) => {
     try {

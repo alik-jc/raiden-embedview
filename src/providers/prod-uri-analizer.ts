@@ -7,6 +7,10 @@ type wish = {
     "https://wishfast.top/": string;
 }
 
+type filelion = {
+    [key: string]: string;
+    "https://filelions.com": string;
+}
 export const performOkruAnalyzer = (decodedUri: string) => {
     if (decodedUri.includes("http://ok.ru")) {
         const okru: okru = {
@@ -31,5 +35,18 @@ export const performWishAnalyzer = (decodedUri: string) => {
         const finded = Object.keys(wish).find(key => decodedUri.includes(key));
         const newUri = decodedUri.replace(finded!, wish[finded!]);
         return newUri;
+    }
+}
+
+export const performFilelionAnalyzer = (decodedUri: string) => {
+    if (decodedUri.includes('https://filelions.com')) {
+        const filelion: filelion = {
+            "https://filelions.com": "https://filelions.co",
+        }
+        const finded = Object.keys(filelion).find(key => decodedUri.includes(key));
+        const newUri = decodedUri.replace(finded!, filelion[finded!]);
+        return newUri;
+    } else {
+        return decodedUri;
     }
 }
