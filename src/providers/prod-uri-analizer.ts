@@ -12,6 +12,14 @@ type filelion = {
     "https://filelions.com": string;
     "https://fviplions.com": string;
 }
+
+type mixdrop = {
+    [key: string]: string;
+    "mixdrop.com": string;
+    "mixdrop.to": string;
+    "mixdrop.co": string;
+}
+
 export const performOkruAnalyzer = (decodedUri: string) => {
     if (decodedUri.includes("http://ok.ru")) {
         const okru: okru = {
@@ -47,6 +55,21 @@ export const performFilelionAnalyzer = (decodedUri: string) => {
         }
         const finded = Object.keys(filelion).find(key => decodedUri.includes(key));
         const newUri = decodedUri.replace(finded!, filelion[finded!]);
+        return newUri;
+    } else {
+        return decodedUri;
+    }
+}
+
+export const performMixdropAnalyzer = (decodedUri: string) => {
+    if (decodedUri.includes('mixdrop')) {
+        const mixdrop: mixdrop = {
+            "mixdrop.com": 'mdy48tn97.com',
+            "mixdrop.co": 'mdy48tn97.com',
+            "mixdrop.to": 'mdy48tn97.com'
+        }
+        const finded = Object.keys(mixdrop).find(key => decodedUri.includes(key));
+        const newUri = decodedUri.replace(finded!, mixdrop[finded!]);
         return newUri;
     } else {
         return decodedUri;

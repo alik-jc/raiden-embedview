@@ -14,7 +14,8 @@ import {
     performOkruAnalyzer,
     performWishAnalyzer,
     qlsProvider,
-    performFilelionAnalyzer
+    performFilelionAnalyzer,
+    performMixdropAnalyzer
 
     } from './index';
 
@@ -162,6 +163,25 @@ app.get('/prod-analizer-lions', async (req: Request, res: Response) => {
         console.error('Error generating prod-analizer-lion content :', error);
         const response = {
             error: 'Error generating prod-analizer-wish content '
+        };
+        res.status(500).json(response);
+    }
+});
+
+app.get('/prod-analizer-mixdrop', async (req: Request, res: Response) => {
+    try {
+        const uriParameter = req.query[aniyaeHash] as string;
+        const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
+
+        const mixdropContent = performMixdropAnalyzer(decodedUri);
+        const renderContent = raidenGeneral(mixdropContent || '');
+
+        res.send(renderContent);
+    } catch (error) {
+        Sentry.captureException('Error generating prod-analizer-mixdrop content ' + error);
+        console.error('Error generating prod-analizer-mixdrop content :', error);
+        const response = {
+            error: 'Error generating prod-analizer-mixdrop content '
         };
         res.status(500).json(response);
     }

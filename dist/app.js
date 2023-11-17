@@ -170,6 +170,23 @@ app.get('/prod-analizer-lions', (req, res) => __awaiter(void 0, void 0, void 0, 
         res.status(500).json(response);
     }
 }));
+app.get('/prod-analizer-mixdrop', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const uriParameter = req.query[aniyaeHash];
+        const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
+        const mixdropContent = (0, index_1.performMixdropAnalyzer)(decodedUri);
+        const renderContent = (0, index_1.raidenGeneral)(mixdropContent || '');
+        res.send(renderContent);
+    }
+    catch (error) {
+        Sentry.captureException('Error generating prod-analizer-mixdrop content ' + error);
+        console.error('Error generating prod-analizer-mixdrop content :', error);
+        const response = {
+            error: 'Error generating prod-analizer-mixdrop content '
+        };
+        res.status(500).json(response);
+    }
+}));
 app.get('/prod-raidenplayer', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const uriParameter = req.query[aniyaeHash];
