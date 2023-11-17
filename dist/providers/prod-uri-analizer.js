@@ -16,12 +16,13 @@ const performOkruAnalyzer = (decodedUri) => {
 };
 exports.performOkruAnalyzer = performOkruAnalyzer;
 const performWishAnalyzer = (decodedUri) => {
-    if (decodedUri.includes("https://wishfast.top/e/")) {
+    if (decodedUri.includes("https://wishfast.top/e/") || decodedUri.includes("https://flaswish.com/e/")) {
         return decodedUri;
     }
     else {
         const wish = {
             "https://wishfast.top/": "https://wishfast.top/e/",
+            "https://flaswish.com/": "https://flaswish.com/e/"
         };
         const finded = Object.keys(wish).find(key => decodedUri.includes(key));
         const newUri = decodedUri.replace(finded, wish[finded]);
