@@ -88,20 +88,26 @@ export const pilarDown = (uriParameter: string, animeTitle: string) => {
         font-family: 'Open Sans', sans-serif;
         background-color: #000000;
     }
-    @media screen and (min-width: 430px) and (min-height: 200px) {
-        .error-msg {
-            font-size: 2rem;
+    .h1-error {
+        font-size: 2rem; font-weight: 700; color: #ffffff;
+    } @media screen and (max-width: 768px) {
+        .h1-error {
+            font-size: 18px;
         }
-        .error-text {
-            font-size: 1.75rem;
+    }
+    .p-error {
+        font-size: 1.5rem; font-weight: 300; color: #ffffff;
+    } @media screen and (max-width: 768px) {
+        .p-error {
+            font-size: 13px;
         }
     }
     </style>
     <div class="container-fluid" style="background-color: #000000;">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-6 col-sm-12 text-center">
-                <h1 style="font-size: 2rem; font-weight: 700; color: #ffffff;">Estamos al tanto de que ${animeTitle}, no se encuentra disponible.</h1>
-                <p style="font-size: 1.5rem; font-weight: 300; color: #ffffff;">El proveedor <span style="font-weight: 700;">${domainName}</span>, ya no almacena este EP, estoy trabajando para reemplazarlo lo mas pronto posible. ~ Yae</p>
+                <h1 class="h1-error">Estamos al tanto de que ${animeTitle}, no se encuentra disponible.</h1>
+                <p class="p-error">El proveedor <span style="font-weight: 700;">${domainName}</span>, ya no almacena este EP, estoy trabajando para reemplazarlo lo mas pronto posible. ~ Yae</p>
             </div>
         </div>
         <div class="row justify-content-center align-items-center">
