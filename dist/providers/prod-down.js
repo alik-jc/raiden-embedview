@@ -89,14 +89,14 @@ const pilarDown = (uriParameter, animeTitle) => {
         background-color: #000000;
     }
     .h1-error {
-        font-size: 2rem; font-weight: 700; color: #ffffff;
+        font-size: 1.5rem; font-weight: 700; color: #ffffff;
     } @media screen and (max-width: 768px) {
         .h1-error {
             font-size: 18px;
         }
     }
     .p-error {
-        font-size: 1.5rem; font-weight: 300; color: #ffffff;
+        font-size: 1.0rem; font-weight: 300; color: #ffffff;
     } @media screen and (max-width: 768px) {
         .p-error {
             font-size: 13px;
