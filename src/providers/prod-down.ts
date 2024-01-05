@@ -100,8 +100,8 @@ export const pilarDown = (uriParameter: string, animeTitle: string) => {
     <div class="container-fluid" style="background-color: #000000;">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-6 col-sm-12 text-center">
-                <h1 style="font-size: 2rem; font-weight: 700; color: #ffffff;">Este episodio de ${animeTitle}</h1>
-                <p style="font-size: 1.5rem; font-weight: 300; color: #ffffff;">El pilar <span style="font-weight: 700;">${domainName}</span>, ya no almacena este EP, estamos trabajando para reemplazarlo lo mas pronto posible</p>
+                <h1 style="font-size: 2rem; font-weight: 700; color: #ffffff;">Estamos al tanto de que ${animeTitle}, no se encuentra disponible.</h1>
+                <p style="font-size: 1.5rem; font-weight: 300; color: #ffffff;">El proveedor <span style="font-weight: 700;">${domainName}</span>, ya no almacena este EP, estoy trabajando para reemplazarlo lo mas pronto posible. ~ Yae</p>
             </div>
         </div>
         <div class="row justify-content-center align-items-center">
