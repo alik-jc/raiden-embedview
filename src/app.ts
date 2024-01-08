@@ -15,7 +15,8 @@ import {
     performWishAnalyzer,
     qlsProvider,
     performFilelionAnalyzer,
-    performMixdropAnalyzer
+    performMixdropAnalyzer,
+    uqlsProvider
 
     } from './index';
 
@@ -232,6 +233,25 @@ app.get('/qls', async (req: Request, res: Response) => {
 
         const setAnalyzer = await qlsProvider(decodedUri);
         const renderContent = raidenGeneral(setAnalyzer);
+
+        res.send(renderContent);
+    } catch (error) {
+        Sentry.captureException('Error generating prod-set content ' + error);
+        console.error('Error generating prod-set content :', error);
+        const response = {
+            error: 'Error generating prod-set content '
+        };
+        res.status(500).json(response);
+    }
+});
+
+app.get('/uqls', async (req: Request, res: Response) => {
+    try {
+        const uriParameter = req.query[aniyaeHash] as string;
+        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+
+        const uqlsAnalyzer = await uqlsProvider(decodedUri);
+        const renderContent = raidenGeneral(uqlsAnalyzer);
 
         res.send(renderContent);
     } catch (error) {

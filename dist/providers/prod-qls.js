@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.qlsProvider = void 0;
+exports.uqlsProvider = exports.qlsProvider = void 0;
 const axios_1 = __importDefault(require("axios"));
 const app_1 = require("../app");
 const dotenv_1 = __importDefault(require("dotenv"));
@@ -27,3 +27,12 @@ const qlsProvider = (uriParameter) => __awaiter(void 0, void 0, void 0, function
     return response;
 });
 exports.qlsProvider = qlsProvider;
+const uqlsProvider = (uriParameter) => __awaiter(void 0, void 0, void 0, function* () {
+    const json = axios_1.default.get(hostUri, { headers: { 'User-Agent': app_1.userAgent } });
+    const url = (yield json).data;
+    const urlSet = url.uqls;
+    const response = urlSet + uriParameter;
+    console.log(response);
+    return response;
+});
+exports.uqlsProvider = uqlsProvider;

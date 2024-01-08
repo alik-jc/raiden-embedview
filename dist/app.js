@@ -238,6 +238,23 @@ app.get('/qls', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(500).json(response);
     }
 }));
+app.get('/uqls', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const uriParameter = req.query[aniyaeHash];
+        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        const uqlsAnalyzer = yield (0, index_1.uqlsProvider)(decodedUri);
+        const renderContent = (0, index_1.raidenGeneral)(uqlsAnalyzer);
+        res.send(renderContent);
+    }
+    catch (error) {
+        Sentry.captureException('Error generating prod-set content ' + error);
+        console.error('Error generating prod-set content :', error);
+        const response = {
+            error: 'Error generating prod-set content '
+        };
+        res.status(500).json(response);
+    }
+}));
 app.get('/ext', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const uriParameter = req.query[aniyaeHash];
