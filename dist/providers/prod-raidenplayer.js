@@ -8,7 +8,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const raidenPlayer = (analizerLbryContent, image) => {
     const catframe = process.env.CAT_FRAME || '';
-    const domainArray = ["tripphloems.com", "shoeingneurone.com", "havocsbilaan.com", "reivereme.com", "canzonicassons.com", "solemncringle.com", "karpasbeamer.com", "godwitescrol.com", "binoticprotea.com", "showkhussak.com", "astrandconifer.com", "bhalukecky.com", "plexureturp.com"];
+    const domainArray = ['jatfugios.com', 'marcherfilippo.com', 'hoodoosdonsky.com', 'clairekabobs.com', 'porailbond.com', 'rotondelibya.com'];
     const adsDisplay = `/fvFTyqTpCC2mS/59725`;
     const randomDomain = domainArray[Math.floor(Math.random() * domainArray.length)];
     const galaxion = '//' + randomDomain + adsDisplay;
