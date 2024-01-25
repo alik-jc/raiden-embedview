@@ -8,6 +8,7 @@ type wish = {
     "https://flaswish.com/": string;
     "https://sfastwish.com/": string;
     "https://obeywish.com/": string;
+    "https://streamwish.com/e/": string;
 }
 
 type filelion = {
@@ -45,7 +46,8 @@ export const performWishAnalyzer = (decodedUri: string) => {
             "https://wishfast.top/": "https://wishfast.top/e/",
             "https://flaswish.com/": "https://flaswish.com/e/",
             "https://sfastwish.com/": "https://sfastwish.com/e/",
-            "https://obeywish.com/": "https://sfastwish.com/e/"
+            "https://obeywish.com/": "https://sfastwish.com/e/",
+            "https://streamwish.com/e/": "https://streamwish.to/e/"
         }
         const finded = Object.keys(wish).find(key => decodedUri.includes(key));
         const newUri = decodedUri.replace(finded!, wish[finded!]);
