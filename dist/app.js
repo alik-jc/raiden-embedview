@@ -141,7 +141,7 @@ app.get('/prod-analizer-wish', (req, res) => __awaiter(void 0, void 0, void 0, f
         const uriParameter = req.query[aniyaeHash];
         const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
         const wishContent = (0, index_1.performWishAnalyzer)(decodedUri);
-        const renderContent = (0, index_1.raidenSanbox)(wishContent || '');
+        const renderContent = (0, index_1.raidenGeneral)(wishContent || '');
         res.send(renderContent);
     }
     catch (error) {

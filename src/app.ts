@@ -137,7 +137,7 @@ app.get('/prod-analizer-wish', async (req: Request, res: Response) => {
         const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
 
         const wishContent = performWishAnalyzer(decodedUri);
-        const renderContent = raidenSanbox(wishContent || '');
+        const renderContent = raidenGeneral(wishContent || '');
 
         res.send(renderContent);
     } catch (error) {
