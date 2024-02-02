@@ -9,6 +9,7 @@ type wish = {
     "https://sfastwish.com/": string;
     "https://obeywish.com/": string;
     "https://streamwish.com/e/": string;
+    "https://embedwish.com/e/": string;
 }
 
 type filelion = {
@@ -39,7 +40,8 @@ export const performOkruAnalyzer = (decodedUri: string) => {
 }
 
 export const performWishAnalyzer = (decodedUri: string) => {
-    if (decodedUri.includes("https://wishfast.top/e/") || decodedUri.includes("https://flaswish.com/e/") || decodedUri.includes("https://sfastwish.com/e/") || decodedUri.includes("https://obeywish.com/e/")) {
+    if (decodedUri.includes("https://wishfast.top/e/") || decodedUri.includes("https://flaswish.com/e/") || decodedUri.includes("https://sfastwish.com/e/") || decodedUri.includes("https://obeywish.com/e/") 
+    ) {
         return decodedUri
     } else {
         const wish: wish = {
@@ -47,7 +49,8 @@ export const performWishAnalyzer = (decodedUri: string) => {
             "https://flaswish.com/": "https://flaswish.com/e/",
             "https://sfastwish.com/": "https://sfastwish.com/e/",
             "https://obeywish.com/": "https://sfastwish.com/e/",
-            "https://streamwish.com/e/": "https://streamwish.to/e/"
+            "https://streamwish.com/e/": "https://streamwish.to/e/",
+            "https://embedwish.com/e/": "https://streamwish.to/e/"
         }
         const finded = Object.keys(wish).find(key => decodedUri.includes(key));
         const newUri = decodedUri.replace(finded!, wish[finded!]);
