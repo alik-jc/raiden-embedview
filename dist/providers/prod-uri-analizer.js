@@ -39,6 +39,13 @@ exports.performWishAnalyzer = performWishAnalyzer;
 const wistTransform = (decodedUri) => {
     if (decodedUri.includes('.')) {
         const wishdomain = {
+            "embedwish.com": "streamwish.to",
+            "streamwish.com": "streamwish.to",
+            "streamwish.top": "streamwish.to",
+            "flaswish.com": "streamwish.to",
+            "sfastwish.com": "streamwish.to",
+            "obeywish.com": "streamwish.to",
+            "wishfast.top": "streamwish.to",
             ".com": ".to",
             ".top": ".to",
             ".net": ".to"

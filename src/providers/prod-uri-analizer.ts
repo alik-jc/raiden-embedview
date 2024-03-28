@@ -63,6 +63,13 @@ export const performWishAnalyzer = (decodedUri: string) => {
 export const wistTransform = (decodedUri: string) => {
     if (decodedUri.includes('.')) {
         const wishdomain: { [key: string]: string } = {
+            "embedwish.com": "streamwish.to",
+            "streamwish.com": "streamwish.to",
+            "streamwish.top": "streamwish.to",
+            "flaswish.com": "streamwish.to",
+            "sfastwish.com": "streamwish.to",
+            "obeywish.com": "streamwish.to",
+            "wishfast.top": "streamwish.to",
             ".com": ".to",
             ".top": ".to",
             ".net": ".to"
