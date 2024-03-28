@@ -11,6 +11,5 @@ export const setProvider = async (uriParameter: string) => {
         const url = (await json).data;
         const urlSet = url.url;
         const response = urlSet + uriParameter;
-        console.log(response);
         return response;
 };

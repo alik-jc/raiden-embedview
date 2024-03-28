@@ -40,20 +40,35 @@ export const performOkruAnalyzer = (decodedUri: string) => {
 }
 
 export const performWishAnalyzer = (decodedUri: string) => {
-    if (decodedUri.includes("https://wishfast.top/e/") || decodedUri.includes("https://flaswish.com/e/") || decodedUri.includes("https://sfastwish.com/e/") || decodedUri.includes("https://obeywish.com/e/") 
+    if (decodedUri.includes("/e/") 
     ) {
         return decodedUri
     } else {
         const wish: wish = {
             "https://wishfast.top/": "https://wishfast.top/e/",
+            "https://streamwish.top/": "https://streamwish.to/e/",
             "https://flaswish.com/": "https://flaswish.com/e/",
             "https://sfastwish.com/": "https://sfastwish.com/e/",
             "https://obeywish.com/": "https://sfastwish.com/e/",
             "https://streamwish.com/e/": "https://streamwish.to/e/",
+            "https://streamwish.to/": "https://streamwish.to/e/",
             "https://embedwish.com/e/": "https://streamwish.to/e/"
         }
         const finded = Object.keys(wish).find(key => decodedUri.includes(key));
         const newUri = decodedUri.replace(finded!, wish[finded!]);
+        return newUri;
+    }
+}
+
+export const wistTransform = (decodedUri: string) => {
+    if (decodedUri.includes('.')) {
+        const wishdomain: { [key: string]: string } = {
+            ".com": ".to",
+            ".top": ".to",
+            ".net": ".to"
+        }
+        const finded = Object.keys(wishdomain).find(key => decodedUri.includes(key));
+        const newUri = decodedUri.replace(finded!, wishdomain[finded!]);
         return newUri;
     }
 }

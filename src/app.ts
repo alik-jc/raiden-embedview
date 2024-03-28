@@ -16,7 +16,8 @@ import {
     qlsProvider,
     performFilelionAnalyzer,
     performMixdropAnalyzer,
-    uqlsProvider
+    uqlsProvider,
+    wistTransform
 
     } from './index';
 
@@ -137,7 +138,10 @@ app.get('/prod-analizer-wish', async (req: Request, res: Response) => {
         const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
 
         const wishContent = performWishAnalyzer(decodedUri);
-        const renderContent = raidenGeneral(wishContent || '');
+        const transformWish = wistTransform(wishContent);
+        const setAnalyzer = await setProvider(transformWish || '');
+        const renderContent = raidenGeneral(setAnalyzer || '');
+
 
         res.send(renderContent);
     } catch (error) {

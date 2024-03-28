@@ -23,7 +23,6 @@ const setProvider = (uriParameter) => __awaiter(void 0, void 0, void 0, function
     const url = (yield json).data;
     const urlSet = url.url;
     const response = urlSet + uriParameter;
-    console.log(response);
     return response;
 });
 exports.setProvider = setProvider;
