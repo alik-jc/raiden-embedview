@@ -37,24 +37,22 @@ const performWishAnalyzer = (decodedUri) => {
 };
 exports.performWishAnalyzer = performWishAnalyzer;
 const wistTransform = (decodedUri) => {
-    if (decodedUri.includes('.')) {
-        const wishdomain = {
-            "embedwish.com": "streamwish.to",
-            "streamwish.com": "streamwish.to",
-            "streamwish.top": "streamwish.to",
-            "flaswish.com": "streamwish.to",
-            "sfastwish.com": "streamwish.to",
-            "obeywish.com": "streamwish.to",
-            "jodwish.to": "streamwish.to",
-            "wishfast.top": "streamwish.to",
-            ".com": ".to",
-            ".top": ".to",
-            ".net": ".to"
-        };
-        const finded = Object.keys(wishdomain).find(key => decodedUri.includes(key));
-        const newUri = decodedUri.replace(finded, wishdomain[finded]);
-        return newUri;
-    }
+    const wishdomain = {
+        "embedwish.com": "streamwish.to",
+        "streamwish.com": "streamwish.to",
+        "streamwish.top": "streamwish.to",
+        "flaswish.com": "streamwish.to",
+        "sfastwish.com": "streamwish.to",
+        "obeywish.com": "streamwish.to",
+        "jodwish.com": "streamwish.to",
+        "wishfast.top": "streamwish.to",
+        ".com": ".to",
+        ".top": ".to",
+        ".net": ".to"
+    };
+    const finded = Object.keys(wishdomain).find(key => decodedUri.includes(key));
+    const newUri = decodedUri.replace(finded, wishdomain[finded]);
+    return newUri;
 };
 exports.wistTransform = wistTransform;
 const performFilelionAnalyzer = (decodedUri) => {

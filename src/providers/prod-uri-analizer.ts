@@ -61,7 +61,6 @@ export const performWishAnalyzer = (decodedUri: string) => {
 }
 
 export const wistTransform = (decodedUri: string) => {
-    if (decodedUri.includes('.')) {
         const wishdomain: { [key: string]: string } = {
             "embedwish.com": "streamwish.to",
             "streamwish.com": "streamwish.to",
@@ -69,7 +68,7 @@ export const wistTransform = (decodedUri: string) => {
             "flaswish.com": "streamwish.to",
             "sfastwish.com": "streamwish.to",
             "obeywish.com": "streamwish.to",
-            "jodwish.to": "streamwish.to",
+            "jodwish.com": "streamwish.to",
             "wishfast.top": "streamwish.to",
             ".com": ".to",
             ".top": ".to",
@@ -78,7 +77,6 @@ export const wistTransform = (decodedUri: string) => {
         const finded = Object.keys(wishdomain).find(key => decodedUri.includes(key));
         const newUri = decodedUri.replace(finded!, wishdomain[finded!]);
         return newUri;
-    }
 }
 
 export const performFilelionAnalyzer = (decodedUri: string) => {
