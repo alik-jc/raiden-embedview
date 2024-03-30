@@ -45,7 +45,7 @@ const wistTransform = (decodedUri) => {
             "flaswish.com": "streamwish.to",
             "sfastwish.com": "streamwish.to",
             "obeywish.com": "streamwish.to",
-            "jodwish.top": "streamwish.to",
+            "jodwish.to": "streamwish.to",
             "wishfast.top": "streamwish.to",
             ".com": ".to",
             ".top": ".to",
