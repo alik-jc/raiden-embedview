@@ -51,7 +51,7 @@ export function raidenGeneral(uriParameter: string): string {
 <div class="container">
     <div class="logo-float">
         <div class="logo-float-container">
-            <img class="logo-float-img" src="//i0.wp.com/aniyae.net/wp-content/uploads/2022/04/AYLogoV4.png" alt="Aniyae Logo">
+            <img class="logo-float-img" src="//i0.wp.com/aniyae.net/wp-content/uploads/2022/04/AYLogoV4.png?fit=230%2C2047&ssl=1" alt="Aniyae Logo">
         </div>
     </div>
         <iframe src="${uriParameter}" allowfullscreen="yes" scrolling="no"></iframe>
