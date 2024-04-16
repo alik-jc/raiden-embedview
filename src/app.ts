@@ -139,8 +139,7 @@ app.get('/prod-analizer-wish', async (req: Request, res: Response) => {
 
         const wishContent = performWishAnalyzer(decodedUri);
         const transformWish = wistTransform(wishContent);
-        const setAnalyzer = await setProvider(transformWish || '');
-        const renderContent = raidenGeneral(setAnalyzer || '');
+        const renderContent = raidenGeneral(transformWish || '');
 
 
         res.send(renderContent);

@@ -142,8 +142,7 @@ app.get('/prod-analizer-wish', (req, res) => __awaiter(void 0, void 0, void 0, f
         const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
         const wishContent = (0, index_1.performWishAnalyzer)(decodedUri);
         const transformWish = (0, index_1.wistTransform)(wishContent);
-        const setAnalyzer = yield (0, index_1.setProvider)(transformWish || '');
-        const renderContent = (0, index_1.raidenGeneral)(setAnalyzer || '');
+        const renderContent = (0, index_1.raidenGeneral)(transformWish || '');
         res.send(renderContent);
     }
     catch (error) {
