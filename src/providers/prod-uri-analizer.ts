@@ -12,6 +12,12 @@ type wish = {
     "https://embedwish.com/e/": string;
 }
 
+type lulu = {
+    [key: string]: string;
+    "https://luluvdo.com/": string;
+}
+
+
 type filelion = {
     [key: string]: string;
     "https://filelions.com": string;
@@ -56,6 +62,20 @@ export const performWishAnalyzer = (decodedUri: string) => {
         }
         const finded = Object.keys(wish).find(key => decodedUri.includes(key));
         const newUri = decodedUri.replace(finded!, wish[finded!]);
+        return newUri;
+    }
+}
+
+export const performLuluAnalyzer = (decodedUri: string) => {
+    if (decodedUri.includes("https://luluvdo.com/") 
+    ) {
+        return decodedUri
+    } else {
+        const lulu: lulu = {
+            "https://luluvdo.com/": "https://luluvdo.com/e/"
+        }
+        const finded = Object.keys(lulu).find(key => decodedUri.includes(key));
+        const newUri = decodedUri.replace(finded!, lulu[finded!]);
         return newUri;
     }
 }

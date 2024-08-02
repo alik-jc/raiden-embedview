@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.performMixdropAnalyzer = exports.performFilelionAnalyzer = exports.wistTransform = exports.performWishAnalyzer = exports.performOkruAnalyzer = void 0;
+exports.performMixdropAnalyzer = exports.performFilelionAnalyzer = exports.wistTransform = exports.performLuluAnalyzer = exports.performWishAnalyzer = exports.performOkruAnalyzer = void 0;
 const performOkruAnalyzer = (decodedUri) => {
     if (decodedUri.includes("http://ok.ru")) {
         const okru = {
@@ -36,6 +36,20 @@ const performWishAnalyzer = (decodedUri) => {
     }
 };
 exports.performWishAnalyzer = performWishAnalyzer;
+const performLuluAnalyzer = (decodedUri) => {
+    if (decodedUri.includes("https://luluvdo.com/")) {
+        return decodedUri;
+    }
+    else {
+        const lulu = {
+            "https://luluvdo.com/": "https://luluvdo.com/e/"
+        };
+        const finded = Object.keys(lulu).find(key => decodedUri.includes(key));
+        const newUri = decodedUri.replace(finded, lulu[finded]);
+        return newUri;
+    }
+};
+exports.performLuluAnalyzer = performLuluAnalyzer;
 const wistTransform = (decodedUri) => {
     const wishdomain = {
         "embedwish.com": "streamwish.to",
