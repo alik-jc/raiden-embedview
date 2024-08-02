@@ -17,7 +17,8 @@ import {
     performFilelionAnalyzer,
     performMixdropAnalyzer,
     uqlsProvider,
-    wistTransform
+    wistTransform,
+    performLuluAnalyzer
 
     } from './index';
 
@@ -167,6 +168,25 @@ app.get('/prod-analizer-lions', async (req: Request, res: Response) => {
         console.error('Error generating prod-analizer-lion content :', error);
         const response = {
             error: 'Error generating prod-analizer-wish content '
+        };
+        res.status(500).json(response);
+    }
+});
+
+app.get('/prod-analizer-lulu', async (req: Request, res: Response) => {
+    try {
+        const uriParameter = req.query[aniyaeHash] as string;
+        const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
+
+        const luluContent = performLuluAnalyzer(decodedUri);
+        const renderContent = raidenGeneral(luluContent || '');
+
+        res.send(renderContent);
+    } catch (error) {
+        Sentry.captureException('Error generating new prod-analizer-lulu /e/ content ' + error);
+        console.error('Error generating new prod-analizer-lulu /e/ content :', error);
+        const response = {
+            error: 'Error generating new prod-analizer-lulu /e/ content '
         };
         res.status(500).json(response);
     }
