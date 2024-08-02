@@ -68,7 +68,7 @@ export const performWishAnalyzer = (decodedUri: string) => {
 
 export const performLuluAnalyzer = (decodedUri: string) => {
     if (decodedUri.includes("https://luluvdo.com/")) {
-        return decodedUri;
+        return decodedUri.replace("https://luluvdo.com/", "https://luluvdo.com/e/");
     } else {
         const lulu: lulu = {
             "https://luluvdo.com/": "https://luluvdo.com/e/"

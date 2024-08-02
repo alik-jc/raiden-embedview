@@ -38,7 +38,7 @@ const performWishAnalyzer = (decodedUri) => {
 exports.performWishAnalyzer = performWishAnalyzer;
 const performLuluAnalyzer = (decodedUri) => {
     if (decodedUri.includes("https://luluvdo.com/")) {
-        return decodedUri;
+        return decodedUri.replace("https://luluvdo.com/", "https://luluvdo.com/e/");
     }
     else {
         const lulu = {
