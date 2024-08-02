@@ -179,7 +179,7 @@ app.get('/prod-analizer-lulu', async (req: Request, res: Response) => {
         const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
 
         const luluContent = performLuluAnalyzer(decodedUri);
-        const renderContent = raidenGeneral(luluContent || '');
+        const renderContent = raidenSanbox(luluContent || '');
 
         res.send(renderContent);
     } catch (error) {

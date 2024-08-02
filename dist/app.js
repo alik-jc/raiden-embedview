@@ -176,7 +176,7 @@ app.get('/prod-analizer-lulu', (req, res) => __awaiter(void 0, void 0, void 0, f
         const uriParameter = req.query[aniyaeHash];
         const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
         const luluContent = (0, index_1.performLuluAnalyzer)(decodedUri);
-        const renderContent = (0, index_1.raidenGeneral)(luluContent || '');
+        const renderContent = (0, index_1.raidenSanbox)(luluContent || '');
         res.send(renderContent);
     }
     catch (error) {

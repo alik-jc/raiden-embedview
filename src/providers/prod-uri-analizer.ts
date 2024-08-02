@@ -67,18 +67,17 @@ export const performWishAnalyzer = (decodedUri: string) => {
 }
 
 export const performLuluAnalyzer = (decodedUri: string) => {
-    if (decodedUri.includes("https://luluvdo.com/") 
-    ) {
-        return decodedUri
+    if (decodedUri.includes("https://luluvdo.com/")) {
+        return decodedUri;
     } else {
         const lulu: lulu = {
             "https://luluvdo.com/": "https://luluvdo.com/e/"
-        }
+        };
         const finded = Object.keys(lulu).find(key => decodedUri.includes(key));
         const newUri = decodedUri.replace(finded!, lulu[finded!]);
         return newUri;
     }
-}
+};
 
 export const wistTransform = (decodedUri: string) => {
         const wishdomain: { [key: string]: string } = {
