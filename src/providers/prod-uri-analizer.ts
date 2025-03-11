@@ -12,6 +12,11 @@ type wish = {
     "https://embedwish.com/e/": string;
 }
 
+type abyss = {
+    [key: string]: string;
+    "https://short.ink/": string;
+}
+
 type lulu = {
     [key: string]: string;
     "https://luluvdo.com/": string;
@@ -39,6 +44,19 @@ export const performOkruAnalyzer = (decodedUri: string) => {
         }
         const finded = Object.keys(okru).find(key => decodedUri.includes(key));
         const newUri = decodedUri.replace(finded!, okru[finded!]);
+        return newUri;
+    } else {
+        return decodedUri;
+    }
+}
+
+export const abyssTransform = (decodedUri: string) => {
+    if (decodedUri.includes("https://short.ink/")) {
+        const abyss: abyss = {
+            "https://short.ink/": "https://short.icu/"
+        }
+        const finded = Object.keys(abyss).find(key => decodedUri.includes(key));
+        const newUri = decodedUri.replace(finded!, abyss[finded!]);
         return newUri;
     } else {
         return decodedUri;

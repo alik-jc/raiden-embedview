@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.performMixdropAnalyzer = exports.performFilelionAnalyzer = exports.wistTransform = exports.performLuluAnalyzer = exports.performWishAnalyzer = exports.performOkruAnalyzer = void 0;
+exports.performMixdropAnalyzer = exports.performFilelionAnalyzer = exports.wistTransform = exports.performLuluAnalyzer = exports.performWishAnalyzer = exports.abyssTransform = exports.performOkruAnalyzer = void 0;
 const performOkruAnalyzer = (decodedUri) => {
     if (decodedUri.includes("http://ok.ru")) {
         const okru = {
@@ -15,6 +15,20 @@ const performOkruAnalyzer = (decodedUri) => {
     }
 };
 exports.performOkruAnalyzer = performOkruAnalyzer;
+const abyssTransform = (decodedUri) => {
+    if (decodedUri.includes("https://short.ink/")) {
+        const abyss = {
+            "https://short.ink/": "https://short.icu/"
+        };
+        const finded = Object.keys(abyss).find(key => decodedUri.includes(key));
+        const newUri = decodedUri.replace(finded, abyss[finded]);
+        return newUri;
+    }
+    else {
+        return decodedUri;
+    }
+};
+exports.abyssTransform = abyssTransform;
 const performWishAnalyzer = (decodedUri) => {
     if (decodedUri.includes("/e/")) {
         return decodedUri;

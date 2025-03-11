@@ -4,13 +4,8 @@ dotenv.config();
 
 export function raidenGeneral(uriParameter: string): string {
     const catframe = process.env.CAT_FRAME || '';
-    const domainArray: string[] = ['jatfugios.com', 'marcherfilippo.com', 'hoodoosdonsky.com', 'clairekabobs.com', 'porailbond.com', 'rotondelibya.com'];
-    const adsDisplay: string = `/fvFTyqTpCC2mS/59725`;
-    const randomDomain: string = domainArray[Math.floor(Math.random() * domainArray.length)];
-    const galaxion = '//' + randomDomain + adsDisplay;
     const content = `
     <script src="${catframe}"></script>
-    <script src="${galaxion}"></script>
     <style>
     body {
         margin: 0;

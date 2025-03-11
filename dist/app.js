@@ -82,6 +82,12 @@ app.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             };
             res.status(404).json(response);
         }
+        /*const uriParameter = req.query[aniyaeHash] as string;
+
+        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        const renderContent = raidenGeneral(decodedUri);
+
+        res.send(renderContent);*/
     }
     catch (error) {
         res.status(403).redirect('https://aniyae.net');
@@ -115,6 +121,23 @@ app.get('/prod-general', (req, res) => __awaiter(void 0, void 0, void 0, functio
         console.error('Error generating prod-snbox content :', error);
         const response = {
             error: 'Error generating prod-snbox content '
+        };
+        res.status(500).json(response);
+    }
+}));
+app.get('/prod-abyss', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const uriParameter = req.query[aniyaeHash];
+        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        const abyssContent = (0, index_1.abyssTransform)(decodedUri);
+        const renderContent = (0, index_1.raidenGeneral)(abyssContent || '');
+        res.send(renderContent);
+    }
+    catch (error) {
+        Sentry.captureException('Error generating prod-abyss content ' + error);
+        console.error('Error generating prod-abyss content :', error);
+        const response = {
+            error: 'Error generating prod-abyss content '
         };
         res.status(500).json(response);
     }
@@ -176,7 +199,7 @@ app.get('/prod-analizer-lulu', (req, res) => __awaiter(void 0, void 0, void 0, f
         const uriParameter = req.query[aniyaeHash];
         const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
         const luluContent = (0, index_1.performLuluAnalyzer)(decodedUri);
-        const renderContent = (0, index_1.raidenSanbox)(luluContent || '');
+        const renderContent = (0, index_1.raidenGeneral)(luluContent || '');
         res.send(renderContent);
     }
     catch (error) {
@@ -278,7 +301,7 @@ app.get('/ext', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const uriParameter = req.query[aniyaeHash];
         const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
         const response = {
-            Error: 'Esta uri ya no sera soportada en Aniyae, hemos enviado un reporte para su verificación',
+            Error: 'Esta uri ya no sera soportada en Aniyae, hemos enviado un reporte para su verificaci n',
             Uri: decodedUri
         };
         Sentry.captureException('Filelion.online uri encontrada, lista para clonar manualmente ' + decodedUri);
