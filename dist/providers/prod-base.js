@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.basePlayerPage = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-function basePlayerPage(conmutatedValue, image, animeTitle, postUri) {
+function basePlayerPage(conmutatedValue, image, animeTitle) {
     const catframe = process.env.CAT_FRAME || '';
     return `
         <script src="${catframe}"></script>
@@ -54,7 +54,7 @@ function basePlayerPage(conmutatedValue, image, animeTitle, postUri) {
         <div class="container">
             <div class="container-general">
                 <div class="container-player">
-                    <a id="player" class="player-button" href="${conmutatedValue}&image=${image}&animeTitle=${animeTitle}&postTitle=${postUri}"><i class="player-icon fa fa-play" style="font-size:100px;color:#ffff"></i></a>
+                    <a id="player" class="player-button" href="${conmutatedValue}&image=${image}&animeTitle=${animeTitle}"><i class="player-icon fa fa-play" style="font-size:100px;color:#ffff"></i></a>
                 </div>
             </div>
         </div>

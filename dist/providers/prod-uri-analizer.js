@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.performMixdropAnalyzer = exports.performFilelionAnalyzer = exports.wistTransform = exports.performLuluAnalyzer = exports.performWishAnalyzer = exports.performOkruAnalyzer = void 0;
+exports.performMixdropAnalyzer = exports.wistTransform = exports.performLulustAnalyzer = exports.performLuluAnalyzer = exports.performWishAnalyzer = exports.abyssTransform = exports.performOkruAnalyzer = void 0;
 const performOkruAnalyzer = (decodedUri) => {
     if (decodedUri.includes("http://ok.ru")) {
         const okru = {
@@ -15,6 +15,20 @@ const performOkruAnalyzer = (decodedUri) => {
     }
 };
 exports.performOkruAnalyzer = performOkruAnalyzer;
+const abyssTransform = (decodedUri) => {
+    if (decodedUri.includes("https://short.ink/")) {
+        const abyss = {
+            "https://short.ink/": "https://short.icu/"
+        };
+        const finded = Object.keys(abyss).find(key => decodedUri.includes(key));
+        const newUri = decodedUri.replace(finded, abyss[finded]);
+        return newUri;
+    }
+    else {
+        return decodedUri;
+    }
+};
+exports.abyssTransform = abyssTransform;
 const performWishAnalyzer = (decodedUri) => {
     if (decodedUri.includes("/e/")) {
         return decodedUri;
@@ -50,6 +64,23 @@ const performLuluAnalyzer = (decodedUri) => {
     }
 };
 exports.performLuluAnalyzer = performLuluAnalyzer;
+const performLulustAnalyzer = (decodedUri) => {
+    if (decodedUri.includes(".st") || decodedUri.includes(".com") || decodedUri.includes("luluvdoo.com")) {
+        const lulust = {
+            "lulu.st": "luluvdo.com",
+            "lulustream.com": "luluvdo.com",
+            "luluvdoo.com": "luluvdo.com",
+            "luluvid.com": "luluvdo.com",
+        };
+        const finded = Object.keys(lulust).find(key => decodedUri.includes(key));
+        const newUri = decodedUri.replace(finded, lulust[finded]);
+        return newUri;
+    }
+    else {
+        return decodedUri;
+    }
+};
+exports.performLulustAnalyzer = performLulustAnalyzer;
 const wistTransform = (decodedUri) => {
     const wishdomain = {
         "embedwish.com": "streamwish.to",
@@ -70,21 +101,6 @@ const wistTransform = (decodedUri) => {
     return newUri;
 };
 exports.wistTransform = wistTransform;
-const performFilelionAnalyzer = (decodedUri) => {
-    if (decodedUri.includes('https://filelions.com') || decodedUri.includes('https://fviplions.com')) {
-        const filelion = {
-            "https://filelions.com": "https://filelions.co",
-            "https://fviplions.com": "https://filelions.co"
-        };
-        const finded = Object.keys(filelion).find(key => decodedUri.includes(key));
-        const newUri = decodedUri.replace(finded, filelion[finded]);
-        return newUri;
-    }
-    else {
-        return decodedUri;
-    }
-};
-exports.performFilelionAnalyzer = performFilelionAnalyzer;
 const performMixdropAnalyzer = (decodedUri) => {
     if (decodedUri.includes('mixdrop')) {
         const mixdrop = {
