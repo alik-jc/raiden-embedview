@@ -80,7 +80,6 @@ app.get('/', async (req: Request, res: Response) => {
 
         res.send(renderContent);*/
 
-
     } catch (error) {
         res.status(403).redirect('https://aniyae.net');
         
