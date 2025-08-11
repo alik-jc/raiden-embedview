@@ -1,7 +1,7 @@
 # ✓ R Embedview
 > This is a simple conmuter used to manage the player options in aniyae.net
 
-### ✅ Set Alpha version 0.0.1 (2025-08-11)
+### ✅ R Embedview version 0.0.1 (2025-08-11)
 
 ### **:rocket: Usage**
 
