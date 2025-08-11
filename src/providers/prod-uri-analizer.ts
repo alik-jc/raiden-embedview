@@ -60,7 +60,20 @@ export const abyssTransform = (decodedUri: string) => {
         return newUri;
     } else {
         return decodedUri;
+// Generic URL transformation helper
+function transformUriWithMapping(decodedUri: string, mapping: { [key: string]: string }): string {
+    const finded = Object.keys(mapping).find(key => decodedUri.includes(key));
+    if (finded) {
+        return decodedUri.replace(finded, mapping[finded]);
     }
+    return decodedUri;
+}
+
+export const abyssTransform = (decodedUri: string) => {
+    const abyss: abyss = {
+        "https://short.ink/": "https://short.icu/"
+    }
+    return transformUriWithMapping(decodedUri, abyss);
 }
 
 export const performWishAnalyzer = (decodedUri: string) => {
