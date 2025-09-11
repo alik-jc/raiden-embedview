@@ -1,6 +1,4 @@
-import dotenv from 'dotenv';
-
-dotenv.config();
+import { CAT_FRAME } from "../assets/assets";
 
 export const errorWebsite = (uriParameter: string) => {
 
@@ -9,9 +7,8 @@ export const errorWebsite = (uriParameter: string) => {
     const domainName = error.split("/")[2];
 
 
-    const catframe = process.env.CAT_FRAME || '';
     return `
-    <script src="${catframe}"></script>
+    <script src="${CAT_FRAME}"></script>
     <!-- Favicon -->
     <link rel="shortcut icon" href="https://dev.aniyae.net/img/favicon-gris.png" type="image/x-icon">
     <style>
@@ -69,7 +66,7 @@ body {
     <div class="center-container">
         <h1 class="error-msg strong-text">Proveedor ya no disponible</h1>
         <p class="error-text">Parece que <span class="strong-text">${domainName}</span>, ya no esta disponible. <br> Si es el unico proveedor de video, carga la seccion de comentarios y
-            solicita que se añadan otros servidores</p>
+            solicita que se aÃ±adan otros servidores</p>
     </div>
     `;
 };
