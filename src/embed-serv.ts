@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import axios from 'axios';
 import dotenv from 'dotenv';
 import path from 'path';
 
@@ -19,8 +20,7 @@ import {
     wistTransform,
     performLuluAnalyzer,
     abyssTransform,
-    performLulustAnalyzer,
-    PROVIDERS_JSON
+    performLulustAnalyzer
 
     } from './index';
 
@@ -33,12 +33,13 @@ app.use('/assets', express.static(path.resolve(__dirname, './assets')));
 
 const port = process.env.SRV_URI || 3000;
 const aniyaeHash = process.env.HASH || '';
-const providersData = PROVIDERS_JSON || '';
+const providersUri = process.env.PROVIDERS_URI || '';
 export const userAgent = process.env.USER_AGENT || '';
 
 app.get('/', async (req: Request, res: Response) => {
     try {
-        const findArray = JSON.parse(providersData);
+        const response = await axios.get(providersUri, { headers: { 'User-Agent': userAgent } });
+        const findArray = response.data;
         const image = req.query.image as string;
         const animeTitle = req.query.animeTitle as string;
 
