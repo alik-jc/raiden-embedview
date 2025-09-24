@@ -27,11 +27,29 @@ type lulust = {
     "lulu.st": string;
 }
 
+type dood = {
+    [key: string]: string;
+    "d-s.io": string;
+}
+
 type mixdrop = {
     [key: string]: string;
     "mixdrop.com": string;
     "mixdrop.to": string;
     "mixdrop.co": string;
+}
+
+export const performDoodAnalyzer = (decodedUri: string) => {
+    if (decodedUri.includes("d-s.")) {
+        const dood: dood = {
+            "d-s.io": "dsvplay.com"
+        }
+        const finded = Object.keys(dood).find(key => decodedUri.includes(key));
+        const newUri = decodedUri.replace(finded!, dood[finded!]);
+        return newUri;
+    } else {
+        return decodedUri;
+    }
 }
 
 export const performOkruAnalyzer = (decodedUri: string) => {

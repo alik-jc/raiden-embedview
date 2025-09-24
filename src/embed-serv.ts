@@ -19,7 +19,8 @@ import {
     performLuluAnalyzer,
     abyssTransform,
     performLulustAnalyzer,
-    PROVIDERS_JSON
+    PROVIDERS_JSON,
+    performDoodAnalyzer
 
     } from './index';
 
@@ -116,6 +117,24 @@ app.get('/prod-abyss', async (req: Request, res: Response) => {
         console.error('Error generating prod-abyss content :', error);
         const response = {
             error: 'Error generating prod-abyss content '
+        };
+        res.status(500).json(response);
+    }
+});
+
+app.get('/prod-dood-analyzer', async (req: Request, res: Response) => {
+    try {
+        const uriParameter = req.query[aniyaeHash] as string;
+        const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
+
+        const doodContent = performDoodAnalyzer(decodedUri);
+        const renderContent = raidenGeneral(doodContent || '');
+
+        res.send(renderContent);
+    } catch (error) {
+        console.error('Error generating prod-dood-analyzer content :', error);
+        const response = {
+            error: 'Error generating prod-dood-analyzer content '
         };
         res.status(500).json(response);
     }
