@@ -1,5 +1,11 @@
-const PROVIDERS_JSON = './assets/providers.json';
+import PROVIDERS_JSON from './providers.json';
+import SET_CORE_URI from './set-core.json';
 const CAT_FRAME = './assets/sc-logging.js';
-const SET_CORE_URI = './assets/set-core.json';
 
-export { PROVIDERS_JSON, CAT_FRAME, SET_CORE_URI };
+
+
+export {
+    PROVIDERS_JSON,
+    SET_CORE_URI,
+    CAT_FRAME
+};
