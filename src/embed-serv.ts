@@ -20,8 +20,7 @@ import {
     wistTransform,
     performLuluAnalyzer,
     abyssTransform,
-    performLulustAnalyzer,
-    PROVIDERS_URI
+    performLulustAnalyzer
 
     } from './index';
 
