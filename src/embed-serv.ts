@@ -34,7 +34,7 @@ app.use('/assets', express.static(path.resolve(__dirname, './assets')));
 
 const port = process.env.SRV_URI || 3000;
 const aniyaeHash = process.env.HASH || '';
-const providersUri = PROVIDERS_URI || '';
+const providersUri = process.env.PROVIDERS_URI || '';
 export const userAgent = process.env.USER_AGENT || '';
 
 app.get('/', async (req: Request, res: Response) => {
