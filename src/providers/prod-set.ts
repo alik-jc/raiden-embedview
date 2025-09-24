@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { userAgent } from '../app';
+import { userAgent } from '../embed-serv';
 import dotenv from 'dotenv';
 
 dotenv.config();

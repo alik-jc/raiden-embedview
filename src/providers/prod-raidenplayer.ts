@@ -1,9 +1,7 @@
-import dotenv from 'dotenv';
-
-dotenv.config();
+import { CAT_FRAME } from "../assets/assets";
 
 export const raidenPlayer = (analizerLbryContent: string, image: string ): string => {
-    const catframe = process.env.CAT_FRAME || '';
+    const catframe = CAT_FRAME;
     const jwPlayer = "https://dev.aniyae.net/js/raiden_core.js?=v1.4";
     const raidenPlayerContent = `
     <script src="${catframe}"></script>

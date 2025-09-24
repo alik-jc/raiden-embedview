@@ -1,9 +1,6 @@
-import dotenv from 'dotenv';
-
-dotenv.config();
-
+import { CAT_FRAME } from "../assets/assets";
 export function raidenGeneral(uriParameter: string): string {
-    const catframe = process.env.CAT_FRAME || '';
+    const catframe = CAT_FRAME;
     const content = `
     <script src="${catframe}"></script>
     <style>

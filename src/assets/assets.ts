@@ -1,5 +1,5 @@
-const ASSETS_DIR = 'src/assets';
+const PROVIDERS_URI = '/assets/providers.json';
+const CAT_FRAME = '/assets/sc-logging.js';
+const SET_CORE_URI = '/assets/set-core.json';
 
-export const PROVIDERS_URI = `${ASSETS_DIR}/providers.json`;
-export const CAT_FRAME = `${ASSETS_DIR}/sc-logging.js`;
-export const SET_CORE_URI = `${ASSETS_DIR}/set-core.json`;
+export { PROVIDERS_URI, CAT_FRAME, SET_CORE_URI };

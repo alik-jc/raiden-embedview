@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import axios from 'axios';
 import dotenv from 'dotenv';
+import path from 'path';
 
 import {
 
@@ -29,6 +30,8 @@ import { performConmutation } from './conmuter';
 dotenv.config();
 
 const app = express();
+
+app.use('/assets', express.static(path.resolve(__dirname, './assets')));
 
 const port = process.env.SRV_URI || 3000;
 const aniyaeHash = process.env.HASH || '';
