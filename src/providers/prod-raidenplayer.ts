@@ -1,4 +1,4 @@
-import { CAT_FRAME } from "../assets/assets";
+import { CAT_FRAME } from "../index";
 
 export const raidenPlayer = (analizerLbryContent: string, image: string ): string => {
     const catframe = CAT_FRAME;

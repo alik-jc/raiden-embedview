@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { userAgent } from '../embed-serv';
-import { SET_CORE_URI } from '../assets/assets';
+import { SET_CORE_URI } from '../index';
 
 const hostUri = SET_CORE_URI;
 

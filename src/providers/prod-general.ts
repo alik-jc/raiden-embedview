@@ -1,4 +1,4 @@
-import { CAT_FRAME } from "../assets/assets";
+import { CAT_FRAME } from "../index";
 export function raidenGeneral(uriParameter: string): string {
     const catframe = CAT_FRAME;
     const content = `

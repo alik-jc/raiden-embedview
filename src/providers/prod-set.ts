@@ -1,10 +1,8 @@
 import axios from 'axios';
 import { userAgent } from '../embed-serv';
-import dotenv from 'dotenv';
+import { SET_CORE_URI } from '../index';
 
-dotenv.config();
-
-const hostUri = process.env.SET_CORE_URI || '';
+const hostUri = SET_CORE_URI || '';
 
 export const setProvider = async (uriParameter: string) => {
     const json = axios.get(hostUri, { headers: { 'User-Agent': userAgent } });

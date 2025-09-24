@@ -20,13 +20,12 @@ import {
     wistTransform,
     performLuluAnalyzer,
     abyssTransform,
-    performLulustAnalyzer
+    performLulustAnalyzer,
+    PROVIDERS_URI
 
     } from './index';
 
 import { performConmutation } from './conmuter';
-
-
 dotenv.config();
 
 const app = express();
@@ -35,7 +34,7 @@ app.use('/assets', express.static(path.resolve(__dirname, './assets')));
 
 const port = process.env.SRV_URI || 3000;
 const aniyaeHash = process.env.HASH || '';
-const providersUri = process.env.PROVIDERS_URI || '';
+const providersUri = PROVIDERS_URI || '';
 export const userAgent = process.env.USER_AGENT || '';
 
 app.get('/', async (req: Request, res: Response) => {

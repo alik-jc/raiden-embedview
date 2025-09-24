@@ -1,4 +1,4 @@
-import { CAT_FRAME } from "../assets/assets";
+import { CAT_FRAME } from "../index";
 
 export const errorWebsite = (uriParameter: string) => {
 

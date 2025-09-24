@@ -1,11 +1,11 @@
 {
   "name": "raiden-embed-view",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "main": "dist/embed-serv.js",
   "scripts": {
     "dev": "nodemon --exec ts-node src/embed-serv.ts",
     "start": "node dist/embed-serv.js",
-    "build": "eslint src --ext .ts && tsc"
+    "build": "eslint src --ext .ts && tsc && cp src/assets/* dist/assets && rm dist/assets/*.ts"
   },
   "dependencies": {
     "@sentry/node": "^7.69.0",
