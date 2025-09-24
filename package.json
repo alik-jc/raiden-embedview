@@ -1,6 +1,6 @@
 {
   "name": "raiden-embed-view",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "main": "dist/embed-serv.js",
   "scripts": {
     "dev": "nodemon --exec ts-node src/embed-serv.ts",

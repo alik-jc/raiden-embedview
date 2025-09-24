@@ -6,3 +6,4 @@ export * from './providers/prod-uri-analizer';
 export * from './providers/prod-qls';
 export * from './providers/prod-down';
 export * from './assets/assets';
+export * from './providers/prod-secure';
