@@ -8,7 +8,7 @@ export const errorWebsite = (uriParameter: string) => {
 
 
     return `
-    <script src="${CAT_FRAME}"></script>
+    <script>${CAT_FRAME}</script>
     <!-- Favicon -->
     <link rel="shortcut icon" href="https://dev.aniyae.net/img/favicon-gris.png" type="image/x-icon">
     <style>

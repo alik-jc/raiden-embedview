@@ -30,18 +30,17 @@ const app = express();
 
 const port = process.env.SRV_URI || 3000;
 const aniyaeHash = process.env.HASH || '';
-export const userAgent = process.env.USER_AGENT || '';
 
 app.get('/', async (req: Request, res: Response) => {
     try {
-        const findArray = PROVIDERS_JSON
+        const json = PROVIDERS_JSON
         const image = req.query.image as string;
         const animeTitle = req.query.animeTitle as string;
 
         const uriParameter = req.query[aniyaeHash] as string;
         const base = Buffer.from(uriParameter, 'base64').toString('utf-8');
 
-        const conmutatedValue = performConmutation(base, findArray);
+        const conmutatedValue = performConmutation(base, json);
         if (conmutatedValue) {
             const response = '/' + conmutatedValue + '/?' + aniyaeHash + '=' + uriParameter;
             const playerPage = basePlayerPage(response, image, animeTitle);

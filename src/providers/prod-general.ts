@@ -1,8 +1,7 @@
 import { CAT_FRAME } from "../index";
 export function raidenGeneral(uriParameter: string): string {
-    const catframe = CAT_FRAME;
     const content = `
-    <script src="${catframe}"></script>
+    <script>${CAT_FRAME}</script>
     <style>
         body {
             margin: 0;
