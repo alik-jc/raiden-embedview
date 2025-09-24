@@ -48,7 +48,7 @@
     { "key": "videovard", "value": "prod-general" },
     { "key": "doodstream", "value": "prod-general" },
     { "key": "ds2play", "value": "prod-general" },
-    { "key": "d-s.io", "value": "prod-general" },
+    { "key": "d-s.io", "value": "prod-dood-analyzer" },
     { "key": "netuplayer", "value": "prod-general" },
     { "key": "hexupload", "value": "prod-general" },
     { "key": "dooood", "value": "prod-general" },
