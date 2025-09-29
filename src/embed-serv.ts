@@ -360,6 +360,10 @@ app.get('/prod-down', async (req: Request, res: Response) => {
     }
 });
 
+app.get('/health', async (req: Request, res: Response) => {
+    res.send('OK');
+});
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
