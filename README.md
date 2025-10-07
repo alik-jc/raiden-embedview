@@ -15,14 +15,9 @@
 
 ### **:wrench: Environment Variables**
 - **SRV_URI** - Port for the server
-- **SET_CORE_URI** - Core url for set proxy provider
-- **PROVIDERS_URI** - Get providers url list for the dev.aniyae
 - **HASH** - Contains the hash used in the url, example
     ```localhost:3000/?yourhash=yourb64encriptedurl```
 - **USER_AGENT** - Contains the user agent used in the request to the provider
-- **SENTRY_DSN** - Contains the sentry dsn for catch errors in the client side
-- **CAT_FRAME** - Contains the cat frame security policy for the client side, example
-    ```https://aria.js.cdn.aniyae.net/js/catFrame.js```
 
 
 ### **:wrench: Recomended Deploy**
