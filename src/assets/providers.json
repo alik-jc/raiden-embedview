@@ -53,6 +53,7 @@
     { "key": "hexupload", "value": "prod-general" },
     { "key": "dooood", "value": "prod-general" },
     { "key": "vid-guard", "value": "prod-general" },
+    { "key": "webyaewent", "value": "prod-snbox" },
     { "key": "animeav1.uns.bio", "value": "prod-general" },
 
 
@@ -85,7 +86,6 @@
     { "key": "latanime", "value": "prod-snbox" },
     { "key": "player.zilla", "value": "prod-snbox" },
     { "key": "pixeldrain", "value": "prod-snbox" },
-
 
     { "key": "rpmplay", "value": "prod-general" },
     { "key": "voe", "value": "prod-general" },
