@@ -56,8 +56,8 @@
     { "key": "d-s.io", "value": "prod-dood-analyzer" },
     { "key": "dood", "value": "prod-general" },
 
-    { "key": "filemoon.sx", "value": "prod-general" },
-    { "key": "filemoon.nl", "value": "prod-general" },
+    { "key": "filemoon.sx", "value": "moon-analizer" },
+    { "key": "filemoon.nl", "value": "moon-analizer" },
     { "key": "filemoon.top", "value": "prod-general" },
     { "key": "filemoon", "value": "prod-general" },
     { "key": "filemooon", "value": "prod-general" },
