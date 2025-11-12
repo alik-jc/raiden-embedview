@@ -36,19 +36,12 @@
     { "key": "fviplions.com", "value": "prod-down" },
     { "key": "filelions", "value": "prod-down" },
     { "key": "fviplions", "value": "prod-down" },
-
-    { "key": "filelions.online", "value": "ext" },
+    { "key": "filelions.online", "value": "prod-down" },
 
     { "key": "hqq", "value": "prod-general" },
     { "key": "openload", "value": "prod-general" },
-    { "key": "dood.pm", "value": "prod-general" },
-    { "key": "dsvplay.com", "value": "prod-general" },
     { "key": "waaw", "value": "prod-general" },
-    { "key": "dood", "value": "prod-general" },
     { "key": "videovard", "value": "prod-general" },
-    { "key": "doodstream", "value": "prod-general" },
-    { "key": "ds2play", "value": "prod-general" },
-    { "key": "d-s.io", "value": "prod-dood-analyzer" },
     { "key": "netuplayer", "value": "prod-general" },
     { "key": "hexupload", "value": "prod-general" },
     { "key": "dooood", "value": "prod-general" },
@@ -56,6 +49,12 @@
     { "key": "webyaewent", "value": "prod-general" },
     { "key": "animeav1.uns.bio", "value": "prod-general" },
 
+    { "key": "dood.pm", "value": "prod-general" },
+    { "key": "dsvplay.com", "value": "prod-general" },
+    { "key": "doodstream", "value": "prod-general" },
+    { "key": "ds2play", "value": "prod-general" },
+    { "key": "d-s.io", "value": "prod-dood-analyzer" },
+    { "key": "dood", "value": "prod-general" },
 
     { "key": "filemoon.sx", "value": "prod-general" },
     { "key": "filemoon.nl", "value": "prod-general" },

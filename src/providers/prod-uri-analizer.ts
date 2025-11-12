@@ -39,6 +39,11 @@ type mixdrop = {
     "mixdrop.co": string;
 }
 
+type filemoon = {
+    [key: string]: string;
+    "filemoon.nl": string;
+}
+
 export const performDoodAnalyzer = (decodedUri: string) => {
     if (decodedUri.includes("d-s.")) {
         const dood: dood = {
@@ -158,6 +163,20 @@ export const performMixdropAnalyzer = (decodedUri: string) => {
         }
         const finded = Object.keys(mixdrop).find(key => decodedUri.includes(key));
         const newUri = decodedUri.replace(finded!, mixdrop[finded!]);
+        return newUri;
+    } else {
+        return decodedUri;
+    }
+}
+
+export const filemoonAnalizer = (decodedUri: string) => {
+    if (decodedUri.includes('filemoon')) {
+        const filemoon: filemoon = {
+            "filemoon.nl": 'filemoon.link',
+            "filemoon.sx": 'filemoon.link'
+        }
+        const finded = Object.keys(filemoon).find(key => decodedUri.includes(key));
+        const newUri = decodedUri.replace(finded!, filemoon[finded!]);
         return newUri;
     } else {
         return decodedUri;

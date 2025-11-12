@@ -20,7 +20,8 @@ import {
     abyssTransform,
     performLulustAnalyzer,
     PROVIDERS_JSON,
-    performDoodAnalyzer
+    performDoodAnalyzer,
+    filemoonAnalizer
 
     } from './index';
 
@@ -121,6 +122,24 @@ app.get('/prod-abyss', async (req: Request, res: Response) => {
         res.status(500).json(response);
     }
 });
+
+app.get ('/moon-analizer', async (req: Request, res:Response) => {
+    try {
+        const uriParameter = req.query[aniyaeHash] as string;
+        const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
+
+        const filemoonContent = filemoonAnalizer(decodedUri);
+        const renderContent = raidenGeneral(filemoonContent || '');
+
+        res.send(renderContent);
+    } catch (error) {
+        console.error('Error generating prod-dood-analyzer content :', error);
+        const response = {
+            error: 'Error generating prod-dood-analyzer content '
+        };
+        res.status(500).json(response);
+    }
+})
 
 app.get('/prod-dood-analyzer', async (req: Request, res: Response) => {
     try {
