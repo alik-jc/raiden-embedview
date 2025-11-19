@@ -14,19 +14,40 @@ export const luluProd = async (uriParameter: string) => {
     return urlResponse;
 };
 
-export const uqloProd = async (uriParameter: string) => {
+export const uqloProd = async (uriParameter: string): Promise<string> => {
     const json = SET_CORE_URI;
     const urlSet = json.uqload;
 
-    const hashMatch = uriParameter.match(/https?:\/\/[^/]+\/([^/]+)|\/embed-([^/]+)/);
-    const hash = hashMatch ? (hashMatch[1] || hashMatch[2]) : '';
+    // Limpiar el parámetro: remover markdown links y espacios
+    const cleanUri = uriParameter
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$2') // Extrae URL de markdown [text](url)
+        .trim();
 
-    const urlResponse = hash
-        ? urlSet + hash
-        : urlSet + '/' + uriParameter;
+    // Patrones de extracción mejorados
+    const patterns = [
+        /\/embed-([a-z0-9]+)\.html/i,           // /embed-HASH.html
+        /\/([a-z0-9]+)\.html/i,                 // /HASH.html
+        /uqload\.com\/([a-z0-9]+)/i,            // uqload.com/HASH
+        /^([a-z0-9]{12,})$/i                    // Solo el hash
+    ];
 
-    return urlResponse;
-}
+    // Intentar extraer el hash con cada patrón
+    let hash = '';
+    for (const pattern of patterns) {
+        const match = cleanUri.match(pattern);
+        if (match && match[1]) {
+            hash = match[1];
+            break;
+        }
+    }
+
+    // Validar que el hash sea válido (típicamente 12+ caracteres alfanuméricos)
+    if (!hash || hash.length < 10) {
+        throw new Error(`Invalid uqload parameter: ${uriParameter}`);
+    }
+
+    return `${urlSet}${hash}`;
+};
 
 export const fmoonProd = async (uriParameter: string) => {
     const json = SET_CORE_URI;
