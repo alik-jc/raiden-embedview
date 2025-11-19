@@ -17,9 +17,9 @@ export const luluProd = async (uriParameter: string) => {
 export const uqloProd = async (uriParameter: string) => {
     const json = SET_CORE_URI;
     const urlSet = json.uqload;
-    
-    const hashMatch = uriParameter.match(/https?:\/\/[^/]+\/([^/]+)/);
-    const hash = hashMatch ? hashMatch[1] : '';
+
+    const hashMatch = uriParameter.match(/https?:\/\/[^/]+\/([^/]+)|\/embed-([^/]+)/);
+    const hash = hashMatch ? (hashMatch[1] || hashMatch[2]) : '';
 
     const urlResponse = hash
         ? urlSet + hash
