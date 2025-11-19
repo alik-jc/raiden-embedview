@@ -8,13 +8,13 @@ import {
     raidenSanbox,
     pilarDown,
     raidenPlayer,
-    setProvider,
     errorWebsite,
     performOkruAnalyzer,
     performWishAnalyzer,
-    qlsProvider,
+    luluProd,
+    uqloProd,
+    fmoonProd,
     performMixdropAnalyzer,
-    uqlsProvider,
     wistTransform,
     performLuluAnalyzer,
     abyssTransform,
@@ -204,7 +204,7 @@ app.get('/prod-analizer-lulu', async (req: Request, res: Response) => {
         const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
 
         const luluContent = performLuluAnalyzer(decodedUri);
-        const qlsContent = qlsProvider(luluContent);
+        const qlsContent = luluProd(luluContent);
         const renderContent = raidenGeneral(await qlsContent);
 
         res.send(renderContent);
@@ -223,7 +223,7 @@ app.get('/prod-analizer-lulust', async (req: Request, res: Response) => {
         const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
 
         const luluContent = performLulustAnalyzer(decodedUri);
-        const qlsContent = qlsProvider(luluContent);
+        const qlsContent = luluProd(luluContent);
         const renderContent = raidenGeneral(await qlsContent);
 
         res.send(renderContent);
@@ -272,49 +272,22 @@ app.get('/prod-raidenplayer', async (req: Request, res: Response) => {
     }
 });
 
-app.get('/set', async (req: Request, res: Response) => {
+app.get('/proxed', async (req: Request, res: Response) => {
     try {
         const uriParameter = req.query[aniyaeHash] as string;
         const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        let setAnalyzer;
 
-        const setAnalyzer = await setProvider(decodedUri);
+        if (decodedUri.includes('lulu')) {
+            setAnalyzer = await luluProd(decodedUri);
+        } else if (decodedUri.includes('filemoon')) {
+            setAnalyzer = await fmoonProd(decodedUri);
+        } else if (decodedUri.includes('uqload')) {
+            setAnalyzer = await uqloProd(decodedUri);
+        } else {
+            throw new Error('Invalid provider name');
+        }
         const renderContent = raidenGeneral(setAnalyzer);
-
-        res.send(renderContent);
-    } catch (error) {
-        console.error('Error generating prod-set content :', error);
-        const response = {
-            error: 'Error generating prod-set content '
-        };
-        res.status(500).json(response);
-    }
-});
-
-app.get('/qls', async (req: Request, res: Response) => {
-    try {
-        const uriParameter = req.query[aniyaeHash] as string;
-        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
-
-        const setAnalyzer = await qlsProvider(decodedUri);
-        const renderContent = raidenGeneral(setAnalyzer);
-
-        res.send(renderContent);
-    } catch (error) {
-        console.error('Error generating prod-set content :', error);
-        const response = {
-            error: 'Error generating prod-set content '
-        };
-        res.status(500).json(response);
-    }
-});
-
-app.get('/uqls', async (req: Request, res: Response) => {
-    try {
-        const uriParameter = req.query[aniyaeHash] as string;
-        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
-
-        const uqlsAnalyzer = await uqlsProvider(decodedUri);
-        const renderContent = raidenGeneral(uqlsAnalyzer);
 
         res.send(renderContent);
     } catch (error) {
