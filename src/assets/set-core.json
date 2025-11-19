@@ -1,11 +1,5 @@
 {
-    "qls": "https://xn--9iq853atby55l.qsag.cloud/r/?id=",
-
-    "uqls": "https://omeplay.com/r/?id=",
-
-    "disabled": "https://gdplayer.to/r/?id=",
-
-    "prx": "https://xn--9iq853atby55l.qsag.cloud/r/?id=",
-
-    "url": "null"
+    "uqload": "https://omeplay.com/embed2/?host=uqload&id=",
+    "lulu": "https://omeplay.com/embed2/?host=lulustream&id=",
+    "fmoon": "https://omeplay.com/embed2/?host=filemoon&id="
 }
