@@ -2,23 +2,28 @@ import express, { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 
 import {
+    raidenGeneral,
     basePlayerPage,
+    raidenSanbox,
     pilarDown,
+    raidenPlayer,
     errorWebsite,
+    performOkruAnalyzer,
+    performWishAnalyzer,
     luluProd,
     uqloProd,
     fmoonProd,
+    performMixdropAnalyzer,
+    wistTransform,
+    performLuluAnalyzer,
+    abyssTransform,
+    performLulustAnalyzer,
     PROVIDERS_JSON,
-    raidenGeneral
+    performDoodAnalyzer,
+    filemoonAnalizer
 } from './index';
 
 import { performConmutation } from './conmuter';
-import { 
-    getProviderHandler, 
-    isValidProvider, 
-    getAvailableProviders,
-    ProviderContext 
-} from './providers/provider-strategy';
 
 dotenv.config();
 
@@ -37,8 +42,7 @@ const HTTP_STATUS = {
     OK: 200,
     FORBIDDEN: 403,
     NOT_FOUND: 404,
-    INTERNAL_ERROR: 500,
-    MOVED_PERMANENTLY: 301
+    INTERNAL_ERROR: 500
 } as const;
 
 // Types
@@ -49,7 +53,6 @@ interface ErrorResponse {
     details?: string;
     timestamp?: string;
     path?: string;
-    availableProviders?: string[];
 }
 
 interface QueryParams {
@@ -82,7 +85,7 @@ class Logger {
 
     static warn(message: string, data?: unknown): void {
         console.warn(`\n⚠️  [WARN ${this.formatTimestamp()}] ${message}`);
-        if (data) {
+        if (data && IS_DEVELOPMENT) {
             console.warn('📦 Data:', data);
         }
     }
@@ -100,97 +103,35 @@ class Logger {
     }
 }
 
-// Middleware: Request Logger
+// Middleware: Request Logger (solo en desarrollo)
 const requestLogger = (req: Request, res: Response, next: NextFunction) => {
     if (IS_DEVELOPMENT) {
         Logger.debug(`Incoming ${req.method} request`, {
             path: req.path,
-            query: req.query,
-            params: req.params
+            query: req.query
         });
     }
     next();
 };
 
-// Middleware: Decode URI from query parameter
-const decodeUriMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const uriParameter = req.query[ANIYAE_HASH] as string;
-        
-        Logger.debug('Attempting to decode URI', {
-            hasHashParam: !!uriParameter,
-            hashLength: uriParameter?.length
-        });
-
-        if (!uriParameter) {
-            throw new Error('Missing hash parameter');
-        }
-
-        req.decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
-        
-        Logger.debug('URI decoded successfully', {
-            decodedUri: req.decodedUri
-        });
-
-        next();
-    } catch (error) {
-        Logger.error('Failed to decode URI', error);
-
-        if (IS_DEVELOPMENT) {
-            const errorResponse: ErrorResponse = {
-                error: 'Failed to decode URI parameter',
-                details: error instanceof Error ? error.message : 'Unknown error',
-                stack: error instanceof Error ? error.stack : undefined,
-                timestamp: new Date().toISOString(),
-                path: req.path
-            };
-            res.status(HTTP_STATUS.FORBIDDEN).json(errorResponse);
-        } else {
-            res.status(HTTP_STATUS.FORBIDDEN).redirect(ANIYAE_REDIRECT_URL);
-        }
-    }
-};
-
-// Middleware: Global error handler
-const errorHandler = (error: Error, req: Request, res: Response, next: NextFunction) => {
-    Logger.error(`Unhandled error in ${req.path}`, error);
-
-    if (IS_DEVELOPMENT) {
-        const errorResponse: ErrorResponse = {
-            error: error.message || 'Internal server error',
-            stack: error.stack,
-            details: error.toString(),
-            timestamp: new Date().toISOString(),
-            path: req.path
-        };
-        res.status(HTTP_STATUS.INTERNAL_ERROR).json(errorResponse);
-    } else {
-        const errorResponse: ErrorResponse = {
-            error: 'Internal server error'
-        };
-        res.status(HTTP_STATUS.INTERNAL_ERROR).json(errorResponse);
-    }
-};
-
 // Utility function: Send HTML response
 const sendHtmlResponse = (res: Response, content: string) => {
-    Logger.debug('Sending HTML response', {
-        contentLength: content.length
-    });
+    Logger.debug('Sending HTML response', { contentLength: content.length });
     res.setHeader('Content-Type', 'text/html');
     res.send(content);
 };
 
-// Utility function: Send error response
+// Utility function: Send error response (con soporte de entorno)
 const sendErrorResponse = (
-    res: Response, 
-    message: string, 
+    res: Response,
+    message: string,
     error?: unknown,
     statusCode = HTTP_STATUS.INTERNAL_ERROR
 ) => {
     Logger.error(message, error);
 
     if (IS_DEVELOPMENT) {
+        // Modo desarrollo: respuesta detallada en JSON
         const errorResponse: ErrorResponse = {
             error: message,
             details: error instanceof Error ? error.message : String(error),
@@ -199,43 +140,33 @@ const sendErrorResponse = (
         };
         res.status(statusCode).json(errorResponse);
     } else {
+        // Modo producción: respuesta simple
         const errorResponse: ErrorResponse = { error: message };
         res.status(statusCode).json(errorResponse);
     }
 };
 
-// Extend Express Request type
-declare global {
-    namespace Express {
-        interface Request {
-            decodedUri?: string;
-        }
-    }
-}
-
 // Apply request logger middleware
 app.use(requestLogger);
-
-// Routes
 
 /**
  * Main route - Handles dynamic provider routing
  */
 app.get('/', async (req: Request, res: Response) => {
     try {
-        Logger.debug('Processing main route', {
-            query: req.query
-        });
+        Logger.debug('Processing main route', { query: req.query });
 
-        const { image, animeTitle } = req.query as QueryParams;
+        const json = PROVIDERS_JSON;
+        const image = req.query.image as string;
+        const animeTitle = req.query.animeTitle as string;
         const uriParameter = req.query[ANIYAE_HASH] as string;
-        
+
         if (!uriParameter) {
             Logger.warn('Missing URI parameter in main route');
-            
+
             if (IS_DEVELOPMENT) {
                 return sendErrorResponse(
-                    res, 
+                    res,
                     'Missing hash parameter',
                     new Error(`Expected query parameter: ${ANIYAE_HASH}`),
                     HTTP_STATUS.INTERNAL_ERROR
@@ -247,29 +178,28 @@ app.get('/', async (req: Request, res: Response) => {
         const base = Buffer.from(uriParameter, 'base64').toString('utf-8');
         Logger.debug('Decoded base URI', { base });
 
-        const conmutatedValue = performConmutation(base, PROVIDERS_JSON);
+        const conmutatedValue = performConmutation(base, json);
         Logger.debug('Conmutation result', { conmutatedValue });
 
         if (conmutatedValue) {
-            const response = `/${conmutatedValue}/?${ANIYAE_HASH}=${uriParameter}`;
-            const playerPage = basePlayerPage(response, image || 'err', animeTitle || 'err');
+            const response = '/' + conmutatedValue + '/?' + ANIYAE_HASH + '=' + uriParameter;
+            const playerPage = basePlayerPage(response, image, animeTitle);
             Logger.info('Successfully generated player page');
             return sendHtmlResponse(res, playerPage);
-        }
+        } else {
+            const uriParser = new URL(base);
+            Logger.warn('Unsupported URI provider', { hostname: uriParser.hostname });
 
-        const uriParser = new URL(base);
-        Logger.warn('Unsupported URI provider', { hostname: uriParser.hostname });
-        
-        return sendErrorResponse(
-            res, 
-            'The provided URI is not supported',
-            { uri: uriParser.hostname },
-            HTTP_STATUS.INTERNAL_ERROR
-        );
-        
+            return sendErrorResponse(
+                res,
+                'The provided URI is not supported',
+                { uri: uriParser.hostname },
+                HTTP_STATUS.INTERNAL_ERROR
+            );
+        }
     } catch (error) {
         Logger.error('Error in main route', error);
-        
+
         if (IS_DEVELOPMENT) {
             return sendErrorResponse(res, 'Error processing main route', error, HTTP_STATUS.INTERNAL_ERROR);
         }
@@ -278,106 +208,237 @@ app.get('/', async (req: Request, res: Response) => {
 });
 
 /**
- * 🎯 UNIFIED PROVIDER ROUTE - Handles ALL providers dynamically
- * Replaces: /prod-dood-analyzer, /prod-analizer-ok, /prod-analizer-wish, 
- *           /prod-analizer-lulu, /prod-analizer-lulust, /prod-analizer-mixdrop,
- *           /prod-raidenplayer, /moon-analizer, /prod-abyss, /prod-general, /prod-snbox
+ * Sandbox provider route
  */
-app.get('/provider/:providerName', decodeUriMiddleware, async (req: Request, res: Response) => {
+app.get('/prod-snbox', async (req: Request, res: Response) => {
     try {
-        const { providerName } = req.params;
-        const { image, animeTitle } = req.query as QueryParams;
+        const uriParameter = req.query[ANIYAE_HASH] as string;
+        Logger.debug('Processing prod-snbox', { uriParameter });
 
-        Logger.debug('Processing unified provider route', { 
-            providerName,
-            uri: req.decodedUri,
-            image,
-            animeTitle
-        });
+        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        Logger.debug('URI decoded', { decodedUri });
 
-        // Validate provider
-        if (!isValidProvider(providerName)) {
-            Logger.warn(`Invalid provider requested: ${providerName}`);
-            
-            const errorResponse: ErrorResponse = {
-                error: `Provider '${providerName}' not found`,
-                availableProviders: IS_DEVELOPMENT ? getAvailableProviders() : undefined
-            };
-            
-            return res.status(HTTP_STATUS.NOT_FOUND).json(errorResponse);
-        }
-
-        // Get provider handler
-        const handler = getProviderHandler(providerName);
-        if (!handler) {
-            throw new Error(`Handler not found for provider: ${providerName}`);
-        }
-
-        // Execute provider handler
-        const context: ProviderContext = {
-            decodedUri: req.decodedUri!,
-            image,
-            animeTitle
-        };
-
-        const renderContent = await handler(context);
-        
-        Logger.info(`Provider '${providerName}' rendered successfully`);
+        const renderContent = raidenSanbox(decodedUri);
+        Logger.info('prod-snbox rendered successfully');
         sendHtmlResponse(res, renderContent);
-
     } catch (error) {
-        sendErrorResponse(res, `Error processing provider '${req.params.providerName}'`, error);
+        sendErrorResponse(res, 'Error generating prod-snbox content', error);
     }
 });
 
 /**
- * Legacy routes for backwards compatibility
- * These redirect to the new unified route
+ * General provider route
  */
-const legacyRoutes = [
-    '/prod-dood-analyzer',
-    '/prod-analizer-ok',
-    '/prod-analizer-wish',
-    '/prod-analizer-lulu',
-    '/prod-analizer-lulust',
-    '/prod-analizer-mixdrop',
-    '/prod-raidenplayer',
-    '/moon-analizer',
-    '/prod-abyss',
-    '/prod-general',
-    '/prod-snbox'
-];
+app.get('/prod-general', async (req: Request, res: Response) => {
+    try {
+        const uriParameter = req.query[ANIYAE_HASH] as string;
+        Logger.debug('Processing prod-general', { uriParameter });
 
-legacyRoutes.forEach(route => {
-    app.get(route, (req: Request, res: Response) => {
-        const providerName = route.substring(1); // Remove leading '/'
-        const queryString = new URLSearchParams(req.query as Record<string, string>).toString();
-        const newUrl = `/provider/${providerName}${queryString ? '?' + queryString : ''}`;
-        
-        Logger.warn(`Legacy route accessed: ${route}, redirecting to ${newUrl}`);
-        
-        if (IS_DEVELOPMENT) {
-            // In development, show deprecation notice
-            res.status(HTTP_STATUS.OK).json({
-                warning: `This route is deprecated. Please use: ${newUrl}`,
-                redirectTo: newUrl,
-                originalRoute: route
-            });
-        } else {
-            // In production, silently redirect
-            res.redirect(HTTP_STATUS.MOVED_PERMANENTLY, newUrl);
-        }
-    });
+        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        const renderContent = raidenGeneral(decodedUri);
+        Logger.info('prod-general rendered successfully');
+        sendHtmlResponse(res, renderContent);
+    } catch (error) {
+        sendErrorResponse(res, 'Error generating prod-general content', error);
+    }
+});
+
+/**
+ * Abyss provider route
+ */
+app.get('/prod-abyss', async (req: Request, res: Response) => {
+    try {
+        const uriParameter = req.query[ANIYAE_HASH] as string;
+        Logger.debug('Processing prod-abyss', { uriParameter });
+
+        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        const abyssContent = abyssTransform(decodedUri);
+        Logger.debug('Abyss content transformed', { abyssContent });
+
+        const renderContent = raidenGeneral(abyssContent || '');
+        Logger.info('prod-abyss rendered successfully');
+        sendHtmlResponse(res, renderContent);
+    } catch (error) {
+        sendErrorResponse(res, 'Error generating prod-abyss content', error);
+    }
+});
+
+/**
+ * Filemoon analyzer route
+ */
+app.get('/moon-analizer', async (req: Request, res: Response) => {
+    try {
+        const uriParameter = req.query[ANIYAE_HASH] as string;
+        Logger.debug('Processing moon-analizer', { uriParameter });
+
+        const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
+        const filemoonContent = filemoonAnalizer(decodedUri);
+        Logger.debug('Filemoon content analyzed', { filemoonContent });
+
+        const renderContent = raidenGeneral(filemoonContent || '');
+        Logger.info('moon-analizer rendered successfully');
+        sendHtmlResponse(res, renderContent);
+    } catch (error) {
+        sendErrorResponse(res, 'Error generating moon-analizer content', error);
+    }
+});
+
+/**
+ * Doodstream analyzer route
+ */
+app.get('/prod-dood-analyzer', async (req: Request, res: Response) => {
+    try {
+        const uriParameter = req.query[ANIYAE_HASH] as string;
+        Logger.debug('Processing prod-dood-analyzer', { uriParameter });
+
+        const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
+        const doodContent = performDoodAnalyzer(decodedUri);
+        Logger.debug('Dood content analyzed', { doodContent });
+
+        const renderContent = raidenGeneral(doodContent || '');
+        Logger.info('prod-dood-analyzer rendered successfully');
+        sendHtmlResponse(res, renderContent);
+    } catch (error) {
+        sendErrorResponse(res, 'Error generating prod-dood-analyzer content', error);
+    }
+});
+
+/**
+ * Okru analyzer route
+ */
+app.get('/prod-analizer-ok', async (req: Request, res: Response) => {
+    try {
+        const uriParameter = req.query[ANIYAE_HASH] as string;
+        Logger.debug('Processing prod-analizer-ok', { uriParameter });
+
+        const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
+        const OkContent = performOkruAnalyzer(decodedUri);
+        Logger.debug('Okru content analyzed', { OkContent });
+
+        const renderContent = raidenSanbox(OkContent || '');
+        Logger.info('prod-analizer-ok rendered successfully');
+        sendHtmlResponse(res, renderContent);
+    } catch (error) {
+        sendErrorResponse(res, 'Error generating prod-analizer-ok content', error);
+    }
+});
+
+/**
+ * Wishembed analyzer route
+ */
+app.get('/prod-analizer-wish', async (req: Request, res: Response) => {
+    try {
+        const uriParameter = req.query[ANIYAE_HASH] as string;
+        Logger.debug('Processing prod-analizer-wish', { uriParameter });
+
+        const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
+        const wishContent = performWishAnalyzer(decodedUri);
+        Logger.debug('Wish content analyzed', { wishContent });
+
+        const transformWish = wistTransform(wishContent);
+        Logger.debug('Wish content transformed', { transformWish });
+
+        const renderContent = raidenGeneral(transformWish || '');
+        Logger.info('prod-analizer-wish rendered successfully');
+        sendHtmlResponse(res, renderContent);
+    } catch (error) {
+        sendErrorResponse(res, 'Error generating prod-analizer-wish content', error);
+    }
+});
+
+/**
+ * Lulu analyzer route
+ */
+app.get('/prod-analizer-lulu', async (req: Request, res: Response) => {
+    try {
+        const uriParameter = req.query[ANIYAE_HASH] as string;
+        Logger.debug('Processing prod-analizer-lulu', { uriParameter });
+
+        const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
+        const luluContent = performLuluAnalyzer(decodedUri);
+        Logger.debug('Lulu content analyzed', { luluContent });
+
+        const qlsContent = await luluProd(luluContent);
+        Logger.debug('Lulu QLS content generated', { qlsContent });
+
+        const renderContent = raidenGeneral(qlsContent);
+        Logger.info('prod-analizer-lulu rendered successfully');
+        sendHtmlResponse(res, renderContent);
+    } catch (error) {
+        sendErrorResponse(res, 'Error generating prod-analizer-lulu content', error);
+    }
+});
+
+/**
+ * Lulust analyzer route
+ */
+app.get('/prod-analizer-lulust', async (req: Request, res: Response) => {
+    try {
+        const uriParameter = req.query[ANIYAE_HASH] as string;
+        Logger.debug('Processing prod-analizer-lulust', { uriParameter });
+
+        const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
+        const luluContent = performLulustAnalyzer(decodedUri);
+        Logger.debug('Lulust content analyzed', { luluContent });
+
+        const qlsContent = await luluProd(luluContent);
+        Logger.debug('Lulust QLS content generated', { qlsContent });
+
+        const renderContent = raidenGeneral(qlsContent);
+        Logger.info('prod-analizer-lulust rendered successfully');
+        sendHtmlResponse(res, renderContent);
+    } catch (error) {
+        sendErrorResponse(res, 'Error generating prod-analizer-lulust content', error);
+    }
+});
+
+/**
+ * Mixdrop analyzer route
+ */
+app.get('/prod-analizer-mixdrop', async (req: Request, res: Response) => {
+    try {
+        const uriParameter = req.query[ANIYAE_HASH] as string;
+        Logger.debug('Processing prod-analizer-mixdrop', { uriParameter });
+
+        const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
+        const mixdropContent = performMixdropAnalyzer(decodedUri);
+        Logger.debug('Mixdrop content analyzed', { mixdropContent });
+
+        const renderContent = raidenGeneral(mixdropContent || '');
+        Logger.info('prod-analizer-mixdrop rendered successfully');
+        sendHtmlResponse(res, renderContent);
+    } catch (error) {
+        sendErrorResponse(res, 'Error generating prod-analizer-mixdrop content', error);
+    }
+});
+
+/**
+ * Raiden player route
+ */
+app.get('/prod-raidenplayer', async (req: Request, res: Response) => {
+    try {
+        const uriParameter = req.query[ANIYAE_HASH] as string;
+        const image = req.query.image as string;
+        Logger.debug('Processing prod-raidenplayer', { uriParameter, image });
+
+        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        const renderContent = raidenPlayer(decodedUri, image);
+        Logger.info('prod-raidenplayer rendered successfully');
+        sendHtmlResponse(res, renderContent);
+    } catch (error) {
+        sendErrorResponse(res, 'Error generating prod-raidenplayer content', error);
+    }
 });
 
 /**
  * Proxied route - Handles multiple providers dynamically
  */
-app.get('/proxed', decodeUriMiddleware, async (req: Request, res: Response) => {
+app.get('/proxed', async (req: Request, res: Response) => {
     try {
-        const decodedUri = req.decodedUri!;
+        const uriParameter = req.query[ANIYAE_HASH] as string;
+        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
         Logger.debug('Processing proxed route', { decodedUri });
-        
+
         let setAnalyzer: string;
         let provider: string;
 
@@ -406,12 +467,15 @@ app.get('/proxed', decodeUriMiddleware, async (req: Request, res: Response) => {
 /**
  * Deprecated external route
  */
-app.get('/ext', decodeUriMiddleware, async (req: Request, res: Response) => {
+app.get('/ext', async (req: Request, res: Response) => {
     try {
-        Logger.warn('Deprecated /ext route accessed', { uri: req.decodedUri });
+        const uriParameter = req.query[ANIYAE_HASH] as string;
+        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        Logger.warn('Deprecated /ext route accessed', { uri: decodedUri });
+
         const response = {
             Error: 'Esta URI ya no será soportada en Aniyae, hemos enviado un reporte para su verificación',
-            Uri: req.decodedUri
+            Uri: decodedUri
         };
         res.json(response);
     } catch (error) {
@@ -422,14 +486,14 @@ app.get('/ext', decodeUriMiddleware, async (req: Request, res: Response) => {
 /**
  * Provisional route - Pillar down page
  */
-app.get('/provisional', decodeUriMiddleware, async (req: Request, res: Response) => {
+app.get('/provisional', async (req: Request, res: Response) => {
     try {
-        const { animeTitle } = req.query as QueryParams;
-        Logger.debug('Processing provisional route', { 
-            uri: req.decodedUri,
-            animeTitle 
-        });
-        const renderContent = pilarDown(req.decodedUri!, animeTitle || 'err');
+        const uriParameter = req.query[ANIYAE_HASH] as string;
+        const animeTitle = req.query.animeTitle as string;
+        Logger.debug('Processing provisional route', { uriParameter, animeTitle });
+
+        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        const renderContent = pilarDown(decodedUri, animeTitle);
         Logger.info('Provisional page rendered successfully');
         sendHtmlResponse(res, renderContent);
     } catch (error) {
@@ -440,10 +504,13 @@ app.get('/provisional', decodeUriMiddleware, async (req: Request, res: Response)
 /**
  * Provider down error page route
  */
-app.get('/prod-down', decodeUriMiddleware, async (req: Request, res: Response) => {
+app.get('/prod-down', async (req: Request, res: Response) => {
     try {
-        Logger.debug('Processing prod-down route', { uri: req.decodedUri });
-        const renderContent = errorWebsite(req.decodedUri!);
+        const uriParameter = req.query[ANIYAE_HASH] as string;
+        Logger.debug('Processing prod-down route', { uriParameter });
+
+        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        const renderContent = errorWebsite(decodedUri);
         Logger.info('prod-down page rendered successfully');
         sendHtmlResponse(res, renderContent);
     } catch (error) {
@@ -454,21 +521,17 @@ app.get('/prod-down', decodeUriMiddleware, async (req: Request, res: Response) =
 /**
  * Health check endpoint
  */
-app.get('/health', (req: Request, res: Response) => {
+app.get('/health', async (req: Request, res: Response) => {
     const healthData = {
         status: 'OK',
         environment: NODE_ENV,
         timestamp: new Date().toISOString(),
-        uptime: process.uptime(),
-        availableProviders: IS_DEVELOPMENT ? getAvailableProviders() : undefined
+        uptime: process.uptime()
     };
-    
+
     Logger.debug('Health check performed', healthData);
     res.status(HTTP_STATUS.OK).json(healthData);
 });
-
-// Apply global error handler
-app.use(errorHandler);
 
 // Start server
 app.listen(PORT, () => {
@@ -477,17 +540,15 @@ app.listen(PORT, () => {
     console.log('='.repeat(60));
     console.log(`📡 Port: ${PORT}`);
     console.log(`🌍 Environment: ${NODE_ENV}`);
-    console.log(`🔧 Debug Mode: ${IS_DEVELOPMENT ? 'ENABLED' : 'DISABLED'}`);
+    console.log(`🔧 Debug Mode: ${IS_DEVELOPMENT ? 'ENABLED ✅' : 'DISABLED ❌'}`);
     console.log(`🔐 Hash Parameter: ${ANIYAE_HASH || '[NOT SET]'}`);
     console.log(`⏰ Started at: ${new Date().toISOString()}`);
-    console.log(`📦 Available Providers: ${getAvailableProviders().length}`);
     console.log('='.repeat(60) + '\n');
-    
+
     if (IS_DEVELOPMENT) {
         Logger.warn('Running in DEVELOPMENT mode - Detailed errors will be shown');
-        Logger.info('Available providers:', getAvailableProviders());
-    } else {
-        Logger.info('Running in PRODUCTION mode - Errors will be sanitized');
+    } else if (IS_PRODUCTION) {
+        Logger.info('Running in PRODUCTION mode - Errors will be sanitized and redirected');
     }
 });
 
