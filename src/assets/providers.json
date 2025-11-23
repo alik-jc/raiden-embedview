@@ -36,6 +36,8 @@
     { "key": "fviplions.com", "value": "prod-down" },
     { "key": "filelions", "value": "prod-down" },
     { "key": "fviplions", "value": "prod-down" },
+    { "key": "streamvid", "value": "prod-down" },
+    { "key": "wolfstream", "value": "prod-down" },
     { "key": "filelions.online", "value": "prod-down" },
 
     { "key": "hqq", "value": "prod-general" },
@@ -117,12 +119,13 @@
     
 
     { "key": "dailymotion", "value": "prod-snbox" },
-    { "key": "streamvid", "value": "prod-snbox" },
+
     { "key": "luluvdoo", "value": "prod-analizer-lulust" },
     { "key": "luluvdo", "value": "prod-analizer-lulu" },
     { "key": "lulu.st", "value": "prod-analizer-lulust" },
     { "key": "lulustream", "value": "prod-analizer-lulust" },
     { "key": "lulu", "value": "prod-analizer-lulust"},
+
     { "key": "yourupload", "value": "prod-snbox" },
     { "key": "krakenfiles", "value": "prod-snbox" },
     { "key": "mega.nz", "value": "prod-snbox" },
@@ -130,7 +133,6 @@
     { "key": "burstcloud", "value": "prod-snbox" },
     { "key": "htstreaming", "value": "prod-snbox" },
     { "key": "kitabmarkaz", "value": "prod-snbox" },
-    { "key": "wolfstream", "value": "prod-snbox" },
     { "key": "ryderjet", "value": "prod-snbox" },
     
     { "key": "catbox", "value": "prod-raidenplayer" },

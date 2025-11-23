@@ -353,7 +353,7 @@ app.get('/prod-analizer-lulu', async (req: Request, res: Response) => {
         const luluContent = performLuluAnalyzer(decodedUri);
         Logger.debug('Lulu content analyzed', { luluContent });
 
-        const qlsContent = await luluProd(luluContent);
+        const qlsContent = await proxedXn(luluContent);
         Logger.debug('Lulu QLS content generated', { qlsContent });
 
         const renderContent = raidenGeneral(qlsContent);
@@ -376,7 +376,7 @@ app.get('/prod-analizer-lulust', async (req: Request, res: Response) => {
         const luluContent = performLulustAnalyzer(decodedUri);
         Logger.debug('Lulust content analyzed', { luluContent });
 
-        const qlsContent = await luluProd(luluContent);
+        const qlsContent = await proxedXn(luluContent);
         Logger.debug('Lulust QLS content generated', { qlsContent });
 
         const renderContent = raidenGeneral(qlsContent);
