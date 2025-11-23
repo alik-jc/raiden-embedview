@@ -1,6 +1,6 @@
 # 🎬 Raiden Embedview Manager
 
-Un servidor proxy ligero y eficiente construido con Express y TypeScript para gestionar la reproducción de video desde múltiples proveedores en [aniyae.net](https://aniyae.net). Este proyecto facilita la integración de más de 100 proveedores de video mediante un sistema de embedview centralizado con URLs encriptadas.
+Un servidor proxy ligero y eficiente construido con Express y TypeScript para gestionar la reproducción de video desde múltiples proveedores en [aniyae.net](https://aniyae.net). Este proyecto facilita la integración de 140+ proveedores de video mediante un sistema de embedview centralizado con URLs encriptadas.
 
 ## 📋 Tabla de Contenidos
 
@@ -21,7 +21,7 @@ Un servidor proxy ligero y eficiente construido con Express y TypeScript para ge
 
 - 🚀 **Servidor Express** con TypeScript para type-safety
 - 🔒 **Sistema de hash** para URLs encriptadas en base64
-- 📡 **Integración con más de 100 proveedores** de video (Doodstream, Wishembed, Filemoon, Mixdrop, Lulu, OK.ru, y muchos más)
+- 📡 **Integración con 140+ proveedores** de video (Doodstream, Wishembed, Filemoon, Mixdrop, Lulu, OK.ru, y muchos más)
 - 🎯 **Sistema de proveedores modular** con estrategia de patrón Strategy
 - 🔄 **Compatibilidad retroactiva** con rutas legacy
 - ⚡ **Hot-reload** en desarrollo con Nodemon
@@ -166,8 +166,8 @@ raiden-embedview/
 │   │   ├── prod-snbox.ts         # Proveedor Sandbox
 │   │   └── prod-uri-analizer.ts  # Analizadores de URI
 │   ├── conmuter.ts          # Lógica de conmutación de proveedores
-│   ├── embed-serv.ts        # Servidor principal (entry point)
-│   └── index.ts             # Exportaciones centralizadas
+│   ├── embed-serv.ts        # Servidor principal (entry point de la aplicación)
+│   └── index.ts             # Re-exporta módulos para facilitar imports
 ├── dist/                    # Código compilado (generado por build)
 ├── .env.example             # Plantilla de variables de entorno
 ├── .eslintrc.json           # Configuración de ESLint
@@ -185,7 +185,7 @@ El proyecto utiliza un **patrón Strategy** para manejar diferentes proveedores 
 2. **provider-strategy.ts** - Implementa la lógica de selección y ejecución de handlers
 3. **Módulos de proveedores** - Cada archivo `prod-*.ts` implementa la lógica específica para tipos de proveedores
 
-El sistema soporta más de 100 proveedores incluyendo:
+El sistema soporta 140+ proveedores incluyendo:
 - Doodstream, Wishembed, Streamwish, Filemoon
 - Mixdrop, Lulu, OK.ru, Uqload
 - Y muchos más (ver `src/assets/providers.json` para lista completa)
