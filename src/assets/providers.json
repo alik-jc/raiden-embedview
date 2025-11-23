@@ -94,9 +94,11 @@
     { "key": "streamtape", "value": "prod-general" },
     { "key": "drive.google.com", "value": "prod-general" },
     { "key": "mediafire", "value": "prod-general" },
-    { "key": "uqload", "value": "proxed" },
-    { "key": "yandex", "value": "proxed" },
     { "key": "iceyfile", "value": "prod-snbox" },
+
+    { "key": "uqload", "value": "proxed-xn" },
+    { "key": "yandex", "value": "proxed-xn" },
+    
     { "key": "ok.ru", "value": "prod-analizer-ok" },
     { "key": "https://ok.ru", "value": "prod-analizer-ok" },
     { "key": "http://ok.ru", "value": "prod-analizer-ok" },

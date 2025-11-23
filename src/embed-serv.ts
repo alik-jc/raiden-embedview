@@ -20,7 +20,8 @@ import {
     performLulustAnalyzer,
     PROVIDERS_JSON,
     performDoodAnalyzer,
-    filemoonAnalizer
+    filemoonAnalizer,
+    proxedXn
 } from './index';
 
 import { performConmutation } from './conmuter';
@@ -421,6 +422,26 @@ app.get('/prod-raidenplayer', async (req: Request, res: Response) => {
         sendHtmlResponse(res, renderContent);
     } catch (error) {
         sendErrorResponse(res, 'Error generating prod-raidenplayer content', error);
+    }
+});
+
+/** 
+ * Default proxed
+*/
+app.get('/proxed-xn', async (req: Request, res: Response) => {
+    try {
+        const uriParameter = req.query[ANIYAE_HASH] as string;
+        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        Logger.debug('Processing proxed-xn route', { decodedUri });
+
+        const setAnalyzer = await proxedXn(decodedUri);
+        Logger.debug('Proxed-XN content generated', { setAnalyzer });
+
+        const renderContent = raidenGeneral(setAnalyzer);
+        Logger.info('Proxed-XN route rendered successfully');
+        sendHtmlResponse(res, renderContent);
+    } catch (error) {
+        sendErrorResponse(res, 'Error generating proxed-xn content', error);
     }
 });
 

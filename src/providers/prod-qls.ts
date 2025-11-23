@@ -62,3 +62,11 @@ export const fmoonProd = async (uriParameter: string) => {
 
     return urlResponse;
 };
+
+export const proxedXn = async (uriParameter: string) => {
+    const json = SET_CORE_URI;
+    const urlSet = json.xn;
+    const responseUrl = urlSet + uriParameter;
+
+    return responseUrl;
+};
