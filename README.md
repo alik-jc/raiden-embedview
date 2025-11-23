@@ -1,6 +1,6 @@
 # 🎬 Raiden Embedview Manager
 
-Un servidor proxy ligero y eficiente construido con Express y TypeScript para gestionar las opciones de reproductor (player options) en [aniyae.net](https://aniyae.net). Este proyecto facilita la integración de múltiples proveedores de video mediante un sistema de embedview centralizado.
+Un servidor proxy ligero y eficiente construido con Express y TypeScript para gestionar la reproducción de video desde múltiples proveedores en [aniyae.net](https://aniyae.net). Este proyecto facilita la integración de 140+ proveedores de video mediante un sistema de embedview centralizado con URLs encriptadas.
 
 ## 📋 Tabla de Contenidos
 
@@ -21,11 +21,12 @@ Un servidor proxy ligero y eficiente construido con Express y TypeScript para ge
 
 - 🚀 **Servidor Express** con TypeScript para type-safety
 - 🔒 **Sistema de hash** para URLs encriptadas en base64
-- 📡 **Integración con múltiples proveedores** de video
-- 🎯 **User-Agent personalizable** para requests
-- 📊 **Monitoreo con Sentry** para tracking de errores
+- 📡 **Integración con 140+ proveedores** de video (Doodstream, Wishembed, Filemoon, Mixdrop, Lulu, OK.ru, y muchos más)
+- 🎯 **Sistema de proveedores modular** con estrategia de patrón Strategy
+- 🔄 **Compatibilidad retroactiva** con rutas legacy
 - ⚡ **Hot-reload** en desarrollo con Nodemon
 - 🔧 **Linting con ESLint** para código limpio
+- 🏥 **Health check endpoint** para monitoreo del servidor
 
 ## 📦 Requisitos Previos
 
@@ -62,15 +63,27 @@ Configura las siguientes variables:
 
 | Variable | Descripción | Ejemplo |
 |----------|-------------|---------|
-| `SRV_URI` | Puerto del servidor | `3000` |
-| `HASH` | Hash usado en la URL para seguridad | `yourSecretHash` |
-| `USER_AGENT` | User agent para requests a proveedores | `Mozilla/5.0...` |
+| `SRV_URI` | Puerto donde el servidor escuchará | `3000` |
+| `HASH` | Hash secreto usado para validar URLs encriptadas | `mySecretHash123` |
+| `USER_AGENT` | User agent para requests a proveedores externos | `Mozilla/5.0 (Windows NT 10.0; Win64; x64)...` |
 
-### Ejemplo de uso de URL
+### Ejemplo de `.env`
+
+```env
+SRV_URI=3000
+HASH=mySecretHash123
+USER_AGENT=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+```
+
+### Cómo funciona la URL
+
+El servidor utiliza URLs encriptadas en base64 con el hash configurado:
 
 ```
-http://localhost:3000/?yourSecretHash=yourBase64EncodedURL
+http://localhost:3000/?mySecretHash123=aHR0cHM6Ly9kb29kLndzL2UvZXhhbXBsZQ==
 ```
+
+Donde `aHR0cHM6Ly9kb29kLndzL2UvZXhhbXBsZQ==` es la URL del proveedor codificada en base64.
 
 ## 🎯 Uso
 
@@ -82,7 +95,7 @@ Inicia el servidor con hot-reload:
 npm run dev
 ```
 
-El servidor estará disponible en `http://localhost:SRV_URI`
+El servidor estará disponible en `http://localhost:[SRV_URI]` (puerto configurado en `.env`)
 
 ### Modo Producción
 
@@ -91,6 +104,8 @@ El servidor estará disponible en `http://localhost:SRV_URI`
 ```bash
 npm run build
 ```
+
+Este comando ejecuta el linting y compila TypeScript a JavaScript en el directorio `dist/`.
 
 2. **Iniciar el servidor:**
 
@@ -108,36 +123,81 @@ npm run dp
 
 Este comando:
 1. Hace pull del repositorio
-2. Construye el proyecto
+2. Ejecuta linting y construye el proyecto
 3. Reinicia todos los procesos de PM2
+
+## 🌐 Endpoints Disponibles
+
+### Endpoint Principal
+- **GET /** - Ruta principal que decodifica la URL y redirige al proveedor apropiado
+  - Query params: `?[HASH]=[base64EncodedURL]&image=[imageUrl]&animeTitle=[title]`
+
+### Endpoint de Proveedores
+- **GET /provider/:providerName** - Maneja proveedores específicos
+  - Proveedores disponibles: `dood`, `ok`, `wish`, `lulu`, `lulust`, `mixdrop`, `raidenplayer`, `moon`, `abyss`, `general`, `snbox`
+
+### Rutas Legacy (Retrocompatibilidad)
+- `/prod-dood-analyzer`, `/prod-analizer-ok`, `/prod-analizer-wish`, etc.
+  - Redirigen automáticamente a `/provider/[nombre]`
+
+### Otros Endpoints
+- **GET /proxed** - Maneja proveedores específicos (lulu, filemoon, uqload)
+- **GET /provisional** - Página de proveedor no disponible temporalmente
+- **GET /prod-down** - Página de error para proveedores caídos
+- **GET /health** - Health check del servidor
 
 ## 📁 Estructura del Proyecto
 
 ```
 raiden-embedview/
 ├── src/
-│   ├── assets/          # Recursos estáticos
-│   ├── providers/       # Integraciones con proveedores de video
-│   ├── conmuter.ts      # Lógica del conmutador
-│   ├── embed-serv.ts    # Servidor principal
-│   └── index.ts         # Punto de entrada
-├── dist/                # Código compilado (generado)
-├── .env.example         # Plantilla de variables de entorno
-├── .eslintrc.json       # Configuración de ESLint
-├── .gitignore           # Archivos ignorados por Git
-├── package.json         # Dependencias y scripts
-├── tsconfig.json        # Configuración de TypeScript
-└── README.md            # Este archivo
+│   ├── assets/              # Recursos estáticos y configuración
+│   │   ├── assets.ts        # Exportaciones de assets
+│   │   ├── providers.json   # Mapeo de proveedores (100+ proveedores)
+│   │   └── set-core.json    # Configuración del core
+│   ├── providers/           # Integraciones con proveedores de video
+│   │   ├── provider-strategy.ts  # Sistema de estrategia de proveedores
+│   │   ├── prod-base.ts          # Funciones base de proveedores
+│   │   ├── prod-down.ts          # Página de error para proveedores caídos
+│   │   ├── prod-general.ts       # Proveedor genérico
+│   │   ├── prod-qls.ts           # Funciones QLS
+│   │   ├── prod-raidenplayer.ts  # Reproductor Raiden
+│   │   ├── prod-secure.ts        # Funciones de seguridad
+│   │   ├── prod-snbox.ts         # Proveedor Sandbox
+│   │   └── prod-uri-analizer.ts  # Analizadores de URI
+│   ├── conmuter.ts          # Lógica de conmutación de proveedores
+│   ├── embed-serv.ts        # Servidor principal (entry point de la aplicación)
+│   └── index.ts             # Re-exporta módulos para facilitar imports
+├── dist/                    # Código compilado (generado por build)
+├── .env.example             # Plantilla de variables de entorno
+├── .eslintrc.json           # Configuración de ESLint
+├── .gitignore               # Archivos ignorados por Git
+├── package.json             # Dependencias y scripts
+├── tsconfig.json            # Configuración de TypeScript
+└── README.md                # Este archivo
 ```
+
+### Arquitectura de Proveedores
+
+El proyecto utiliza un **patrón Strategy** para manejar diferentes proveedores de video:
+
+1. **providers.json** - Define el mapeo entre dominios de proveedores y sus handlers
+2. **provider-strategy.ts** - Implementa la lógica de selección y ejecución de handlers
+3. **Módulos de proveedores** - Cada archivo `prod-*.ts` implementa la lógica específica para tipos de proveedores
+
+El sistema soporta 140+ proveedores incluyendo:
+- Doodstream, Wishembed, Streamwish, Filemoon
+- Mixdrop, Lulu, OK.ru, Uqload
+- Y muchos más (ver `src/assets/providers.json` para lista completa)
 
 ## 📜 Scripts Disponibles
 
 | Script | Comando | Descripción |
 |--------|---------|-------------|
-| Desarrollo | `npm run dev` | Inicia el servidor con hot-reload |
-| Build | `npm run build` | Compila TypeScript y ejecuta linting |
-| Producción | `npm start` | Inicia el servidor en modo producción |
-| Deploy | `npm run dp` | Pull, build y restart con PM2 |
+| Desarrollo | `npm run dev` | Inicia el servidor con hot-reload usando nodemon y ts-node |
+| Build | `npm run build` | Ejecuta ESLint y compila TypeScript a JavaScript en `dist/` |
+| Producción | `npm start` | Inicia el servidor en modo producción desde `dist/embed-serv.js` |
+| Deploy | `npm run dp` | Pull, build y restart con PM2 (requiere PM2 instalado) |
 
 ## 🌐 Despliegue
 
@@ -177,12 +237,14 @@ pm2 startup
 
 ## 🛠 Tecnologías
 
-- **[TypeScript](https://www.typescriptlang.org/)** - Lenguaje principal
-- **[Express](https://expressjs.com/)** - Framework web
-- **[Axios](https://axios-http.com/)** - Cliente HTTP
-- **[Sentry](https://sentry.io/)** - Monitoreo de errores
-- **[ESLint](https://eslint.org/)** - Linting de código
+- **[Node.js](https://nodejs.org/)** - Runtime de JavaScript
+- **[TypeScript](https://www.typescriptlang.org/)** - Lenguaje principal con tipado estático
+- **[Express](https://expressjs.com/)** - Framework web minimalista
+- **[Axios](https://axios-http.com/)** - Cliente HTTP para requests a proveedores
+- **[dotenv](https://github.com/motdotla/dotenv)** - Gestión de variables de entorno
+- **[ESLint](https://eslint.org/)** - Linting y análisis estático de código
 - **[Nodemon](https://nodemon.io/)** - Hot-reload en desarrollo
+- **[ts-node](https://typestrong.org/ts-node/)** - Ejecución de TypeScript directa
 
 ## 🤝 Contribuir
 
