@@ -9,9 +9,10 @@ process.env.HASH = 'testHash';
 describe('Server Routes', () => {
   let app: express.Application;
 
-  beforeAll(() => {
+  beforeAll(async () => {
     // Importar la app después de setear las variables de entorno
-    app = require('../../src/embed-serv').default;
+    const module = await import('../../embed-serv');
+    app = module.default;
   });
 
   describe('GET /health', () => {

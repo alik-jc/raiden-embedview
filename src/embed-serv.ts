@@ -55,14 +55,8 @@ interface ErrorResponse {
     path?: string;
 }
 
-interface QueryParams {
-    [key: string]: string | undefined;
-    image?: string;
-    animeTitle?: string;
-}
-
 // Utility: Debug Logger
-class Logger {
+export class Logger {
     private static formatTimestamp(): string {
         return new Date().toISOString().replace('T', ' ').slice(0, 19);
     }
@@ -533,23 +527,25 @@ app.get('/health', async (req: Request, res: Response) => {
     res.status(HTTP_STATUS.OK).json(healthData);
 });
 
-// Start server
-app.listen(PORT, () => {
-    console.log('\n' + '='.repeat(60));
-    console.log('🚀 Raiden Embedview Server Started');
-    console.log('='.repeat(60));
-    console.log(`📡 Port: ${PORT}`);
-    console.log(`🌍 Environment: ${NODE_ENV}`);
-    console.log(`🔧 Debug Mode: ${IS_DEVELOPMENT ? 'ENABLED ✅' : 'DISABLED ❌'}`);
-    console.log(`🔐 Hash Parameter: ${ANIYAE_HASH || '[NOT SET]'}`);
-    console.log(`⏰ Started at: ${new Date().toISOString()}`);
-    console.log('='.repeat(60) + '\n');
+// Start server only if this file is run directly
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log('\n' + '='.repeat(60));
+        console.log('🚀 Raiden Embedview Server Started');
+        console.log('='.repeat(60));
+        console.log(`📡 Port: ${PORT}`);
+        console.log(`🌍 Environment: ${NODE_ENV}`);
+        console.log(`🔧 Debug Mode: ${IS_DEVELOPMENT ? 'ENABLED ✅' : 'DISABLED ❌'}`);
+        console.log(`🔐 Hash Parameter: ${ANIYAE_HASH || '[NOT SET]'}`);
+        console.log(`⏰ Started at: ${new Date().toISOString()}`);
+        console.log('='.repeat(60) + '\n');
 
-    if (IS_DEVELOPMENT) {
-        Logger.warn('Running in DEVELOPMENT mode - Detailed errors will be shown');
-    } else if (IS_PRODUCTION) {
-        Logger.info('Running in PRODUCTION mode - Errors will be sanitized and redirected');
-    }
-});
+        if (IS_DEVELOPMENT) {
+            Logger.warn('Running in DEVELOPMENT mode - Detailed errors will be shown');
+        } else if (IS_PRODUCTION) {
+            Logger.info('Running in PRODUCTION mode - Errors will be sanitized and redirected');
+        }
+    });
+}
 
 export default app;
