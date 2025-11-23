@@ -13,6 +13,8 @@ import {
     luluProd,
     uqloProd,
     fmoonProd,
+    wishHgProd,
+    proxedXn,
     performMixdropAnalyzer,
     wistTransform,
     performLuluAnalyzer,
@@ -21,7 +23,6 @@ import {
     PROVIDERS_JSON,
     performDoodAnalyzer,
     filemoonAnalizer,
-    proxedXn
 } from './index';
 
 import { performConmutation } from './conmuter';
@@ -332,8 +333,11 @@ app.get('/prod-analizer-wish', async (req: Request, res: Response) => {
 
         const transformWish = wistTransform(wishContent);
         Logger.debug('Wish content transformed', { transformWish });
+        
+        const proxedWish = await wishHgProd(wishContent);
+        Logger.debug('Wish QLS content generated', { proxedWish });
 
-        const renderContent = raidenGeneral(transformWish || '');
+        const renderContent = raidenGeneral(proxedWish || '');
         Logger.info('prod-analizer-wish rendered successfully');
         sendHtmlResponse(res, renderContent);
     } catch (error) {

@@ -63,6 +63,19 @@ export const fmoonProd = async (uriParameter: string) => {
     return urlResponse;
 };
 
+export const wishHgProd = async (uriParameter: string) => {
+    const json = SET_CORE_URI;
+    const urlSet = json.wishg;
+
+    const hashMatch = uriParameter.match(/\/e\/([^/]+)/); // Modified regex to match /e/
+    const hash = hashMatch ? hashMatch[1] : '';
+    
+    const urlResponse = hash
+        ? urlSet + hash
+        : urlSet + '/' + uriParameter;
+    return urlResponse;
+}
+
 export const proxedXn = async (uriParameter: string) => {
     const json = SET_CORE_URI;
     const urlSet = json.xn;

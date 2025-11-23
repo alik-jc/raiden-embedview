@@ -90,14 +90,14 @@ export const performWishAnalyzer = (decodedUri: string) => {
         return decodedUri
     } else {
         const wish: wish = {
-            "https://wishfast.top/": "https://wishfast.top/e/",
-            "https://streamwish.top/": "https://streamwish.to/e/",
-            "https://flaswish.com/": "https://flaswish.com/e/",
-            "https://sfastwish.com/": "https://sfastwish.com/e/",
-            "https://obeywish.com/": "https://sfastwish.com/e/",
-            "https://streamwish.com/e/": "https://streamwish.to/e/",
-            "https://streamwish.to/": "https://streamwish.to/e/",
-            "https://embedwish.com/e/": "https://streamwish.to/e/"
+            "https://wishfast.top/": "https://streamhg.com/e/",
+            "https://streamwish.top/": "https://streamhg.com/e/",
+            "https://flaswish.com/": "https://streamhg.com/e/",
+            "https://sfastwish.com/": "https://streamhg.com/e/",
+            "https://obeywish.com/": "https://streamhg.com/e/",
+            "https://streamwish.com/e/": "https://streamhg.com/e/",
+            "https://streamwish.to/": "https://streamhg.com/e/",
+            "https://embedwish.com/e/": "https://streamhg.com/e/"
         }
         const finded = Object.keys(wish).find(key => decodedUri.includes(key));
         const newUri = decodedUri.replace(finded!, wish[finded!]);
@@ -136,18 +136,16 @@ export const performLulustAnalyzer = (decodedUri: string) => {
 
 export const wistTransform = (decodedUri: string) => {
         const wishdomain: { [key: string]: string } = {
-            "embedwish.com": "streamwish.to",
-            "streamwish.com": "streamwish.to",
-            "streamwish.top": "streamwish.to",
-            "flaswish.com": "streamwish.to",
-            "sfastwish.com": "streamwish.to",
-            "obeywish.com": "streamwish.to",
-            "jodwish.com": "streamwish.to",
-            "wishfast.top": "streamwish.to",
-            "swhoi.com": "streamwish.to",
-            ".com": ".to",
-            ".top": ".to",
-            ".net": ".to"
+            "embedwish.com": "streamhg.com",
+            "streamwish.com": "streamhg.com",
+            "streamwish.top": "streamhg.com",
+            "streamwish.to": "streamhg.com",
+            "flaswish.com": "streamhg.com",
+            "sfastwish.com": "streamhg.com",
+            "obeywish.com": "streamhg.com",
+            "jodwish.com": "streamhg.com",
+            "wishfast.top": "streamhg.com",
+            "swhoi.com": "streamhg.com",
         }
         const finded = Object.keys(wishdomain).find(key => decodedUri.includes(key));
         const newUri = decodedUri.replace(finded!, wishdomain[finded!]);
