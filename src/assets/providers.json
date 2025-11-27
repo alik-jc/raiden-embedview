@@ -60,9 +60,9 @@
 
     { "key": "filemoon.sx", "value": "moon-analizer" },
     { "key": "filemoon.nl", "value": "moon-analizer" },
-    { "key": "filemoon.top", "value": "prod-general" },
-    { "key": "filemoon", "value": "prod-general" },
-    { "key": "filemooon", "value": "prod-general" },
+    { "key": "filemoon.top", "value": "moon-analizer" },
+    { "key": "filemoon", "value": "moon-analizer" },
+    { "key": "filemooon", "value": "moon-analizer" },
 
     { "key": "mixdrop", "value": "prod-analizer-mixdrop" },
     { "key": "mxdrop", "value": "prod-analizer-mixdrop" },
