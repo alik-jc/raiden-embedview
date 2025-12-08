@@ -271,10 +271,10 @@ app.get('/moon-analizer', async (req: Request, res: Response) => {
         const filemoonContent = filemoonAnalizer(decodedUri);
         Logger.debug('Filemoon content analyzed', { filemoonContent });
 
-        const proxedContent = await fmoonProd(filemoonContent || '');
-        Logger.debug('Filemoon proxied content generated', { proxedContent });
+        //const proxedContent = await fmoonProd(filemoonContent || '');
+        //Logger.debug('Filemoon proxied content generated', { proxedContent });
 
-        const renderContent = raidenGeneral(proxedContent || '');
+        const renderContent = raidenGeneral(filemoonContent || '');
         Logger.info('moon-analizer rendered successfully');
         sendHtmlResponse(res, renderContent);
     } catch (error) {
@@ -337,10 +337,10 @@ app.get('/prod-analizer-wish', async (req: Request, res: Response) => {
         const transformWish = wistTransform(wishContent);
         Logger.debug('Wish content transformed', { transformWish });
         
-        const proxedWish = await wishHgProd(wishContent);
-        Logger.debug('Wish QLS content generated', { proxedWish });
+        //const proxedWish = await wishHgProd(wishContent);
+        //Logger.debug('Wish QLS content generated', { proxedWish });
 
-        const renderContent = raidenGeneral(proxedWish || '');
+        const renderContent = raidenGeneral(transformWish || '');
         Logger.info('prod-analizer-wish rendered successfully');
         sendHtmlResponse(res, renderContent);
     } catch (error) {
@@ -360,10 +360,10 @@ app.get('/prod-analizer-lulu', async (req: Request, res: Response) => {
         const luluContent = performLuluAnalyzer(decodedUri);
         Logger.debug('Lulu content analyzed', { luluContent });
 
-        const qlsContent = await proxedXn(luluContent);
-        Logger.debug('Lulu QLS content generated', { qlsContent });
+        const proxedLulu = await proxedXn(luluContent);
+        Logger.debug('Lulu QLS content generated', { proxedLulu });
 
-        const renderContent = raidenGeneral(qlsContent);
+        const renderContent = raidenGeneral(proxedLulu);
         Logger.info('prod-analizer-lulu rendered successfully');
         sendHtmlResponse(res, renderContent);
     } catch (error) {
@@ -383,10 +383,10 @@ app.get('/prod-analizer-lulust', async (req: Request, res: Response) => {
         const luluContent = performLulustAnalyzer(decodedUri);
         Logger.debug('Lulust content analyzed', { luluContent });
 
-        const qlsContent = await proxedXn(luluContent);
-        Logger.debug('Lulust QLS content generated', { qlsContent });
+        const proxedLulu = await proxedXn(luluContent);
+        Logger.debug('Lulust QLS content generated', { proxedLulu });
 
-        const renderContent = raidenGeneral(qlsContent);
+        const renderContent = raidenGeneral(proxedLulu);
         Logger.info('prod-analizer-lulust rendered successfully');
         sendHtmlResponse(res, renderContent);
     } catch (error) {
