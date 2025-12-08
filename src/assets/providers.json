@@ -63,6 +63,8 @@
     { "key": "filemoon.top", "value": "moon-analizer" },
     { "key": "filemoon", "value": "moon-analizer" },
     { "key": "filemooon", "value": "moon-analizer" },
+    { "key": "bysewihe.com", "value": "moon-analizer" },
+
 
     { "key": "mixdrop", "value": "prod-analizer-mixdrop" },
     { "key": "mxdrop", "value": "prod-analizer-mixdrop" },
@@ -116,6 +118,7 @@
     { "key": "swhoi", "value": "prod-analizer-wish" },
     { "key": "wishcdn", "value": "prod-analizer-wish" },
     { "key": "wishonly", "value": "prod-analizer-wish" },
+    { "key": "hglink.to", "value": "prod-analizer-wish" },
     
 
     { "key": "dailymotion", "value": "prod-snbox" },
