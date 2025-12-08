@@ -340,7 +340,7 @@ app.get('/prod-analizer-wish', async (req: Request, res: Response) => {
         const proxedWish = await wishHgProd(wishContent);
         Logger.debug('Wish QLS content generated', { proxedWish });
 
-        const renderContent = raidenGeneral(transformWish || '');
+        const renderContent = raidenGeneral(proxedWish || '');
         Logger.info('prod-analizer-wish rendered successfully');
         sendHtmlResponse(res, renderContent);
     } catch (error) {
