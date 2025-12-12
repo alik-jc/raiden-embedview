@@ -24,14 +24,13 @@ Un servidor proxy ligero y eficiente construido con Express y TypeScript para ge
 - 📡 **Integración con 140+ proveedores** de video (Doodstream, Wishembed, Filemoon, Mixdrop, Lulu, OK.ru, y muchos más)
 - 🎯 **Sistema de proveedores modular** con estrategia de patrón Strategy
 - 🔄 **Compatibilidad retroactiva** con rutas legacy
-- ⚡ **Hot-reload** en desarrollo con Nodemon
+- ⚡ **Hot-reload** en desarrollo con Bun --watch
 - 🔧 **Linting con ESLint** para código limpio
 - 🏥 **Health check endpoint** para monitoreo del servidor
 
 ## 📦 Requisitos Previos
 
-- Node.js (v14 o superior)
-- npm o yarn
+- Bun (v1.0 o superior) [Descarga aquí](https://bun.sh)
 - Git
 
 ## 🚀 Instalación
@@ -46,7 +45,7 @@ cd raiden-embedview
 ### 2. Instalar dependencias
 
 ```bash
-npm install
+bun install
 ```
 
 ## ⚙️ Configuración
@@ -92,7 +91,7 @@ Donde `aHR0cHM6Ly9kb29kLndzL2UvZXhhbXBsZQ==` es la URL del proveedor codificada 
 Inicia el servidor con hot-reload:
 
 ```bash
-npm run dev
+bun dev
 ```
 
 El servidor estará disponible en `http://localhost:[SRV_URI]` (puerto configurado en `.env`)
@@ -102,7 +101,7 @@ El servidor estará disponible en `http://localhost:[SRV_URI]` (puerto configura
 1. **Construir el proyecto:**
 
 ```bash
-npm run build
+bun run build
 ```
 
 Este comando ejecuta el linting y compila TypeScript a JavaScript en el directorio `dist/`.
@@ -110,7 +109,7 @@ Este comando ejecuta el linting y compila TypeScript a JavaScript en el director
 2. **Iniciar el servidor:**
 
 ```bash
-npm start
+bun start
 ```
 
 ### Script de Deploy
@@ -118,7 +117,7 @@ npm start
 Para actualizar y reiniciar en producción (requiere PM2):
 
 ```bash
-npm run dp
+bun run dp
 ```
 
 Este comando:
@@ -194,10 +193,10 @@ El sistema soporta 140+ proveedores incluyendo:
 
 | Script | Comando | Descripción |
 |--------|---------|-------------|
-| Desarrollo | `npm run dev` | Inicia el servidor con hot-reload usando nodemon y ts-node |
-| Build | `npm run build` | Ejecuta ESLint y compila TypeScript a JavaScript en `dist/` |
-| Producción | `npm start` | Inicia el servidor en modo producción desde `dist/embed-serv.js` |
-| Deploy | `npm run dp` | Pull, build y restart con PM2 (requiere PM2 instalado) |
+| Desarrollo | `bun dev` | Inicia el servidor con hot-reload usando bun --watch |
+| Build | `bun run build` | Ejecuta ESLint y compila con Bun build |
+| Producción | `bun start` | Inicia el servidor en modo producción |
+| Deploy | `bun run dp` | Pull, build y restart con PM2 (requiere PM2 instalado) |
 
 ## 🌐 Despliegue
 
@@ -217,7 +216,7 @@ También es compatible con:
 - **Railway**
 - **Render**
 - **DigitalOcean App Platform**
-- Cualquier plataforma que soporte Node.js
+- Cualquier plataforma que soporte Bun o Node.js
 
 ### Deploy Manual con PM2
 
@@ -237,14 +236,12 @@ pm2 startup
 
 ## 🛠 Tecnologías
 
-- **[Node.js](https://nodejs.org/)** - Runtime de JavaScript
+- **[Bun](https://bun.sh/)** - Runtime de JavaScript ultrarrápido con soporte nativo para TypeScript
 - **[TypeScript](https://www.typescriptlang.org/)** - Lenguaje principal con tipado estático
 - **[Express](https://expressjs.com/)** - Framework web minimalista
 - **[Axios](https://axios-http.com/)** - Cliente HTTP para requests a proveedores
 - **[dotenv](https://github.com/motdotla/dotenv)** - Gestión de variables de entorno
 - **[ESLint](https://eslint.org/)** - Linting y análisis estático de código
-- **[Nodemon](https://nodemon.io/)** - Hot-reload en desarrollo
-- **[ts-node](https://typestrong.org/ts-node/)** - Ejecución de TypeScript directa
 
 ## 🤝 Contribuir
 
