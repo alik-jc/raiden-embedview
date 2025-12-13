@@ -3,3 +3,5 @@
 *coverage
 # Build output
 *dist
+# PM2 logs
+logs/
