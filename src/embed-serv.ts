@@ -31,10 +31,23 @@ dotenv.config();
 
 const app = express();
 
-// Environment Configuration
-const NODE_ENV = process.env.NODE_ENV || 'development';
+// Environment Configuration with robust validation
+const rawNodeEnv = (process.env.NODE_ENV || 'development').trim().toLowerCase();
+const validEnvironments = ['development', 'production', 'test'];
+
+// Normalize and validate NODE_ENV
+const NODE_ENV = validEnvironments.includes(rawNodeEnv) ? rawNodeEnv : 'development';
+
+// Set normalized value back to process.env for consistency
+process.env.NODE_ENV = NODE_ENV;
+
 const IS_DEVELOPMENT = NODE_ENV === 'development';
 const IS_PRODUCTION = NODE_ENV === 'production';
+
+// Warn if environment was invalid or defaulted
+if (rawNodeEnv && !validEnvironments.includes(rawNodeEnv)) {
+    console.warn(`⚠️  Invalid NODE_ENV value "${process.env.NODE_ENV}" detected. Defaulting to "${NODE_ENV}".`);
+}
 
 // Constants
 const PORT = process.env.SRV_URI || 3000;
@@ -336,7 +349,7 @@ app.get('/prod-analizer-wish', async (req: Request, res: Response) => {
 
         const transformWish = wistTransform(wishContent);
         Logger.debug('Wish content transformed', { transformWish });
-        
+
         //const proxedWish = await wishHgProd(wishContent);
         //Logger.debug('Wish QLS content generated', { proxedWish });
 
