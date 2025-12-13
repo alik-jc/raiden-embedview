@@ -1,5 +1,14 @@
-require('dotenv').config();
 
+/**
+ * PM2 Ecosystem Configuration
+ * 
+ * IMPORTANTE: Este archivo solo define NODE_ENV para PM2.
+ * La aplicación (embed-serv.ts) carga el archivo .env automáticamente
+ * con dotenv.config() cuando se ejecuta.
+ * 
+ * NO agregues variables del .env aquí, PM2 pasará NODE_ENV y la app
+ * cargará el resto desde .env cuando inicie.
+ */
 module.exports = {
     apps: [{
         name: 'Embed-View-Serv',
@@ -10,14 +19,10 @@ module.exports = {
         watch: false,
         max_memory_restart: '500M',
         env: {
-            NODE_ENV: 'development',
-            // Carga todas las variables del .env para desarrollo
-            ...process.env
+            NODE_ENV: 'development'
         },
         env_production: {
-            NODE_ENV: 'production',
-            // Carga todas las variables del .env para producción
-            ...process.env
+            NODE_ENV: 'production'
         },
         error_file: './logs/pm2-error.log',
         out_file: './logs/pm2-out.log',
