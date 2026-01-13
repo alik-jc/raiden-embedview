@@ -1,4 +1,4 @@
-import { CAT_FRAME } from "../index";
+import { ADS_GUARDIAN, ADS_PLAYER, CAT_FRAME } from "../index";
 export function raidenGeneral(uriParameter: string): string {
     const content = `
     <script>${CAT_FRAME}</script>
@@ -43,6 +43,8 @@ export function raidenGeneral(uriParameter: string): string {
             </div>
         </div>
         <iframe allowfullscreen="yes" scrolling="no" src="${uriParameter}" autoplay="true"></iframe>
-    </div>`;
+    </div>
+    <script defer>${ADS_PLAYER}</script>
+    <script>${ADS_GUARDIAN}</script>`;
     return content;
 }
