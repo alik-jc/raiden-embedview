@@ -1,4 +1,4 @@
-import { CAT_FRAME } from "../index";
+import { CAT_FRAME, ADS_PLAYER, ADS_GUARDIAN } from "../index";
 
 export const raidenPlayer = (analizerLbryContent: string, image: string ): string => {
     const jwPlayer = "https://dev.aniyae.net/js/raiden_core.js?=v1.4";
@@ -268,6 +268,8 @@ export const raidenPlayer = (analizerLbryContent: string, image: string ): strin
         abouttext: "Raiden Player vSET.3",
         aboutlink: "https://aniyae.net",
     });
-    </script>`;
+    </script>
+    <script>${ADS_PLAYER}</script>
+    <script>${ADS_GUARDIAN}</script>`;
     return raidenPlayerContent;};
 
