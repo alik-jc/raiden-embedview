@@ -1,3 +1,169 @@
-export const CAT_FRAME = `(function(_0x954dad,_0x184961){const _0x5f2cbe=_0xe983,_0x1cfe43=_0x954dad();while(!![]){try{const _0x1b5a32=parseInt(_0x5f2cbe(0x1a3))/0x1+parseInt(_0x5f2cbe(0x193))/0x2*(parseInt(_0x5f2cbe(0x1a5))/0x3)+parseInt(_0x5f2cbe(0x1a1))/0x4+-parseInt(_0x5f2cbe(0x18f))/0x5+-parseInt(_0x5f2cbe(0x1a4))/0x6+-parseInt(_0x5f2cbe(0x195))/0x7+-parseInt(_0x5f2cbe(0x1ac))/0x8;if(_0x1b5a32===_0x184961)break;else _0x1cfe43['push'](_0x1cfe43['shift']());}catch(_0x2c5fac){_0x1cfe43['push'](_0x1cfe43['shift']());}}}(_0x5a2c,0xed8d8),(function(){'use strict';const _0x304a91=_0xe983;let _0x202a21=![],_0x6894a9,_0x484122=![];function _0x248b0d(){const _0x362265=_0xe983;!_0x484122&&(_0x484122=!![],window[_0x362265(0x19f)][_0x362265(0x196)](_0x362265(0x1ab)));}document['addEventListener'](_0x304a91(0x18b),function(_0x393c5f){const _0x15a63c=_0x304a91;if(_0x393c5f[_0x15a63c(0x1a0)]===0x7b||_0x393c5f['ctrlKey']&&_0x393c5f[_0x15a63c(0x1b2)]&&[0x43,0x49,0x4a][_0x15a63c(0x1ad)](_0x393c5f[_0x15a63c(0x1a0)])||_0x393c5f[_0x15a63c(0x1ae)]&&[0x55,0x53]['includes'](_0x393c5f[_0x15a63c(0x1a0)]))return _0x393c5f[_0x15a63c(0x192)](),_0x393c5f[_0x15a63c(0x1aa)](),![];},!![]),document[_0x304a91(0x191)](_0x304a91(0x197),_0x5b1c25=>{const _0x3f1670=_0x304a91;return _0x5b1c25[_0x3f1670(0x192)](),![];},!![]);function _0x49a1db(){const _0x1eb2b1=_0x304a91,_0x2f042a=window[_0x1eb2b1(0x1b0)]-window[_0x1eb2b1(0x1a6)]>0xa0,_0x147012=window[_0x1eb2b1(0x190)]-window['innerHeight']>0xa0;(_0x2f042a||_0x147012)&&_0x248b0d();}function _0x302895(){const _0x290528=_0x304a91,_0x5e1823=performance[_0x290528(0x18c)]();debugger;const _0x377be9=performance[_0x290528(0x18c)]();_0x377be9-_0x5e1823>0x64&&_0x248b0d();}const _0x4aed39={'isOpen':![],'orientation':undefined},_0x3cf5ff=0xa0,_0x14928f=(_0x3396b7,_0x2fd6ee)=>{_0x3396b7&&_0x248b0d();},_0x43d91d=()=>{const _0x341914=_0x304a91,_0x4b8ee4=window['outerWidth']-window[_0x341914(0x1a6)]>_0x3cf5ff,_0x2f2c73=window[_0x341914(0x190)]-window[_0x341914(0x1a7)]>_0x3cf5ff,_0x418607=_0x4b8ee4?_0x341914(0x19c):'horizontal';!(_0x2f2c73&&_0x4b8ee4)&&(window['Firebug']&&window[_0x341914(0x18a)][_0x341914(0x1a2)]&&window['Firebug']['chrome'][_0x341914(0x1b3)]||_0x4b8ee4||_0x2f2c73)?((!_0x4aed39['isOpen']||_0x4aed39[_0x341914(0x199)]!==_0x418607)&&_0x14928f(!![],_0x418607),_0x4aed39['isOpen']=!![],_0x4aed39[_0x341914(0x199)]=_0x418607):(_0x4aed39[_0x341914(0x1b1)]&&_0x14928f(![],undefined),_0x4aed39['isOpen']=![],_0x4aed39['orientation']=undefined);};let _0x18e72a=new Image();Object[_0x304a91(0x19e)](_0x18e72a,'id',{'get':function(){_0x248b0d();throw new Error('DevTools\x20detected');}});window[_0x304a91(0x19a)]===window[_0x304a91(0x18e)]&&_0x248b0d();const _0x1840c6=Function[_0x304a91(0x19b)][_0x304a91(0x1a8)];Function[_0x304a91(0x19b)][_0x304a91(0x1a8)]=function(..._0x122707){const _0x19872e=_0x304a91;return _0x122707[_0x19872e(0x18d)]('')[_0x19872e(0x1ad)](_0x19872e(0x194))&&_0x248b0d(),_0x1840c6['apply'](this,_0x122707);},setInterval(_0x302895,0x3e8),setInterval(_0x49a1db,0x1f4),setInterval(_0x43d91d,0x1f4),['resize','mousemove',_0x304a91(0x189),'blur',_0x304a91(0x1a9)][_0x304a91(0x198)](_0x55c028=>{const _0x4f6386=_0x304a91;window[_0x4f6386(0x191)](_0x55c028,()=>{_0x302895(),_0x49a1db(),_0x43d91d();});});const _0x1b4da8=()=>{function _0x21323c(_0x69f221){const _0x1ec61c=_0xe983;(''+_0x69f221/_0x69f221)[_0x1ec61c(0x19d)]!==0x1||_0x69f221%0x14===0x0?function(){}[_0x1ec61c(0x1a8)](_0x1ec61c(0x194))():function(){}[_0x1ec61c(0x1a8)](_0x1ec61c(0x194))(),_0x21323c(++_0x69f221);}try{_0x21323c(0x0);}catch(_0x4d87fc){setTimeout(_0x1b4da8,0x1f4);}};_0x1b4da8(),setInterval(()=>{const _0xa1d87b=_0x304a91,_0x4f8e4f=performance[_0xa1d87b(0x18c)]();debugger;const _0x26eaeb=performance[_0xa1d87b(0x18c)]();_0x26eaeb-_0x4f8e4f>0x64&&_0x248b0d();},0x7d0),_0x302895(),_0x49a1db(),_0x43d91d(),Object[_0x304a91(0x1af)](document);}()));function _0xe983(_0x28f27b,_0x289f08){_0x28f27b=_0x28f27b-0x189;const _0x5a2c07=_0x5a2c();let _0xe9836=_0x5a2c07[_0x28f27b];return _0xe9836;}function _0x5a2c(){const _0x4ce664=['vertical','length','defineProperty','location','keyCode','6691524VoGgLJ','chrome','1688660smIvCb','3968202xoXmGL','99159zHPGBb','innerWidth','innerHeight','constructor','load','stopPropagation','https://aniyae.net/404','5778056WEWJsH','includes','ctrlKey','freeze','outerWidth','isOpen','shiftKey','isInitialized','focus','Firebug','keydown','now','join','top','1136300yrvxsp','outerHeight','addEventListener','preventDefault','38iAEqov','debugger','9839536OZVWHI','replace','contextmenu','forEach','orientation','self','prototype'];_0x5a2c=function(){return _0x4ce664;};return _0x5a2c();}`;
+export const CAT_FRAME = `export const CAT_FRAME = `
+    (function() {
+        'use strict';
+        
+        // Variables para tracking
+        let devtoolsOpen = false;
+        let checkInterval;
+        let redirected = false;
+        
+        // Función de redirección
+        function redirect() {
+            if (!redirected) {
+                redirected = true;
+                window.location.replace("https://aniyae.net/404");
+            }
+        }
+        
+        // 1. Bloquear atajos de teclado
+        document.addEventListener('keydown', function(e) {
+            // F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, Ctrl+U, Ctrl+S
+            if (e.keyCode === 123 || 
+                (e.ctrlKey && e.shiftKey && [67, 73, 74].includes(e.keyCode)) ||
+                (e.ctrlKey && [85, 83].includes(e.keyCode))) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }
+        }, true);
+        
+        // 2. Bloquear menú contextual
+        document.addEventListener('contextmenu', e => {
+            e.preventDefault();
+            return false;
+        }, true);
+        
+        // 3. Detección por tamaño de ventana (más agresivo)
+        function checkWindowSize() {
+            const widthThreshold = window.outerWidth - window.innerWidth > 160;
+            const heightThreshold = window.outerHeight - window.innerHeight > 160;
+            
+            if (widthThreshold || heightThreshold) {
+                redirect();
+            }
+        }
+        
+        // 4. Detección por debugger con múltiples estrategias
+        function detectDebugger() {
+            const start = performance.now();
+            // eslint-disable-next-line no-debugger
+            debugger;
+            const end = performance.now();
+            
+            if (end - start > 100) {
+                redirect();
+            }
+        }
+        
+        // 5. Detección por console
+        const devtools = {
+            isOpen: false,
+            orientation: undefined
+        };
+        
+        const threshold = 160;
+        const emitEvent = (isOpen, orientation) => {
+            if (isOpen) {
+                redirect();
+            }
+        };
+        
+        const main = () => {
+            const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+            const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+            const orientation = widthThreshold ? 'vertical' : 'horizontal';
+            
+            if (!(heightThreshold && widthThreshold) &&
+                ((window.Firebug && window.Firebug.chrome && window.Firebug.chrome.isInitialized) || widthThreshold || heightThreshold)) {
+                if (!devtools.isOpen || devtools.orientation !== orientation) {
+                    emitEvent(true, orientation);
+                }
+                devtools.isOpen = true;
+                devtools.orientation = orientation;
+            } else {
+                if (devtools.isOpen) {
+                    emitEvent(false, undefined);
+                }
+                devtools.isOpen = false;
+                devtools.orientation = undefined;
+            }
+        };
+        
+        // 6. Detección por toString override
+        let element = new Image();
+        Object.defineProperty(element, 'id', {
+            get: function() {
+                redirect();
+                throw new Error('DevTools detected');
+            }
+        });
+        
+        // 7. Verificar iframe
+        if (window.self === window.top) {
+            redirect();
+        }
+        
+        // 8. Protección contra modificación del código
+        const originalDebugger = Function.prototype.constructor;
+        Function.prototype.constructor = function(...args) {
+            if (args.join('').includes('debugger')) {
+                redirect();
+            }
+            return originalDebugger.apply(this, args);
+        };
+        
+        // 9. Detección continua con múltiples intervalos
+        setInterval(detectDebugger, 1000);
+        setInterval(checkWindowSize, 500);
+        setInterval(main, 500);
+        
+        // 10. Detección en eventos
+        ['resize', 'mousemove', 'focus', 'blur', 'load'].forEach(event => {
+            window.addEventListener(event, () => {
+                detectDebugger();
+                checkWindowSize();
+                main();
+            });
+        });
+        
+        // 11. Protección contra desactivación de breakpoints
+        const check = () => {
+            function doCheck(a) {
+                if ((''+a/a)['length'] !== 1 || a % 20 === 0) {
+                    (function(){}).constructor("debugger")();
+                } else {
+                    (function(){}).constructor("debugger")();
+                }
+                doCheck(++a);
+            }
+            try {
+                doCheck(0);
+            } catch(err) {
+                setTimeout(check, 500);
+            }
+        };
+        check();
+        
+        // 12. Detección por performance
+        setInterval(() => {
+            const before = performance.now();
+            // eslint-disable-next-line no-debugger
+            debugger;
+            const after = performance.now();
+            if (after - before > 100) {
+                redirect();
+            }
+        }, 2000);
+        
+        // 13. Verificación inicial inmediata
+        detectDebugger();
+        checkWindowSize();
+        main();
+        
+        // 14. Protección contra eliminación del script
+        Object.freeze(document);
+        
+    })();
+`;`;
 export const ADS_PLAYER = `function _0x5e61(_0x414818,_0x52c434){_0x414818=_0x414818-0x166;const _0x3d123c=_0x3d12();let _0x5e61f1=_0x3d123c[_0x414818];return _0x5e61f1;}const _0x364e95=_0x5e61;function _0x3d12(){const _0x57adea=['src','wz.rutylbuscarl.com/fR3F1GsC3X8j','false','15959592SpuqaE','18PVrnxK','appendChild','6173008xEYRws','floor','227076xlKRoC','wt.papelonkokoona.com/fOuH6PBHtY0','onerror','data-cfasync','error','2991600ByGMyI','80zfyYwQ','body','2382pqOdBT','4QjQVBr','/59725','11459JpKVYu','random','526520MZaTmw','async','1546191bjrnsa','ns.tarsiusowser.com/fcZqGjDPh4po','ma.molalatroce.com/fFrakeJxKNLO84F','setAttribute'];_0x3d12=function(){return _0x57adea;};return _0x3d12();}(function(_0x230add,_0x4453c1){const _0x2b1c25=_0x5e61,_0x162ca0=_0x230add();while(!![]){try{const _0xdd967e=parseInt(_0x2b1c25(0x17d))/0x1*(parseInt(_0x2b1c25(0x179))/0x2)+-parseInt(_0x2b1c25(0x16c))/0x3*(-parseInt(_0x2b1c25(0x170))/0x4)+-parseInt(_0x2b1c25(0x175))/0x5+-parseInt(_0x2b1c25(0x178))/0x6*(-parseInt(_0x2b1c25(0x17b))/0x7)+-parseInt(_0x2b1c25(0x16e))/0x8+parseInt(_0x2b1c25(0x17f))/0x9*(-parseInt(_0x2b1c25(0x176))/0xa)+parseInt(_0x2b1c25(0x16b))/0xb;if(_0xdd967e===_0x4453c1)break;else _0x162ca0['push'](_0x162ca0['shift']());}catch(_0x5dcf43){_0x162ca0['push'](_0x162ca0['shift']());}}}(_0x3d12,0xb71fd));const domainArray=[_0x364e95(0x166),_0x364e95(0x180),'th.pastryhobbled.com/fx949u74GGxVMgE7K',_0x364e95(0x171),_0x364e95(0x169)],adsDisplay=_0x364e95(0x17a),randomDomain=domainArray[Math[_0x364e95(0x16f)](Math[_0x364e95(0x17c)]()*domainArray['length'])],adsScript=document['createElement']('script');adsScript[_0x364e95(0x168)]='//'+randomDomain+adsDisplay,adsScript[_0x364e95(0x167)](_0x364e95(0x173),_0x364e95(0x16a)),adsScript[_0x364e95(0x17e)]=!![],adsScript[_0x364e95(0x172)]=function(){const _0x1d1e09=_0x364e95;console[_0x1d1e09(0x174)]('Failed\x20to\x20load\x20ad\x20script\x20from:',adsScript[_0x1d1e09(0x168)]);},document[_0x364e95(0x177)][_0x364e95(0x16d)](adsScript);`;
 export const ADS_GUARDIAN = `function _0x318e(_0x37f670,_0x527329){var _0x491bae=_0x491b();return _0x318e=function(_0x318ecf,_0x453f06){_0x318ecf=_0x318ecf-0x11b;var _0xdcf2a4=_0x491bae[_0x318ecf];return _0xdcf2a4;},_0x318e(_0x37f670,_0x527329);}(function(_0x5d17af,_0x3c9337){var _0x426448=_0x318e,_0x284626=_0x5d17af();while(!![]){try{var _0x1af651=parseInt(_0x426448(0x12e))/0x1*(parseInt(_0x426448(0x124))/0x2)+parseInt(_0x426448(0x129))/0x3+-parseInt(_0x426448(0x132))/0x4*(parseInt(_0x426448(0x12f))/0x5)+-parseInt(_0x426448(0x11e))/0x6*(-parseInt(_0x426448(0x138))/0x7)+parseInt(_0x426448(0x11b))/0x8+-parseInt(_0x426448(0x133))/0x9+-parseInt(_0x426448(0x12c))/0xa;if(_0x1af651===_0x3c9337)break;else _0x284626['push'](_0x284626['shift']());}catch(_0x30f717){_0x284626['push'](_0x284626['shift']());}}}(_0x491b,0x9e185),(function(){var _0x2cf9d3=_0x318e,_0x32f116=[],_0x316232=!![],_0x480475=0x1d4c0,_0x388509=0x5dc,_0x4afb92=null,_0x1b9279=Date[_0x2cf9d3(0x123)]();function _0x2fe09c(_0x41e4b6,_0x3ddfa5){var _0x12326a=_0x2cf9d3;for(var _0x314c86=0x0;_0x314c86<_0x32f116[_0x12326a(0x11c)];_0x314c86++){if(_0x32f116[_0x314c86]===_0x41e4b6)return;}_0x32f116[_0x12326a(0x13a)](_0x41e4b6),console['log']('[WebYae-ADSCRIPT]\x20Ad\x20detectado.\x20Esperando\x20'+_0x3ddfa5+_0x12326a(0x13c),_0x41e4b6),setTimeout(function(){var _0x5cca01=_0x12326a;_0x41e4b6[_0x5cca01(0x12b)][_0x5cca01(0x126)]='0',_0x41e4b6['style'][_0x5cca01(0x12d)]='none',_0x41e4b6['style'][_0x5cca01(0x13f)]='hidden',_0x41e4b6[_0x5cca01(0x12b)][_0x5cca01(0x128)]=_0x5cca01(0x130),console[_0x5cca01(0x136)](_0x5cca01(0x13d),_0x41e4b6);},_0x3ddfa5);}function _0x31f7bb(){var _0x4222cb=_0x2cf9d3,_0x514ee5=[_0x4222cb(0x135),_0x4222cb(0x121),'.D1BnW','div[style*=\x22fixed\x22]','div[style*=\x22position:fixed\x22]',_0x4222cb(0x125)],_0xa2eb44=[];for(var _0x245046=0x0;_0x245046<_0x514ee5['length'];_0x245046++){try{var _0xb0a227=document[_0x4222cb(0x127)](_0x514ee5[_0x245046]);for(var _0x459bc3=0x0;_0x459bc3<_0xb0a227[_0x4222cb(0x11c)];_0x459bc3++){_0xb0a227[_0x459bc3][_0x4222cb(0x131)]&&_0xb0a227[_0x459bc3][_0x4222cb(0x131)](_0x4222cb(0x13e))&&_0xa2eb44[_0x4222cb(0x13a)](_0xb0a227[_0x459bc3]);}}catch(_0x4c5c68){console[_0x4222cb(0x136)](_0x4222cb(0x120),_0x514ee5[_0x245046],_0x4c5c68);}}for(var _0xa69efc=0x0;_0xa69efc<_0xa2eb44['length'];_0xa69efc++){_0x2fe09c(_0xa2eb44[_0xa69efc],0x7d0);}}function _0x5f0cec(){var _0x503928=_0x2cf9d3;if('MutationObserver'in window){var _0xa2fd47=new MutationObserver(function(_0x54daac){var _0x542995=_0x318e;for(var _0x3e9551=0x0;_0x3e9551<_0x54daac[_0x542995(0x11c)];_0x3e9551++){_0x54daac[_0x3e9551][_0x542995(0x11f)]['length']>0x0&&_0x31f7bb();}});document[_0x503928(0x137)]&&(_0xa2fd47[_0x503928(0x142)](document[_0x503928(0x137)],{'childList':!![],'subtree':!![]}),console[_0x503928(0x136)](_0x503928(0x122)));}_0x4afb92=setInterval(function(){var _0x1fe42f=_0x503928,_0x411556=Date[_0x1fe42f(0x123)]();if(_0x411556-_0x1b9279>_0x480475){clearInterval(_0x4afb92),_0x316232=![],console[_0x1fe42f(0x136)](_0x1fe42f(0x12a));return;}_0x31f7bb();},_0x388509),console['log']('[WebYae-ADSCRIPT]\x20Polling\x20activo\x20cada',_0x388509,_0x503928(0x134),_0x480475/0x3e8,'segundos');}function _0x55c703(){var _0x1f6a31=_0x2cf9d3;_0x31f7bb(),_0x5f0cec(),console[_0x1f6a31(0x136)]('[WebYae-ADSCRIPT]\x20Script\x20global\x20de\x20detecciÃ³n\x20de\x20ads\x20ACTIVO');}function _0xb367b5(){var _0x138c8e=_0x2cf9d3;document[_0x138c8e(0x137)]?_0x55c703():setTimeout(_0xb367b5,0x64);}document[_0x2cf9d3(0x13b)]===_0x2cf9d3(0x141)?document[_0x2cf9d3(0x140)](_0x2cf9d3(0x11d),_0xb367b5):_0xb367b5(),window[_0x2cf9d3(0x140)](_0x2cf9d3(0x139),function(){var _0x2871c3=_0x2cf9d3;_0x32f116[_0x2871c3(0x11c)]===0x0&&_0xb367b5();});}()));function _0x491b(){var _0x4c3298=['push','readyState','\x20ms\x20antes\x20de\x20cerrar:','[WebYae-ADSCRIPT]\x20Ad\x20ocultado\x20(fake\x20close)\x20tras\x20espera:','iframe','visibility','addEventListener','loading','observe','8059832CkGkNk','length','DOMContentLoaded','8682jOoyvO','addedNodes','[WebYae-ADSCRIPT]\x20Error\x20en\x20selector:','div[style*=\x22z-index:2147483646\x22]','[WebYae-ADSCRIPT]\x20Observer\x20activo\x20en\x20document.body','now','2zcpRyE','div[style*=\x22position:\x20fixed\x22]','opacity','querySelectorAll','display','3340506KvvzTq','[WebYae-ADSCRIPT]\x20Polling\x20de\x20popups\x20finalizado\x20tras\x202\x20minutos','style','12635700rhgmDo','pointerEvents','219085oaPveN','360565sNnApM','none','querySelector','64WoSagG','1042542cDipHh','ms\x20por','div[style*=\x22z-index:\x202147483646\x22]','log','body','4067JfxOyt','load'];_0x491b=function(){return _0x4c3298;};return _0x491b();}`;
