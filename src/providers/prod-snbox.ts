@@ -1,4 +1,4 @@
-import { CAT_FRAME } from "../index";
+import { CAT_FRAME, ADS_PLAYER, ADS_GUARDIAN } from "../index";
 export function raidenSanbox(uriParameter: string): string {
     const content = `
     <script>${CAT_FRAME}</script>
@@ -46,6 +46,8 @@ export function raidenSanbox(uriParameter: string): string {
             </div>
         </div>
         <iframe allowfullscreen="yes" sandbox="allow-same-origin allow-scripts" scrolling="no" src="${uriParameter}" autoplay="true"></iframe>
-    </div>`;
+    </div>
+    <script>${ADS_PLAYER}</script>
+    <script>${ADS_GUARDIAN}</script>`;
     return content;
 }
