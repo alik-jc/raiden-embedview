@@ -99,6 +99,7 @@
     { "key": "drive.google.com", "value": "prod-general" },
     { "key": "mediafire", "value": "prod-general" },
     { "key": "iceyfile", "value": "prod-snbox" },
+    { "key": "hexload", "value": "prod-snbox" },
 
     { "key": "uqload", "value": "proxed-xn" },
     { "key": "yandex", "value": "proxed-xn" },
