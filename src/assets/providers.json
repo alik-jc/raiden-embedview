@@ -98,7 +98,7 @@
     { "key": "drive.google.com", "value": "prod-general" },
     { "key": "mediafire", "value": "prod-general" },
     { "key": "hexload", "value": "prod-snbox" },
-    { "key": "null", "value": "prod-general" },
+    { "key": "savefiles", "value": "prod-general" },
 
     { "key": "uqload", "value": "proxed-xn" },
     { "key": "yandex", "value": "proxed-xn" },
