@@ -76,7 +76,6 @@
     { "key": "bembed", "value": "prod-general" },
     { "key": "my.mail.ru", "value": "prod-snbox" },
     { "key": "vidhidepro", "value": "prod-general" },
-    { "key": "gamovideo", "value": "prod-general" },
     { "key": "vidhidevip", "value": "prod-general" },
     { "key": "short", "value": "prod-abyss" },
     { "key": "vidtube.one", "value": "prod-snbox" },
@@ -100,7 +99,7 @@
     { "key": "mediafire", "value": "prod-general" },
     { "key": "iceyfile", "value": "prod-snbox" },
     { "key": "hexload", "value": "prod-snbox" },
-    { "key": "savefiles", "value": "prod-snbox" },
+    { "key": "savefiles", "value": "prod-general" },
 
     { "key": "uqload", "value": "proxed-xn" },
     { "key": "yandex", "value": "proxed-xn" },
