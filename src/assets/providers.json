@@ -97,7 +97,6 @@
     { "key": "streamtape", "value": "prod-general" },
     { "key": "drive.google.com", "value": "prod-general" },
     { "key": "mediafire", "value": "prod-general" },
-    { "key": "iceyfile", "value": "prod-snbox" },
     { "key": "hexload", "value": "prod-snbox" },
     { "key": "savefiles", "value": "prod-general" },
 
