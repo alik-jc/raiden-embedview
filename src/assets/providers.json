@@ -130,7 +130,7 @@
     { "key": "lulu", "value": "prod-analizer-lulust"},
 
     { "key": "yourupload", "value": "prod-snbox" },
-    { "key": "krakenfiles", "value": "prod-snbox" },
+    { "key": "krakenfiles", "value": "prod-general" },
     { "key": "mega.nz", "value": "prod-snbox" },
     { "key": "upstream", "value": "prod-snbox" },
     { "key": "burstcloud", "value": "prod-snbox" },
