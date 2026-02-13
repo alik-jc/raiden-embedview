@@ -74,7 +74,19 @@ export const wishHgProd = async (uriParameter: string) => {
         ? urlSet + hash
         : urlSet + '/' + uriParameter;
     return urlResponse;
-}
+};
+
+export const yndexProd = async (uriParameter: string) => {
+    const json = SET_CORE_URI;
+    const urlSet = json.yndex;
+    const hashMatch = uriParameter.match(/\/i\/([^/]+)/);
+    const hash = hashMatch ? hashMatch[1] : '';
+    const urlResponse = hash
+        ? urlSet + hash
+        : urlSet + uriParameter;
+    return urlResponse;
+};
+
 
 export const proxedXn = async (uriParameter: string) => {
     const json = SET_CORE_URI;
