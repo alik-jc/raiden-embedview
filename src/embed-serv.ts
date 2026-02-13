@@ -13,7 +13,7 @@ import {
     luluProd,
     uqloProd,
     fmoonProd,
-    //wishHgProd,
+    wishHgProd,
     proxedXn,
     performMixdropAnalyzer,
     wistTransform,
@@ -350,10 +350,10 @@ app.get('/prod-analizer-wish', async (req: Request, res: Response) => {
         const transformWish = wistTransform(wishContent);
         Logger.debug('Wish content transformed', { transformWish });
 
-        //const proxedWish = await wishHgProd(wishContent);
-        //Logger.debug('Wish QLS content generated', { proxedWish });
+        const proxedWish = await wishHgProd(transformWish);
+        Logger.debug('Wish QLS content generated', { proxedWish });
 
-        const renderContent = raidenGeneral(transformWish || '');
+        const renderContent = raidenGeneral(proxedWish || '');
         Logger.info('prod-analizer-wish rendered successfully');
         sendHtmlResponse(res, renderContent);
     } catch (error) {
@@ -474,24 +474,24 @@ app.get('/proxed', async (req: Request, res: Response) => {
         const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
         Logger.debug('Processing proxed route', { decodedUri });
 
-        let setAnalyzer: string;
+        let setToAnalyzer: string;
         let provider: string;
 
         if (decodedUri.includes('lulu')) {
             provider = 'lulu';
-            setAnalyzer = await luluProd(decodedUri);
+            setToAnalyzer = await luluProd(decodedUri);
         } else if (decodedUri.includes('filemoon')) {
             provider = 'filemoon';
-            setAnalyzer = await fmoonProd(decodedUri);
+            setToAnalyzer = await fmoonProd(decodedUri);
         } else if (decodedUri.includes('uqload')) {
             provider = 'uqload';
-            setAnalyzer = await uqloProd(decodedUri);
+            setToAnalyzer = await uqloProd(decodedUri);
         } else {
             throw new Error('Invalid provider name');
         }
 
-        Logger.debug('Provider content generated', { provider, setAnalyzer });
-        const renderContent = raidenGeneral(setAnalyzer);
+        Logger.debug('Provider content generated', { provider, setToAnalyzer });
+        const renderContent = raidenGeneral(setToAnalyzer);
         Logger.info(`Proxed route rendered successfully for ${provider}`);
         sendHtmlResponse(res, renderContent);
     } catch (error) {
