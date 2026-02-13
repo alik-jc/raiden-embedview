@@ -76,9 +76,9 @@ export const wishHgProd = async (uriParameter: string) => {
     return urlResponse;
 };
 
-export const yndexProd = async (uriParameter: string) => {
+export const yandexProd = async (uriParameter: string) => {
     const json = SET_CORE_URI;
-    const urlSet = json.yndex;
+    const urlSet = json.yandex;
     const hashMatch = uriParameter.match(/\/i\/([^/]+)/);
     const hash = hashMatch ? hashMatch[1] : '';
     const urlResponse = hash

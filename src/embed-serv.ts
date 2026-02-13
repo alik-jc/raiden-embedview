@@ -14,6 +14,7 @@ import {
     uqloProd,
     fmoonProd,
     wishHgProd,
+    yandexProd,
     proxedXn,
     performMixdropAnalyzer,
     wistTransform,
@@ -486,6 +487,9 @@ app.get('/proxed', async (req: Request, res: Response) => {
         } else if (decodedUri.includes('uqload')) {
             provider = 'uqload';
             setToAnalyzer = await uqloProd(decodedUri);
+        } else if (decodedUri.includes('yandex')) {
+            provider = 'yandex';
+            setToAnalyzer = await yandexProd(decodedUri);
         } else {
             throw new Error('Invalid provider name');
         }
