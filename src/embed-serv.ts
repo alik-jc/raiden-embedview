@@ -13,7 +13,7 @@ import {
     luluProd,
     uqloProd,
     fmoonProd,
-    wishHgProd,
+    //wishHgProd,
     yandexProd,
     proxedXn,
     performMixdropAnalyzer,
@@ -351,10 +351,10 @@ app.get('/prod-analizer-wish', async (req: Request, res: Response) => {
         const transformWish = wistTransform(wishContent);
         Logger.debug('Wish content transformed', { transformWish });
 
-        const proxedWish = await wishHgProd(transformWish);
-        Logger.debug('Wish QLS content generated', { proxedWish });
+        //const proxedWish = await wishHgProd(transformWish);
+        //Logger.debug('Wish QLS content generated', { proxedWish });
 
-        const renderContent = raidenGeneral(proxedWish || '');
+        const renderContent = raidenGeneral(transformWish || '');
         Logger.info('prod-analizer-wish rendered successfully');
         sendHtmlResponse(res, renderContent);
     } catch (error) {
@@ -374,7 +374,7 @@ app.get('/prod-analizer-lulu', async (req: Request, res: Response) => {
         const luluContent = performLuluAnalyzer(decodedUri);
         Logger.debug('Lulu content analyzed', { luluContent });
 
-        const proxedLulu = await luluProd(luluContent);
+        const proxedLulu = await proxedXn(luluContent);
         Logger.debug('Lulu QLS content generated', { proxedLulu });
 
         const renderContent = raidenGeneral(proxedLulu);
@@ -397,7 +397,7 @@ app.get('/prod-analizer-lulust', async (req: Request, res: Response) => {
         const luluContent = performLulustAnalyzer(decodedUri);
         Logger.debug('Lulust content analyzed', { luluContent });
 
-        const proxedLulu = await luluProd(luluContent);
+        const proxedLulu = await proxedXn(luluContent);
         Logger.debug('Lulust QLS content generated', { proxedLulu });
 
         const renderContent = raidenGeneral(proxedLulu);
