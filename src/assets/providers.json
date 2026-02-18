@@ -100,7 +100,7 @@
     { "key": "hexload", "value": "prod-snbox" },
     { "key": "savefiles", "value": "prod-general" },
 
-    { "key": "uqload", "value": "proxed-xn" },
+    { "key": "uqload", "value": "proxed" },
     { "key": "yandex", "value": "proxed-xn" },
     
     { "key": "ok.ru", "value": "prod-analizer-ok" },
