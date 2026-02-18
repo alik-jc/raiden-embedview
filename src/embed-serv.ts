@@ -285,10 +285,10 @@ app.get('/moon-analizer', async (req: Request, res: Response) => {
         const filemoonContent = filemoonAnalizer(decodedUri);
         Logger.debug('Filemoon content analyzed', { filemoonContent });
 
-        //const proxedContent = await fmoonProd(filemoonContent || '');
-        //Logger.debug('Filemoon proxied content generated', { proxedContent });
+        const proxedContent = await fmoonProd(filemoonContent || '');
+        Logger.debug('Filemoon proxied content generated', { proxedContent });
 
-        const renderContent = raidenGeneral(filemoonContent || '');
+        const renderContent = raidenGeneral(proxedContent || '');
         Logger.info('moon-analizer rendered successfully');
         sendHtmlResponse(res, renderContent);
     } catch (error) {
