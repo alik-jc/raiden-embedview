@@ -572,23 +572,8 @@ app.get('/health', async (req: Request, res: Response) => {
     res.status(HTTP_STATUS.OK).json(healthData);
 });
 
-// Start server only if this file is run directly (supports CommonJS and ESM/bundled output)
-const _isMainModule = (() => {
-    try {
-        // CommonJS direct execution
-        if (typeof require !== 'undefined' && require.main === module) return true;
-    } catch (e) { /* ignore */ }
-
-    try {
-        // When executed by a runner (PM2/Bun) the entry script appears in argv[1]
-        const entry = process && process.argv && process.argv[1] ? String(process.argv[1]) : '';
-        if (entry.endsWith('embed-serv.js') || entry.endsWith('embed-serv.ts')) return true;
-    } catch (e) { /* ignore */ }
-
-    return false;
-})();
-
-if (_isMainModule) {
+// Start server (skip only during test runs)
+if (NODE_ENV !== 'test') {
     app.listen(PORT, () => {
         console.log('\n' + '='.repeat(60));
         console.log('🚀 Raiden Embedview Server Started');
