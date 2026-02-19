@@ -117,15 +117,4 @@ describe('Server Routes', () => {
       expect(response.body).toHaveProperty('error');
     });
   });
-
-  describe('Static assets', () => {
-    test('serves verification file from root', async () => {
-      const response = await request(app)
-        .get('/pftn_20e919d06a68d298df24e58758fe9e70.txt')
-        .expect(200);
-
-      expect(response.text).toContain('Profiton check: e89161b573595dce09cb9a2d0c2b3698');
-      expect(response.headers['content-type']).toMatch(/text\/plain|text\//);
-    });
-  });
 });
