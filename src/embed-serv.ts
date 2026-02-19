@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
+import path from 'path';
 
 import {
     raidenGeneral,
@@ -571,6 +572,10 @@ app.get('/health', async (req: Request, res: Response) => {
     Logger.debug('Health check performed', healthData);
     res.status(HTTP_STATUS.OK).json(healthData);
 });
+
+// Serve local assets from / (static) — won't override existing routes
+const staticAssetsDir = path.join(process.cwd(), 'src', 'assets');
+app.use(express.static(staticAssetsDir, { index: false, maxAge: '1d' }));
 
 // Start server (skip only during test runs)
 if (NODE_ENV !== 'test') {
