@@ -6,7 +6,7 @@
     "dev": "bun --watch src/embed-serv.ts",
     "start": "bun src/embed-serv.ts",
     "build": "eslint src --ext .ts && bun build src/embed-serv.ts --outdir dist --target node",
-    "dp:build": "git pull && bun run build && pm2 start ecosystem.config.js --env production",
+    "dp:build": "git pull && bun install && bun run build && pm2 start ecosystem.config.js --env production",
     "dp:pull": "git pull && bun run build && pm2 restart Embed-View-Serv --update-env",
     "dp:stop": "pm2 stop Embed-View-Serv",
     "dp:delete": "pm2 delete Embed-View-Serv",
