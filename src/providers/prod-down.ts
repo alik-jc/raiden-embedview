@@ -17,36 +17,17 @@ export const errorWebsite = (uriParameter: string) => {
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;400&family=Fira+Mono&display=swap');
     body {
         font-family: 'Montserrat', 'Fira Mono', monospace, sans-serif;
-        background: linear-gradient(135deg, #3701c0 0%, #6d28d9 100%);
         min-height: 100vh;
         margin: 0;
         display: flex;
         align-items: center;
         justify-content: center;
-        animation: bg-gradient-cycle 20s linear infinite;
-        background-size: 200% 200%;
+        background: conic-gradient(from 0deg, #3701c0 0%, #000 30%, #3701c0 60%, #000 100%);
+        animation: rotate-bg 20s linear infinite;
     }
-    @keyframes bg-gradient-cycle {
-        0% {
-            background-position: 0% 50%;
-            background: linear-gradient(135deg, #3701c0 0%, #6d28d9 100%);
-        }
-        25% {
-            background-position: 50% 100%;
-            background: linear-gradient(155deg, #000 0%, #3701c0 100%);
-        }
-        50% {
-            background-position: 100% 0%;
-            background: linear-gradient(115deg, #3701c0 0%, #000 100%);
-        }
-        75% {
-            background-position: 50% 100%;
-            background: linear-gradient(135deg, #6d28d9 0%, #3701c0 100%);
-        }
-        100% {
-            background-position: 0% 50%;
-            background: linear-gradient(135deg, #3701c0 0%, #6d28d9 100%);
-        }
+    @keyframes rotate-bg {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
     }
     .error-card {
         background: linear-gradient(120deg, #3701c0 60%, #000 100%);
