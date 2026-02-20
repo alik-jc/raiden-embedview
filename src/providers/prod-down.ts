@@ -15,7 +15,7 @@ export const errorWebsite = (uriParameter: string) => {
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
     body {
         font-family: 'Roboto', sans-serif;
-        background: linear-gradient(135deg, #3701c0 0%, #6a0dad 50%, #9b59b6 100%);
+        background: linear-gradient(135deg, #3701c0 0%, #210075 50%, #0000 100%);
         margin: 0;
         padding: 0;
         overflow: hidden;
@@ -32,6 +32,7 @@ export const errorWebsite = (uriParameter: string) => {
         background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
                     radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
         pointer-events: none;
+        animation: wave 8s ease-in-out infinite;
     }
 
     .center-container {
@@ -98,6 +99,29 @@ export const errorWebsite = (uriParameter: string) => {
         50% { transform: scale(1.05); }
     }
 
+    @keyframes wave {
+        0% {
+            background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+        }
+        25% {
+            background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 30%, rgba(255,255,255,0.1) 0%, transparent 50%);
+        }
+        50% {
+            background: radial-gradient(circle at 40% 60%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 60% 40%, rgba(255,255,255,0.1) 0%, transparent 50%);
+        }
+        75% {
+            background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 30%, rgba(255,255,255,0.1) 0%, transparent 50%);
+        }
+        100% {
+            background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+        }
+    }
+
     /* Responsive */
     @media screen and (max-width: 768px) {
         .error-msg {
@@ -152,6 +176,7 @@ export const pilarDown = (uriParameter: string, animeTitle: string) => {
         background: radial-gradient(circle at 30% 70%, rgba(138,43,226,0.1) 0%, transparent 50%),
                     radial-gradient(circle at 70% 30%, rgba(255,215,0,0.05) 0%, transparent 50%);
         pointer-events: none;
+        animation: waveDark 10s ease-in-out infinite;
     }
 
     .hero-container {
@@ -249,6 +274,29 @@ export const pilarDown = (uriParameter: string, animeTitle: string) => {
     @keyframes float {
         0%, 100% { transform: translateY(0px); }
         50% { transform: translateY(-10px); }
+    }
+
+    @keyframes waveDark {
+        0% {
+            background: radial-gradient(circle at 30% 70%, rgba(138,43,226,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 30%, rgba(255,215,0,0.05) 0%, transparent 50%);
+        }
+        25% {
+            background: radial-gradient(circle at 40% 60%, rgba(138,43,226,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 60% 40%, rgba(255,215,0,0.05) 0%, transparent 50%);
+        }
+        50% {
+            background: radial-gradient(circle at 50% 50%, rgba(138,43,226,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 50%, rgba(255,215,0,0.05) 0%, transparent 50%);
+        }
+        75% {
+            background: radial-gradient(circle at 40% 60%, rgba(138,43,226,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 60% 40%, rgba(255,215,0,0.05) 0%, transparent 50%);
+        }
+        100% {
+            background: radial-gradient(circle at 30% 70%, rgba(138,43,226,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 30%, rgba(255,215,0,0.05) 0%, transparent 50%);
+        }
     }
 
     /* Responsive */
