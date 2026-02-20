@@ -25,12 +25,12 @@ export const errorWebsite = (uriParameter: string) => {
         justify-content: center;
     }
     .error-card {
-        background: rgba(255,255,255,0.10);
-        border-radius: 24px;
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        background: linear-gradient(120deg, #3701c0 60%, #000 100%);
+        border-radius: 0;
+        box-shadow: 0 4px 24px 0 rgba(55, 1, 192, 0.25), 0 1px 8px #0008;
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
-        border: 1px solid rgba(255,255,255,0.18);
+        border: 2px solid #3701c0;
         padding: 2.5rem 2rem 2rem 2rem;
         max-width: 400px;
         width: 90vw;
