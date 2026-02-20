@@ -23,6 +23,30 @@ export const errorWebsite = (uriParameter: string) => {
         display: flex;
         align-items: center;
         justify-content: center;
+        animation: bg-gradient-cycle 20s linear infinite;
+        background-size: 200% 200%;
+    }
+    @keyframes bg-gradient-cycle {
+        0% {
+            background-position: 0% 50%;
+            background: linear-gradient(135deg, #3701c0 0%, #6d28d9 100%);
+        }
+        25% {
+            background-position: 50% 100%;
+            background: linear-gradient(155deg, #000 0%, #3701c0 100%);
+        }
+        50% {
+            background-position: 100% 0%;
+            background: linear-gradient(115deg, #3701c0 0%, #000 100%);
+        }
+        75% {
+            background-position: 50% 100%;
+            background: linear-gradient(135deg, #6d28d9 0%, #3701c0 100%);
+        }
+        100% {
+            background-position: 0% 50%;
+            background: linear-gradient(135deg, #3701c0 0%, #6d28d9 100%);
+        }
     }
     .error-card {
         background: linear-gradient(120deg, #3701c0 60%, #000 100%);
@@ -35,7 +59,30 @@ export const errorWebsite = (uriParameter: string) => {
         max-width: 400px;
         width: 90vw;
         text-align: center;
-        animation: pop-in 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+        animation: card-gradient-cycle 20s linear infinite, pop-in 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+        background-size: 200% 200%;
+    }
+    @keyframes card-gradient-cycle {
+        0% {
+            background-position: 0% 50%;
+            background: linear-gradient(120deg, #3701c0 60%, #000 100%);
+        }
+        25% {
+            background-position: 50% 100%;
+            background: linear-gradient(140deg, #000 60%, #3701c0 100%);
+        }
+        50% {
+            background-position: 100% 0%;
+            background: linear-gradient(100deg, #3701c0 60%, #000 100%);
+        }
+        75% {
+            background-position: 50% 100%;
+            background: linear-gradient(120deg, #6d28d9 60%, #3701c0 100%);
+        }
+        100% {
+            background-position: 0% 50%;
+            background: linear-gradient(120deg, #3701c0 60%, #000 100%);
+        }
     }
     @keyframes pop-in {
         0% { transform: scale(0.8) rotate(-5deg); opacity: 0; }
