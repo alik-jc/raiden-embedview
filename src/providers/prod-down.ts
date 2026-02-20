@@ -22,19 +22,6 @@ export const errorWebsite = (uriParameter: string) => {
         position: relative;
     }
 
-    body::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
-        pointer-events: none;
-        animation: wave 8s ease-in-out infinite;
-    }
-
     .center-container {
         display: flex;
         flex-direction: column;
@@ -138,6 +125,8 @@ export const errorWebsite = (uriParameter: string) => {
     }
     </style>
 
+    <div id="wave-bg" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%); z-index: 0;"></div>
+
     <div class="center-container">
         <svg class="error-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="#ffd700"/>
@@ -145,6 +134,23 @@ export const errorWebsite = (uriParameter: string) => {
         <h1 class="error-msg">Proveedor ya no disponible</h1>
         <p class="error-text">Parece que <span class="strong-text">${domainName}</span> ya no está disponible. <br> Si es el único proveedor de video, carga la sección de comentarios y solicita que se añadan otros servidores.</p>
     </div>
+
+    <script>
+    window.addEventListener('load', () => {
+        const waveBg = document.getElementById('wave-bg');
+        let time = 0;
+        function animate() {
+            time += 0.01;
+            const x1 = 50 + 40 * Math.sin(time);
+            const y1 = 50 + 40 * Math.cos(time * 0.7);
+            const x2 = 50 + 40 * Math.sin(time + Math.PI);
+            const y2 = 50 + 40 * Math.cos((time + Math.PI) * 0.7);
+            waveBg.style.background = 'radial-gradient(circle at ' + x1 + '% ' + y1 + '%, rgba(255,255,255,0.1) 0%, transparent 50%), radial-gradient(circle at ' + x2 + '% ' + y2 + '%, rgba(255,255,255,0.1) 0%, transparent 50%)';
+            requestAnimationFrame(animate);
+        }
+        animate();
+    });
+    </script>
     `;
 };
 
@@ -164,19 +170,6 @@ export const pilarDown = (uriParameter: string, animeTitle: string) => {
         min-height: 100vh;
         position: relative;
         overflow-x: hidden;
-    }
-
-    body::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: radial-gradient(circle at 30% 70%, rgba(138,43,226,0.1) 0%, transparent 50%),
-                    radial-gradient(circle at 70% 30%, rgba(255,215,0,0.05) 0%, transparent 50%);
-        pointer-events: none;
-        animation: waveDark 10s ease-in-out infinite;
     }
 
     .hero-container {
@@ -317,6 +310,8 @@ export const pilarDown = (uriParameter: string, animeTitle: string) => {
     }
     </style>
 
+    <div id="wave-bg-dark" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; background: radial-gradient(circle at 30% 70%, rgba(138,43,226,0.1) 0%, transparent 50%), radial-gradient(circle at 70% 30%, rgba(255,215,0,0.05) 0%, transparent 50%); z-index: 0;"></div>
+
     <div class="hero-container">
         <div class="text-section">
             <h1 class="h1-error">Estamos al tanto de que ${animeTitle} no se encuentra disponible.</h1>
@@ -326,5 +321,22 @@ export const pilarDown = (uriParameter: string, animeTitle: string) => {
             <img src="https://i0.wp.com/i.postimg.cc/W4r1qW3H/yae-vector.png?fit=225%2C600&ssl=1" alt="${animeTitle}" class="yae-image">
         </div>
     </div>
+
+    <script>
+    window.addEventListener('load', () => {
+        const waveBg = document.getElementById('wave-bg-dark');
+        let time = 0;
+        function animate() {
+            time += 0.01;
+            const x1 = 50 + 40 * Math.sin(time * 0.8);
+            const y1 = 50 + 40 * Math.cos(time * 0.6);
+            const x2 = 50 + 40 * Math.sin(time * 0.8 + Math.PI);
+            const y2 = 50 + 40 * Math.cos((time * 0.6 + Math.PI));
+            waveBg.style.background = 'radial-gradient(circle at ' + x1 + '% ' + y1 + '%, rgba(138,43,226,0.1) 0%, transparent 50%), radial-gradient(circle at ' + x2 + '% ' + y2 + '%, rgba(255,215,0,0.05) 0%, transparent 50%)';
+            requestAnimationFrame(animate);
+        }
+        animate();
+    });
+    </script>
     `;
 };
