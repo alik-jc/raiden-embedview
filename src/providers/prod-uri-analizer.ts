@@ -136,16 +136,16 @@ export const performLulustAnalyzer = (decodedUri: string) => {
 
 export const wistTransform = (decodedUri: string) => {
         const wishdomain: { [key: string]: string } = {
-            "embedwish.com": "dumbalag.com",
-            "streamwish.com": "dumbalag.com",
-            "streamwish.top": "dumbalag.com",
-            "streamwish.to": "dumbalag.com",
-            "flaswish.com": "dumbalag.com",
-            "sfastwish.com": "dumbalag.com",
-            "obeywish.com": "dumbalag.com",
-            "jodwish.com": "dumbalag.com",
-            "wishfast.top": "dumbalag.com",
-            "swhoi.com": "dumbalag.com",
+            "embedwish.com": "hgcloud.to",
+            "streamwish.com": "hgcloud.to",
+            "streamwish.top": "hgcloud.to",
+            "streamwish.to": "hgcloud.to",
+            "flaswish.com": "hgcloud.to",
+            "sfastwish.com": "hgcloud.to",
+            "obeywish.com": "hgcloud.to",
+            "jodwish.com": "hgcloud.to",
+            "wishfast.top": "hgcloud.to",
+            "swhoi.com": "hgcloud.to",
         }
         const finded = Object.keys(wishdomain).find(key => decodedUri.includes(key));
         const newUri = decodedUri.replace(finded!, wishdomain[finded!]);
