@@ -39,6 +39,7 @@
     { "key": "streamvid", "value": "prod-down" },
     { "key": "wolfstream", "value": "prod-down" },
     { "key": "filelions.online", "value": "prod-down" },
+    { "key": "iceyfile", "value": "prod-down" },
 
     { "key": "hqq", "value": "prod-general" },
     { "key": "openload", "value": "prod-general" },
