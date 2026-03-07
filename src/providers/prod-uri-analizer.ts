@@ -170,8 +170,8 @@ export const performMixdropAnalyzer = (decodedUri: string) => {
 export const filemoonAnalizer = (decodedUri: string) => {
     if (decodedUri.includes('filemoon')) {
         const filemoon: filemoon = {
-            "filemoon.nl": 'filemoon.link',
-            "filemoon.sx": 'filemoon.link'
+            "filemoon.nl": 'bysewihe.com',
+            "filemoon.sx": 'bysewihe.com'
         }
         const finded = Object.keys(filemoon).find(key => decodedUri.includes(key));
         const newUri = decodedUri.replace(finded!, filemoon[finded!]);
