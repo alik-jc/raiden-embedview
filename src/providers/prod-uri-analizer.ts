@@ -172,7 +172,7 @@ export const filemoonAnalizer = (decodedUri: string) => {
         const filemoon: filemoon = {
             "filemoon.nl": 'bysewihe.com',
             "filemoon.sx": 'bysewihe.com',
-            "byse.sx": 'bysewihe.com',
+            "byse.sx": 'bysewihe.com'
         }
         const finded = Object.keys(filemoon).find(key => decodedUri.includes(key));
         const newUri = decodedUri.replace(finded!, filemoon[finded!]);
