@@ -1,7 +1,5 @@
 /*node_modules
 *env
 *coverage
-# Build output
-*dist
 # PM2 logs
 logs/

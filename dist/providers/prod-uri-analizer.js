@@ -1,0 +1,147 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.filemoonAnalizer = exports.performMixdropAnalyzer = exports.wistTransform = exports.performLulustAnalyzer = exports.performLuluAnalyzer = exports.performWishAnalyzer = exports.abyssTransform = exports.performOkruAnalyzer = exports.performDoodAnalyzer = void 0;
+const performDoodAnalyzer = (decodedUri) => {
+    if (decodedUri.includes("d-s.")) {
+        const dood = {
+            "d-s.io": "dsvplay.com"
+        };
+        const finded = Object.keys(dood).find(key => decodedUri.includes(key));
+        const newUri = decodedUri.replace(finded, dood[finded]);
+        return newUri;
+    }
+    else {
+        return decodedUri;
+    }
+};
+exports.performDoodAnalyzer = performDoodAnalyzer;
+const performOkruAnalyzer = (decodedUri) => {
+    if (decodedUri.includes("http://ok.ru")) {
+        const okru = {
+            "http://ok.ru": "https://ok.ru",
+        };
+        const finded = Object.keys(okru).find(key => decodedUri.includes(key));
+        const newUri = decodedUri.replace(finded, okru[finded]);
+        return newUri;
+    }
+    else {
+        return decodedUri;
+    }
+};
+exports.performOkruAnalyzer = performOkruAnalyzer;
+const abyssTransform = (decodedUri) => {
+    if (decodedUri.includes("https://short.ink/")) {
+        const abyss = {
+            "https://short.ink/": "https://short.icu/"
+        };
+        const finded = Object.keys(abyss).find(key => decodedUri.includes(key));
+        const newUri = decodedUri.replace(finded, abyss[finded]);
+        return newUri;
+    }
+    else {
+        return decodedUri;
+    }
+};
+exports.abyssTransform = abyssTransform;
+const performWishAnalyzer = (decodedUri) => {
+    if (decodedUri.includes("/e/")) {
+        return decodedUri;
+    }
+    else {
+        const wish = {
+            "https://wishfast.top/": "https://dumbalag.com/e/",
+            "https://streamwish.top/": "https://dumbalag.com/e/",
+            "https://flaswish.com/": "https://dumbalag.com/e/",
+            "https://sfastwish.com/": "https://dumbalag.com/e/",
+            "https://obeywish.com/": "https://dumbalag.com/e/",
+            "https://streamwish.com/e/": "https://dumbalag.com/e/",
+            "https://streamwish.to/": "https://dumbalag.com/e/",
+            "https://embedwish.com/e/": "https://dumbalag.com/e/"
+        };
+        const finded = Object.keys(wish).find(key => decodedUri.includes(key));
+        const newUri = decodedUri.replace(finded, wish[finded]);
+        return newUri;
+    }
+};
+exports.performWishAnalyzer = performWishAnalyzer;
+const performLuluAnalyzer = (decodedUri) => {
+    if (decodedUri.includes("/e/")) {
+        return decodedUri;
+    }
+    else {
+        const lulu = {
+            "https://luluvdo.com/": "https://luluvdo.com/e/"
+        };
+        const finded = Object.keys(lulu).find(key => decodedUri.includes(key));
+        const newUri = decodedUri.replace(finded, lulu[finded]);
+        return newUri;
+    }
+};
+exports.performLuluAnalyzer = performLuluAnalyzer;
+const performLulustAnalyzer = (decodedUri) => {
+    if (decodedUri.includes(".st") || decodedUri.includes(".com") || decodedUri.includes("luluvdoo.com")) {
+        const lulust = {
+            "lulu.st": "luluvdo.com",
+            "lulustream.com": "luluvdo.com",
+            "luluvdoo.com": "luluvdo.com",
+            "luluvid.com": "luluvdo.com",
+        };
+        const finded = Object.keys(lulust).find(key => decodedUri.includes(key));
+        const newUri = decodedUri.replace(finded, lulust[finded]);
+        return newUri;
+    }
+    else {
+        return decodedUri;
+    }
+};
+exports.performLulustAnalyzer = performLulustAnalyzer;
+const wistTransform = (decodedUri) => {
+    const wishdomain = {
+        "embedwish.com": "hgcloud.to",
+        "streamwish.com": "hgcloud.to",
+        "streamwish.top": "hgcloud.to",
+        "streamwish.to": "hgcloud.to",
+        "flaswish.com": "hgcloud.to",
+        "sfastwish.com": "hgcloud.to",
+        "obeywish.com": "hgcloud.to",
+        "jodwish.com": "hgcloud.to",
+        "wishfast.top": "hgcloud.to",
+        "swhoi.com": "hgcloud.to",
+    };
+    const finded = Object.keys(wishdomain).find(key => decodedUri.includes(key));
+    const newUri = decodedUri.replace(finded, wishdomain[finded]);
+    return newUri;
+};
+exports.wistTransform = wistTransform;
+const performMixdropAnalyzer = (decodedUri) => {
+    if (decodedUri.includes('mixdrop')) {
+        const mixdrop = {
+            "mixdrop.com": 'mdy48tn97.com',
+            "mixdrop.co": 'mdy48tn97.com',
+            "mixdrop.to": 'mdy48tn97.com'
+        };
+        const finded = Object.keys(mixdrop).find(key => decodedUri.includes(key));
+        const newUri = decodedUri.replace(finded, mixdrop[finded]);
+        return newUri;
+    }
+    else {
+        return decodedUri;
+    }
+};
+exports.performMixdropAnalyzer = performMixdropAnalyzer;
+const filemoonAnalizer = (decodedUri) => {
+    if (decodedUri.includes('filemoon')) {
+        const filemoon = {
+            "filemoon.nl": 'bysewihe.com',
+            "filemoon.sx": 'bysewihe.com',
+            "byse.sx": 'bysewihe.com'
+        };
+        const finded = Object.keys(filemoon).find(key => decodedUri.includes(key));
+        const newUri = decodedUri.replace(finded, filemoon[finded]);
+        return newUri;
+    }
+    else {
+        return decodedUri;
+    }
+};
+exports.filemoonAnalizer = filemoonAnalizer;
