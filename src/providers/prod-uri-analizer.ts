@@ -170,33 +170,30 @@ export const performMixdropAnalyzer = (decodedUri: string) => {
 
 export const filemoonAnalizer = (decodedUri: string) => {
     if (decodedUri.includes('filemoon')) {
-        const filemoon: Record<string, string> = { // Cambia el tipo según tu interfaz real
+        const filemoon: filemoon = {
+
             "filemoon.nl": 'bysewihe.com',
             "filemoon.sx": 'bysewihe.com',
             "byse.sx": 'bysewihe.com'
         }
         const finded = Object.keys(filemoon).find(key => decodedUri.includes(key));
-        
-        // Verificamos que 'finded' exista antes de reemplazar
-        if (finded) {
-            return decodedUri.replace(finded, filemoon[finded]);
-        }
-        return decodedUri;
+        const newUri = decodedUri.replace(finded!, filemoon[finded!]);
+        return newUri;
 
     } else if (decodedUri.includes('byse.sx')) {
         const bysed: filemoon = {
             "byse.sx": "bysewihe.com",
-            "filemoon.nl": "bysewihe.com"
+            "filemoon.sx": "bysewihe.com"
         }
-        const finded = Object.keys(bysed).find(key => decodedUri.includes(key));
-        
-        if (finded) {
-            // Corregido: cambiamos 'byse' por 'bysed'
-            return decodedUri.replace(finded, bysed[finded]);
-        }
-        return decodedUri;
+
+        const finded2 = Object.keys(bysed).find(key => decodedUri.includes(key));
+        const newUri2 = decodedUri.replace(finded!, byse[finded!]);
+        return newUri;
 
     } else {
+
         return decodedUri;
+
     }
+
 }
