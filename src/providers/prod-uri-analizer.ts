@@ -39,16 +39,6 @@ type mixdrop = {
     "mixdrop.co": string;
 }
 
-type filemoon = {
-    [key: string]: string;
-    "filemoon.nl": string;
-}
-
-type bysed = {
-    [key: string]: string;
-    "byse.sx": string;
-}
-
 export const performDoodAnalyzer = (decodedUri: string) => {
     if (decodedUri.includes("d-s.")) {
         const dood: dood = {
@@ -173,30 +163,16 @@ export const performMixdropAnalyzer = (decodedUri: string) => {
 }
 
 export const filemoonAnalizer = (decodedUri: string) => {
-    if (decodedUri.includes('filemoon')) {
-        const filemoon: filemoon = {
+    const filemoonDomains: { [key: string]: string } = {
+        "filemoon.nl": "bysewihe.com",
+        "filemoon.sx": "bysewihe.com",
+        "byse.sx": "bysewihe.com"
+    };
 
-            "filemoon.nl": 'bysewihe.com',
-            "filemoon.sx": 'bysewihe.com',
-            "byse.sx": 'bysewihe.com'
-        }
-        const finded = Object.keys(filemoon).find(key => decodedUri.includes(key));
-        const newUri = decodedUri.replace(finded!, filemoon[finded!]);
-        return newUri;
-
-    } else if (decodedUri.includes('byse.sx')) {
-        const bysed: bysed = {
-            "byse.sx": "bysewihe.com",
-        }
-
-        const finded2 = Object.keys(bysed).find(key => decodedUri.includes(key));
-        const newUri2 = decodedUri.replace(finded2!, bysed[finded2!]);
-        return newUri2;
-
-    } else {
-
+    const foundDomain = Object.keys(filemoonDomains).find(key => decodedUri.includes(key));
+    if (!foundDomain) {
         return decodedUri;
-
     }
 
+    return decodedUri.replace(foundDomain, filemoonDomains[foundDomain]);
 }
