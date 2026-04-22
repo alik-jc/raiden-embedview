@@ -183,12 +183,12 @@ export const filemoonAnalizer = (decodedUri: string) => {
     } else if (decodedUri.includes('byse.sx')) {
         const bysed: filemoon = {
             "byse.sx": "bysewihe.com",
-            "filemoon.sx": "bysewihe.com"
+            "filemoon.nl": "bysewihe.com"
         }
 
         const finded2 = Object.keys(bysed).find(key => decodedUri.includes(key));
-        const newUri2 = decodedUri.replace(finded!, byse[finded!]);
-        return newUri;
+        const newUri2 = decodedUri.replace(finded2!, bysed[finded2!]);
+        return newUri2;
 
     } else {
 
