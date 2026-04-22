@@ -42,6 +42,10 @@ type mixdrop = {
 type filemoon = {
     [key: string]: string;
     "filemoon.nl": string;
+}
+
+type bysed = {
+    [key: string]: string;
     "byse.sx": string;
 }
 
@@ -181,9 +185,8 @@ export const filemoonAnalizer = (decodedUri: string) => {
         return newUri;
 
     } else if (decodedUri.includes('byse.sx')) {
-        const bysed: filemoon = {
+        const bysed: bysed = {
             "byse.sx": "bysewihe.com",
-            "filemoon.nl": "bysewihe.com"
         }
 
         const finded2 = Object.keys(bysed).find(key => decodedUri.includes(key));
