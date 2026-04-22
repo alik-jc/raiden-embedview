@@ -140,6 +140,14 @@ const filemoonAnalizer = (decodedUri) => {
         const newUri = decodedUri.replace(finded, filemoon[finded]);
         return newUri;
     }
+    else if (decodedUri.includes('byse.sx')) {
+        const bysed = {
+            "byse.sx": "bysewihe.com",
+        };
+        const finded2 = Object.keys(bysed).find(key => decodedUri.includes(key));
+        const newUri2 = decodedUri.replace(finded2, bysed[finded2]);
+        return newUri2;
+    }
     else {
         return decodedUri;
     }
