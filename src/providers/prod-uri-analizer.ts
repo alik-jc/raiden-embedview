@@ -39,6 +39,12 @@ type mixdrop = {
     "mixdrop.co": string;
 }
 
+type filemoon = {
+    [key: string]: string;
+    "filemoon.nl": string;
+    "byse.sx": string;
+}
+
 export const performDoodAnalyzer = (decodedUri: string) => {
     if (decodedUri.includes("d-s.")) {
         const dood: dood = {
@@ -163,16 +169,18 @@ export const performMixdropAnalyzer = (decodedUri: string) => {
 }
 
 export const filemoonAnalizer = (decodedUri: string) => {
-    const filemoonDomains: { [key: string]: string } = {
-        "filemoon.nl": "bysewihe.com",
-        "filemoon.sx": "bysewihe.com",
-        "byse.sx": "bysewihe.com"
+    const filemoon: filemoon = {
+        "filemoon.nl": 'bysewihe.com',
+        "filemoon.sx": 'bysewihe.com',
+        "byse.sx": 'bysewihe.com',
+        "byse": 'bysewihe.com'
     };
 
-    const foundDomain = Object.keys(filemoonDomains).find(key => decodedUri.includes(key));
-    if (!foundDomain) {
-        return decodedUri;
-    }
+    // Priorizar claves más largas (p. ej. "byse.sx" antes que "byse")
+    const keys = Object.keys(filemoon).sort((a, b) => b.length - a.length);
+    const matched = keys.find(k => decodedUri.includes(k));
+    if (!matched) return decodedUri;
 
-    return decodedUri.replace(foundDomain, filemoonDomains[foundDomain]);
+    return decodedUri.replace(matched, filemoon[matched]);
+
 }

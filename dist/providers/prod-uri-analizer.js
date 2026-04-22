@@ -130,15 +130,17 @@ const performMixdropAnalyzer = (decodedUri) => {
 };
 exports.performMixdropAnalyzer = performMixdropAnalyzer;
 const filemoonAnalizer = (decodedUri) => {
-    const filemoonDomains = {
-        "filemoon.nl": "bysewihe.com",
-        "filemoon.sx": "bysewihe.com",
-        "byse.sx": "bysewihe.com"
+    const filemoon = {
+        "filemoon.nl": 'bysewihe.com',
+        "filemoon.sx": 'bysewihe.com',
+        "byse.sx": 'bysewihe.com',
+        "byse": 'bysewihe.com'
     };
-    const foundDomain = Object.keys(filemoonDomains).find(key => decodedUri.includes(key));
-    if (!foundDomain) {
+    // Priorizar claves más largas (p. ej. "byse.sx" antes que "byse")
+    const keys = Object.keys(filemoon).sort((a, b) => b.length - a.length);
+    const matched = keys.find(k => decodedUri.includes(k));
+    if (!matched)
         return decodedUri;
-    }
-    return decodedUri.replace(foundDomain, filemoonDomains[foundDomain]);
+    return decodedUri.replace(matched, filemoon[matched]);
 };
 exports.filemoonAnalizer = filemoonAnalizer;
