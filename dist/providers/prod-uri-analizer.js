@@ -30,20 +30,16 @@ const performOkruAnalyzer = (decodedUri) => {
 };
 exports.performOkruAnalyzer = performOkruAnalyzer;
 const abyssTransform = (decodedUri) => {
-    // Tipamos el objeto como Record<string, string> para evitar errores de índice en TypeScript
-    const abyss = {
-        "https://short.ink/": "https://abyssplayer.com/",
-        "https://short.icu/": "https://abyssplayer.com/"
-    };
-    // Buscamos si la URI contiene alguna de las llaves definidas en el objeto
-    const finded = Object.keys(abyss).find(key => decodedUri.includes(key));
-    // Si encontró alguna coincidencia, 'finded' será la llave (ej. "https://short.ink/")
-    if (finded) {
+    if (decodedUri.includes("https://short.ink/") || decodedUri.includes("https://short.icu/")) {
+        const abyss = {
+            "https://short.ink/": "https://abyssplayer.com/",
+            "https://short.icu/": "https://abyssplayer.com/"
+        };
+        const finded = Object.keys(abyss).find(key => decodedUri.includes(key));
         const newUri = decodedUri.replace(finded, abyss[finded]);
         return newUri;
     }
     else {
-        // Si no encontró ninguna, retorna la URI original
         return decodedUri;
     }
 };
