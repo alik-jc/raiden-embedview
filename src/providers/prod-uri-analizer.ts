@@ -1,48 +1,10 @@
-type okru = {
+type domains = {
     [key: string]: string;
-    "http://ok.ru": string;
-}
-type wish = {
-    [key: string]: string;
-    "https://wishfast.top/": string;
-    "https://flaswish.com/": string;
-    "https://sfastwish.com/": string;
-    "https://obeywish.com/": string;
-    "https://streamwish.com/e/": string;
-    "https://embedwish.com/e/": string;
-}
-
-type lulu = {
-    [key: string]: string;
-    "https://luluvdo.com/": string;
-}
-
-type lulust = {
-    [key: string]: string;
-    "lulu.st": string;
-}
-
-type dood = {
-    [key: string]: string;
-    "d-s.io": string;
-}
-
-type mixdrop = {
-    [key: string]: string;
-    "mixdrop.com": string;
-    "mixdrop.to": string;
-    "mixdrop.co": string;
-}
-
-type filemoon = {
-    [key: string]: string;
-    "filemoon.nl": string;
-    "byse.sx": string;
 }
 
 export const performDoodAnalyzer = (decodedUri: string) => {
     if (decodedUri.includes("d-s.")) {
-        const dood: dood = {
+        const dood: domains = {
             "d-s.io": "dsvplay.com"
         }
         const finded = Object.keys(dood).find(key => decodedUri.includes(key));
@@ -55,7 +17,7 @@ export const performDoodAnalyzer = (decodedUri: string) => {
 
 export const performOkruAnalyzer = (decodedUri: string) => {
     if (decodedUri.includes("http://ok.ru")) {
-        const okru: okru = {
+        const okru: domains = {
             "http://ok.ru": "https://ok.ru",
             
         }
@@ -68,21 +30,15 @@ export const performOkruAnalyzer = (decodedUri: string) => {
 }
 
 export const abyssTransform = (decodedUri: string) => {
-    // Tipamos el objeto como Record<string, string> para evitar errores de índice en TypeScript
-    const abyss: Record<string, string> = {
-        "https://short.ink/": "https://abyssplayer.com/",
-        "https://short.icu/": "https://abyssplayer.com/"
-    };
-
-    // Buscamos si la URI contiene alguna de las llaves definidas en el objeto
-    const finded = Object.keys(abyss).find(key => decodedUri.includes(key));
-
-    // Si encontró alguna coincidencia, 'finded' será la llave (ej. "https://short.ink/")
-    if (finded) {
-        const newUri = decodedUri.replace(finded, abyss[finded]);
+    if (decodedUri.includes("https://short.ink/") || decodedUri.includes("https://short.icu/")) {
+        const abyss: domains = {
+            "https://short.ink/": "https://abyssplayer.com/",
+            "https://short.icu/": "https://abyssplayer.com/"
+        }
+        const finded = Object.keys(abyss).find(key => decodedUri.includes(key));
+        const newUri = decodedUri.replace(finded!, abyss[finded!]);
         return newUri;
     } else {
-        // Si no encontró ninguna, retorna la URI original
         return decodedUri;
     }
 }
@@ -92,7 +48,7 @@ export const performWishAnalyzer = (decodedUri: string) => {
     ) {
         return decodedUri
     } else {
-        const wish: wish = {
+        const wish: domains = {
             "https://wishfast.top/": "https://dumbalag.com/e/",
             "https://streamwish.top/": "https://dumbalag.com/e/",
             "https://flaswish.com/": "https://dumbalag.com/e/",
@@ -112,7 +68,7 @@ export const performLuluAnalyzer = (decodedUri: string) => {
     if (decodedUri.includes("/e/")) {
         return decodedUri;
     } else {
-        const lulu: lulu = {
+        const lulu: domains = {
             "https://luluvdo.com/": "https://luluvdo.com/e/"
         };
         const finded = Object.keys(lulu).find(key => decodedUri.includes(key));
@@ -123,7 +79,7 @@ export const performLuluAnalyzer = (decodedUri: string) => {
 
 export const performLulustAnalyzer = (decodedUri: string) => {
     if (decodedUri.includes(".st") || decodedUri.includes(".com") || decodedUri.includes("luluvdoo.com")) {
-        const lulust: lulust = {
+        const lulust: domains = {
             "lulu.st": "luluvdo.com",
             "lulustream.com": "luluvdo.com",
             "luluvdoo.com": "luluvdo.com",
@@ -157,7 +113,7 @@ export const wistTransform = (decodedUri: string) => {
 
 export const performMixdropAnalyzer = (decodedUri: string) => {
     if (decodedUri.includes('mixdrop')) {
-        const mixdrop: mixdrop = {
+        const mixdrop: domains = {
             "mixdrop.com": 'mdy48tn97.com',
             "mixdrop.co": 'mdy48tn97.com',
             "mixdrop.to": 'mdy48tn97.com'
@@ -171,7 +127,7 @@ export const performMixdropAnalyzer = (decodedUri: string) => {
 }
 
 export const filemoonAnalizer = (decodedUri: string) => {
-    const filemoon: filemoon = {
+    const filemoon: domains = {
         "filemoon.nl": 'bysewihe.com',
         "filemoon.sx": 'bysewihe.com',
         "byse.sx": 'bysewihe.com',
