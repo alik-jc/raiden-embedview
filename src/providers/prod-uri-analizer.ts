@@ -12,11 +12,6 @@ type wish = {
     "https://embedwish.com/e/": string;
 }
 
-type abyss = {
-    [key: string]: string;
-    "https://short.ink/": string;
-}
-
 type lulu = {
     [key: string]: string;
     "https://luluvdo.com/": string;
