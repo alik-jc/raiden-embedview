@@ -298,9 +298,9 @@ app.get('/prod-analizer-lulu', (req, res) => __awaiter(void 0, void 0, void 0, f
         const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
         const luluContent = (0, index_1.performLuluAnalyzer)(decodedUri);
         Logger.debug('Lulu content analyzed', { luluContent });
-        const proxedLulu = yield (0, index_1.luluProd)(luluContent);
-        Logger.debug('Lulu QLS content generated', { proxedLulu });
-        const renderContent = (0, index_1.raidenGeneral)(proxedLulu);
+        //const proxedLulu = await luluProd(luluContent);
+        //Logger.debug('Lulu QLS content generated', { proxedLulu });
+        const renderContent = (0, index_1.raidenGeneral)(luluContent || '');
         Logger.info('prod-analizer-lulu rendered successfully');
         sendHtmlResponse(res, renderContent);
     }
@@ -318,9 +318,9 @@ app.get('/prod-analizer-lulust', (req, res) => __awaiter(void 0, void 0, void 0,
         const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
         const luluContent = (0, index_1.performLulustAnalyzer)(decodedUri);
         Logger.debug('Lulust content analyzed', { luluContent });
-        const proxedLulu = yield (0, index_1.luluProd)(luluContent);
-        Logger.debug('Lulust QLS content generated', { proxedLulu });
-        const renderContent = (0, index_1.raidenGeneral)(proxedLulu);
+        //const proxedLulu = await luluProd(luluContent);
+        //Logger.debug('Lulust QLS content generated', { proxedLulu });
+        const renderContent = (0, index_1.raidenGeneral)(luluContent || '');
         Logger.info('prod-analizer-lulust rendered successfully');
         sendHtmlResponse(res, renderContent);
     }

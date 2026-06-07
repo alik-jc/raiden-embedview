@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.basePlayerPage = void 0;
+exports.basePlayerPage = basePlayerPage;
 const index_1 = require("../index");
 function basePlayerPage(conmutatedValue, image, animeTitle) {
     return `
@@ -55,4 +55,3 @@ function basePlayerPage(conmutatedValue, image, animeTitle) {
         </div>
         `;
 }
-exports.basePlayerPage = basePlayerPage;
