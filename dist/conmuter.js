@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.performConmutation = performConmutation;
+exports.performConmutation = void 0;
 function performConmutation(base, findArray) {
     const finded = findArray.find((item) => base.includes(item.key));
     if (finded) {
@@ -8,3 +8,4 @@ function performConmutation(base, findArray) {
     }
     return null;
 }
+exports.performConmutation = performConmutation;

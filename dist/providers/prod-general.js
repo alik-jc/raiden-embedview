@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.raidenGeneral = raidenGeneral;
+exports.raidenGeneral = void 0;
 const index_1 = require("../index");
 function raidenGeneral(uriParameter) {
     const content = `
@@ -51,3 +51,4 @@ function raidenGeneral(uriParameter) {
     <script>${index_1.ADS_GUARDIAN}</script>`;
     return content;
 }
+exports.raidenGeneral = raidenGeneral;
