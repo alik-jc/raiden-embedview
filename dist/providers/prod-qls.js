@@ -31,9 +31,9 @@ const uqloProd = (uriParameter) => __awaiter(void 0, void 0, void 0, function* (
         .trim();
     // Patrones de extracción mejorados
     const patterns = [
-        /\/embed-([a-z0-9]+)\.html/i,
-        /\/([a-z0-9]+)\.html/i,
-        /uqload\.com\/([a-z0-9]+)/i,
+        /\/embed-([a-z0-9]+)\.html/i, // /embed-HASH.html
+        /\/([a-z0-9]+)\.html/i, // /HASH.html
+        /uqload\.com\/([a-z0-9]+)/i, // uqload.com/HASH
         /^([a-z0-9]{12,})$/i // Solo el hash
     ];
     // Intentar extraer el hash con cada patrón

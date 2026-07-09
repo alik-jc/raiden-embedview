@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.raidenSanbox = void 0;
+exports.raidenSanbox = raidenSanbox;
 const index_1 = require("../index");
 function raidenSanbox(uriParameter) {
     const content = `
@@ -54,4 +54,3 @@ function raidenSanbox(uriParameter) {
     <script>${index_1.ADS_GUARDIAN}</script>`;
     return content;
 }
-exports.raidenSanbox = raidenSanbox;
