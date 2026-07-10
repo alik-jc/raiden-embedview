@@ -102,9 +102,9 @@
     { "key": "hexload", "value": "prod-snbox" },
     { "key": "savefiles", "value": "prod-general" },
 
-    { "key": "uqload", "value": "proxed" },
-    { "key": "yandex", "value": "proxed" },
-    
+    { "key": "uqload", "value": "prod-general" },
+    { "key": "yandex", "value": "prod-general" },
+
     { "key": "ok.ru", "value": "prod-analizer-ok" },
     { "key": "https://ok.ru", "value": "prod-analizer-ok" },
     { "key": "http://ok.ru", "value": "prod-analizer-ok" },
