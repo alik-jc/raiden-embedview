@@ -19,7 +19,7 @@ export const performOkruAnalyzer = (decodedUri: string) => {
     if (decodedUri.includes("http://ok.ru")) {
         const okru: domains = {
             "http://ok.ru": "https://ok.ru",
-            
+
         }
         const finded = Object.keys(okru).find(key => decodedUri.includes(key));
         const newUri = decodedUri.replace(finded!, okru[finded!]);
@@ -44,7 +44,7 @@ export const abyssTransform = (decodedUri: string) => {
 }
 
 export const performWishAnalyzer = (decodedUri: string) => {
-    if (decodedUri.includes("/e/") 
+    if (decodedUri.includes("/e/")
     ) {
         return decodedUri
     } else {
@@ -94,21 +94,21 @@ export const performLulustAnalyzer = (decodedUri: string) => {
 }
 
 export const wistTransform = (decodedUri: string) => {
-        const wishdomain: { [key: string]: string } = {
-            "embedwish.com": "hgcloud.to",
-            "streamwish.com": "hgcloud.to",
-            "streamwish.top": "hgcloud.to",
-            "streamwish.to": "hgcloud.to",
-            "flaswish.com": "hgcloud.to",
-            "sfastwish.com": "hgcloud.to",
-            "obeywish.com": "hgcloud.to",
-            "jodwish.com": "hgcloud.to",
-            "wishfast.top": "hgcloud.to",
-            "swhoi.com": "hgcloud.to",
-        }
-        const finded = Object.keys(wishdomain).find(key => decodedUri.includes(key));
-        const newUri = decodedUri.replace(finded!, wishdomain[finded!]);
-        return newUri;
+    const wishdomain: { [key: string]: string } = {
+        "embedwish.com": "hgcloud.to",
+        "streamwish.com": "hgcloud.to",
+        "streamwish.top": "hgcloud.to",
+        "streamwish.to": "hgcloud.to",
+        "flaswish.com": "hgcloud.to",
+        "sfastwish.com": "hgcloud.to",
+        "obeywish.com": "hgcloud.to",
+        "jodwish.com": "hgcloud.to",
+        "wishfast.top": "hgcloud.to",
+        "swhoi.com": "hgcloud.to",
+    }
+    const finded = Object.keys(wishdomain).find(key => decodedUri.includes(key));
+    const newUri = decodedUri.replace(finded!, wishdomain[finded!]);
+    return newUri;
 }
 
 export const performMixdropAnalyzer = (decodedUri: string) => {
@@ -116,7 +116,8 @@ export const performMixdropAnalyzer = (decodedUri: string) => {
         const mixdrop: domains = {
             "mixdrop.com": 'mdy48tn97.com',
             "mixdrop.co": 'mdy48tn97.com',
-            "mixdrop.to": 'mdy48tn97.com'
+            "mixdrop.to": 'mdy48tn97.com',
+            "mdy48tn97.comp": 'mdy48tn97.com'
         }
         const finded = Object.keys(mixdrop).find(key => decodedUri.includes(key));
         const newUri = decodedUri.replace(finded!, mixdrop[finded!]);
