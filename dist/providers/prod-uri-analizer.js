@@ -115,20 +115,22 @@ const wistTransform = (decodedUri) => {
 };
 exports.wistTransform = wistTransform;
 const performMixdropAnalyzer = (decodedUri) => {
+    // Si tiene la extensión mal escrita (.comp), corregirla a .com
+    if (decodedUri.includes('.comp')) {
+        return decodedUri.replace('.comp', '.com');
+    }
     if (decodedUri.includes('mixdrop')) {
         const mixdrop = {
             "mixdrop.com": 'mdy48tn97.com',
             "mixdrop.co": 'mdy48tn97.com',
-            "mixdrop.to": 'mdy48tn97.com',
-            "mdy48tn97.comp": 'mdy48tn97.com'
+            "mixdrop.to": 'mdy48tn97.com'
         };
         const finded = Object.keys(mixdrop).find(key => decodedUri.includes(key));
-        const newUri = decodedUri.replace(finded, mixdrop[finded]);
-        return newUri;
+        if (!finded)
+            return decodedUri;
+        return decodedUri.replace(finded, mixdrop[finded]);
     }
-    else {
-        return decodedUri;
-    }
+    return decodedUri;
 };
 exports.performMixdropAnalyzer = performMixdropAnalyzer;
 const filemoonAnalizer = (decodedUri) => {
