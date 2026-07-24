@@ -128,6 +128,8 @@ export const performMixdropAnalyzer = (decodedUri: string) => {
 }
 
 export const filemoonAnalizer = (decodedUri: string) => {
+    if (decodedUri.includes('bysewihe.com')) return decodedUri;
+
     const filemoon: domains = {
         "filemoon.nl": 'bysewihe.com',
         "filemoon.sx": 'bysewihe.com',
