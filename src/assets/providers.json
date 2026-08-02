@@ -89,8 +89,8 @@
     { "key": "doramasyt", "value": "prod-snbox" },
     { "key": "sendvid", "value": "prod-snbox" },
     { "key": "latanime", "value": "prod-snbox" },
-    { "key": "player.zilla-networks.com/play/", "value": "prod-zilla-proxy" },
-    { "key": "player.zilla", "value": "prod-snbox" },
+    { "key": "player.zilla-networks.com/play/", "value": "prod-down" },
+    { "key": "player.zilla", "value": "prod-down" },
     { "key": "pixeldrain", "value": "prod-snbox" },
 
     { "key": "rpmplay", "value": "prod-general" },

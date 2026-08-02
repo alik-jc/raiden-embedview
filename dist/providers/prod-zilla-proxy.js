@@ -2,51 +2,51 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.raidenZillaProxy = raidenZillaProxy;
 const index_1 = require("../index");
-function raidenZillaProxy(proxyUrl) {
+function raidenZillaProxy(hash) {
+    const jwPlayer = "//ssl.p.jwpcdn.com/player/v/8.30.0/jwplayer.js";
+    const m3u8Proxy = `/zilla-m3u8/${hash}`;
     const content = `
     <script>${index_1.CAT_FRAME}</script>
     <style>
         body {
             margin: 0;
+            padding: 0;
+            background-color: #000;
+            overflow: hidden;
         }
-        iframe {
-            height: calc(100vh - 4px);
-            width: calc(100vw - 4px);
-            border: 0;
-            box-sizing: border-box;
-        }
-        .container {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            align-items: center;
+        #player {
+            width: 100%;
             height: 100vh;
-            width: 100vw;
-            background-color: rgba(0, 0, 0, 0);
         }
         .logo-float {
             position: absolute;
             top: 10px;
             left: 10px;
-        }
-        .logo-float-container {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            align-items: center;
+            z-index: 99;
         }
         .logo-float-img {
             max-width: 80px;
         }
     </style>
-    <div class="container">
-        <div class="logo-float">
-            <div class="logo-float-container">
-                <img class="logo-float-img" src="//i0.aniyae.net/aniyae.net/wp-content/uploads/2022/04/AYLogoV4.png?fit=230%2C2047&ssl=1" alt="Aniyae Logo">
-            </div>
-        </div>
-        <iframe allowfullscreen="yes" scrolling="no" src="${proxyUrl}" autoplay="true"></iframe>
+    <div class="logo-float">
+        <img class="logo-float-img" src="//i0.aniyae.net/aniyae.net/wp-content/uploads/2022/04/AYLogoV4.png?fit=230%2C2047&ssl=1" alt="Aniyae Logo">
     </div>
+    <div id="player"></div>
+    <script src="${jwPlayer}"></script>
+    <script>
+        jwplayer("player").setup({
+            file: "${m3u8Proxy}",
+            type: "hls",
+            width: "100%",
+            height: "100%",
+            autostart: true,
+            skin: {
+                name: "RPlay",
+                active: "#4b00ff",
+                inactive: "#FFFFFF"
+            }
+        });
+    </script>
     <script>${index_1.ADS_PLAYER}</script>
     <script>${index_1.ADS_GUARDIAN}</script>`;
     return content;

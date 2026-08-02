@@ -467,48 +467,79 @@ app.get('/proxed-xn', async (req: Request, res: Response) => {
     }
 });
 
-/**
- * Zilla proxy route - Fetches content with injected Referer
- */
-app.get('/zilla-proxy', async (req: Request, res: Response) => {
-    try {
-        const targetUrl = req.query.url as string;
-        Logger.debug('Processing zilla-proxy', { targetUrl });
+const ZILLA_HEADERS = {
+    'Accept': '*/*',
+    'Accept-Language': 'es-419,es;q=0.9',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'Pragma': 'no-cache',
+    'Referer': 'https://animeav1.com/',
+    'Sec-Fetch-Dest': 'empty',
+    'Sec-Fetch-Mode': 'cors',
+    'Sec-Fetch-Site': 'cross-site',
+    'Sec-GPC': '1',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36',
+    'sec-ch-ua': '"Not=A?Brand";v="99", "Brave";v="151", "Chromium";v="151"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"'
+};
 
-        if (!targetUrl) {
-            return res.status(HTTP_STATUS.FORBIDDEN).json({ error: 'Missing url parameter' });
+/**
+ * Zilla m3u8 proxy - Rewrites segment URLs to use local proxy
+ */
+app.get('/zilla-m3u8/:hash', async (req: Request, res: Response) => {
+    try {
+        const { hash } = req.params;
+        const targetUrl = `https://player.zilla-networks.com/m3u8/${hash}`;
+        Logger.debug('Processing zilla-m3u8', { hash, targetUrl });
+
+        const response = await fetch(targetUrl, { headers: ZILLA_HEADERS });
+
+        if (!response.ok) {
+            return res.status(response.status).json({ error: 'Failed to fetch m3u8' });
         }
 
-        const response = await fetch(targetUrl, {
-            headers: {
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
-                'Accept-Language': 'es-419,es;q=0.9',
-                'Cache-Control': 'no-cache',
-                'Connection': 'keep-alive',
-                'Pragma': 'no-cache',
-                'Referer': 'https://animeav1.com/',
-                'Sec-Fetch-Dest': 'iframe',
-                'Sec-Fetch-Mode': 'navigate',
-                'Sec-Fetch-Site': 'cross-site',
-                'Sec-Fetch-Storage-Access': 'none',
-                'Sec-Fetch-User': '?1',
-                'Sec-GPC': '1',
-                'Upgrade-Insecure-Requests': '1',
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36',
-                'sec-ch-ua': '"Not=A?Brand";v="99", "Brave";v="151", "Chromium";v="151"',
-                'sec-ch-ua-mobile': '?0',
-                'sec-ch-ua-platform': '"Windows"'
-            }
-        });
+        let m3u8Content = await response.text();
 
-        const contentType = response.headers.get('content-type') || 'text/html';
-        const html = await response.text();
+        // Rewrite segment URLs: /segs/HASH/N.html -> /zilla-segs/HASH/N.html
+        m3u8Content = m3u8Content.replace(
+            /\/segs\/([^/]+)\/([^"'\s]+)/g,
+            `/zilla-segs/$1/$2`
+        );
+
+        res.setHeader('Content-Type', 'application/x-mpegURL');
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.send(m3u8Content);
+        Logger.info('zilla-m3u8 response sent');
+    } catch (error) {
+        sendErrorResponse(res, 'Error in zilla-m3u8', error);
+    }
+});
+
+/**
+ * Zilla segments proxy - Proxies video segments with correct headers
+ */
+app.get('/zilla-segs/:hash/:segment', async (req: Request, res: Response) => {
+    try {
+        const { hash, segment } = req.params;
+        const targetUrl = `https://player.zilla-networks.com/segs/${hash}/${segment}`;
+        Logger.debug('Processing zilla-segs', { hash, segment, targetUrl });
+
+        const response = await fetch(targetUrl, { headers: ZILLA_HEADERS });
+
+        if (!response.ok) {
+            return res.status(response.status).json({ error: 'Failed to fetch segment' });
+        }
+
+        const contentType = response.headers.get('content-type') || 'video/mp2t';
+        const buffer = await response.arrayBuffer();
 
         res.setHeader('Content-Type', contentType);
-        res.send(html);
-        Logger.info('zilla-proxy response sent');
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.send(Buffer.from(buffer));
+        Logger.info('zilla-segs segment sent');
     } catch (error) {
-        sendErrorResponse(res, 'Error in zilla-proxy', error);
+        sendErrorResponse(res, 'Error in zilla-segs', error);
     }
 });
 
@@ -521,8 +552,16 @@ app.get('/prod-zilla-proxy', async (req: Request, res: Response) => {
         Logger.debug('Processing prod-zilla-proxy', { uriParameter });
 
         const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
-        const proxyUrl = '/zilla-proxy?url=' + encodeURIComponent(decodedUri);
-        const renderContent = raidenZillaProxy(proxyUrl);
+
+        // Extract hash from URL: /play/{hash} or /m3u8/{hash}
+        const hashMatch = decodedUri.match(/\/(?:play|m3u8)\/([a-f0-9]{32})/);
+        const hash = hashMatch ? hashMatch[1] : null;
+
+        if (!hash) {
+            return sendErrorResponse(res, 'Invalid zilla URL format', { uri: decodedUri });
+        }
+
+        const renderContent = raidenZillaProxy(hash);
         Logger.info('prod-zilla-proxy rendered successfully');
         sendHtmlResponse(res, renderContent);
     } catch (error) {
