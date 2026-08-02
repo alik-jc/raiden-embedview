@@ -7,3 +7,4 @@ export * from './providers/prod-qls';
 export * from './providers/prod-down';
 export * from './assets/assets';
 export * from './providers/prod-secure';
+export * from './providers/prod-zilla-proxy';

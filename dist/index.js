@@ -23,3 +23,4 @@ __exportStar(require("./providers/prod-qls"), exports);
 __exportStar(require("./providers/prod-down"), exports);
 __exportStar(require("./assets/assets"), exports);
 __exportStar(require("./providers/prod-secure"), exports);
+__exportStar(require("./providers/prod-zilla-proxy"), exports);

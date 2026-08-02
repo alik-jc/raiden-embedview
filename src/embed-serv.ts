@@ -24,6 +24,7 @@ import {
     PROVIDERS_JSON,
     performDoodAnalyzer,
     filemoonAnalizer,
+    raidenZillaProxy,
 } from './index';
 
 import { performConmutation } from './conmuter';
@@ -463,6 +464,69 @@ app.get('/proxed-xn', async (req: Request, res: Response) => {
         sendHtmlResponse(res, renderContent);
     } catch (error) {
         sendErrorResponse(res, 'Error generating proxed-xn content', error);
+    }
+});
+
+/**
+ * Zilla proxy route - Fetches content with injected Referer
+ */
+app.get('/zilla-proxy', async (req: Request, res: Response) => {
+    try {
+        const targetUrl = req.query.url as string;
+        Logger.debug('Processing zilla-proxy', { targetUrl });
+
+        if (!targetUrl) {
+            return res.status(HTTP_STATUS.FORBIDDEN).json({ error: 'Missing url parameter' });
+        }
+
+        const response = await fetch(targetUrl, {
+            headers: {
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+                'Accept-Language': 'es-419,es;q=0.9',
+                'Cache-Control': 'no-cache',
+                'Connection': 'keep-alive',
+                'Pragma': 'no-cache',
+                'Referer': 'https://animeav1.com/',
+                'Sec-Fetch-Dest': 'iframe',
+                'Sec-Fetch-Mode': 'navigate',
+                'Sec-Fetch-Site': 'cross-site',
+                'Sec-Fetch-Storage-Access': 'none',
+                'Sec-Fetch-User': '?1',
+                'Sec-GPC': '1',
+                'Upgrade-Insecure-Requests': '1',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36',
+                'sec-ch-ua': '"Not=A?Brand";v="99", "Brave";v="151", "Chromium";v="151"',
+                'sec-ch-ua-mobile': '?0',
+                'sec-ch-ua-platform': '"Windows"'
+            }
+        });
+
+        const contentType = response.headers.get('content-type') || 'text/html';
+        const html = await response.text();
+
+        res.setHeader('Content-Type', contentType);
+        res.send(html);
+        Logger.info('zilla-proxy response sent');
+    } catch (error) {
+        sendErrorResponse(res, 'Error in zilla-proxy', error);
+    }
+});
+
+/**
+ * Zilla proxy provider route
+ */
+app.get('/prod-zilla-proxy', async (req: Request, res: Response) => {
+    try {
+        const uriParameter = req.query[ANIYAE_HASH] as string;
+        Logger.debug('Processing prod-zilla-proxy', { uriParameter });
+
+        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        const proxyUrl = '/zilla-proxy?url=' + encodeURIComponent(decodedUri);
+        const renderContent = raidenZillaProxy(proxyUrl);
+        Logger.info('prod-zilla-proxy rendered successfully');
+        sendHtmlResponse(res, renderContent);
+    } catch (error) {
+        sendErrorResponse(res, 'Error generating prod-zilla-proxy content', error);
     }
 });
 

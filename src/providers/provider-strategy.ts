@@ -11,7 +11,8 @@ import {
     performLulustAnalyzer,
     performDoodAnalyzer,
     filemoonAnalizer,
-    abyssTransform
+    abyssTransform,
+    raidenZillaProxy
 } from '../index';
 
 // Types
@@ -89,6 +90,12 @@ const providerHandlers: Record<string, ProviderHandler> = {
     // Sandbox
     'snbox': async (context: ProviderContext) => {
         return raidenSanbox(context.decodedUri);
+    },
+
+    // Zilla Proxy - injects Referer for WAF-protected sites
+    'zilla-proxy': async (context: ProviderContext) => {
+        const proxyUrl = '/zilla-proxy?url=' + encodeURIComponent(context.decodedUri);
+        return raidenZillaProxy(proxyUrl);
     }
 };
 
@@ -104,7 +111,8 @@ const providerAliases: Record<string, string> = {
     'moon-analizer': 'moon',
     'prod-abyss': 'abyss',
     'prod-general': 'general',
-    'prod-snbox': 'snbox'
+    'prod-snbox': 'snbox',
+    'prod-zilla-proxy': 'zilla-proxy'
 };
 
 /**

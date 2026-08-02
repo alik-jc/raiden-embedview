@@ -69,6 +69,11 @@ const providerHandlers = {
     // Sandbox
     'snbox': (context) => __awaiter(void 0, void 0, void 0, function* () {
         return (0, index_1.raidenSanbox)(context.decodedUri);
+    }),
+    // Zilla Proxy - injects Referer for WAF-protected sites
+    'zilla-proxy': (context) => __awaiter(void 0, void 0, void 0, function* () {
+        const proxyUrl = '/zilla-proxy?url=' + encodeURIComponent(context.decodedUri);
+        return (0, index_1.raidenZillaProxy)(proxyUrl);
     })
 };
 // Provider aliases - para mantener retrocompatibilidad
@@ -83,7 +88,8 @@ const providerAliases = {
     'moon-analizer': 'moon',
     'prod-abyss': 'abyss',
     'prod-general': 'general',
-    'prod-snbox': 'snbox'
+    'prod-snbox': 'snbox',
+    'prod-zilla-proxy': 'zilla-proxy'
 };
 /**
  * Get provider handler by name or alias
