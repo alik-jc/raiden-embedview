@@ -1,4 +1,5 @@
 import { performConmutation } from '../../conmuter';
+import { doubleB64Controller } from '../../providers/prod-uri-analizer';
 
 describe('performConmutation', () => {
   const mockProviders = [
@@ -36,5 +37,24 @@ describe('performConmutation', () => {
     const uri = 'https://DOODSTREAM.COM/e/abc123';
     const result = performConmutation(uri, mockProviders);
     expect(result).toBe('prod-dood-analyzer');
+  });
+});
+
+describe('doubleB64Controller', () => {
+
+  test('should return unencoded URL if single encoded was decoded', () => {
+    const originalUrl = 'https://doodstream.com/e/test123';
+    expect(doubleB64Controller(originalUrl)).toBe(originalUrl);
+  });
+
+  test('should decode a second level of base64 when URL was double encoded', () => {
+    const originalUrl = 'https://doodstream.com/e/test123';
+    const singleEncoded = Buffer.from(originalUrl).toString('base64');
+    expect(doubleB64Controller(singleEncoded)).toBe(originalUrl);
+  });
+
+  test('should handle empty or invalid inputs gracefully', () => {
+    expect(doubleB64Controller('')).toBe('');
+    expect(doubleB64Controller('not-base64-plain-text')).toBe('not-base64-plain-text');
   });
 });

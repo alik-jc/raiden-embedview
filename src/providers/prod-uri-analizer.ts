@@ -148,3 +148,33 @@ export const filemoonAnalizer = (decodedUri: string) => {
     return decodedUri.replace(matched, filemoon[matched]);
 
 }
+
+export const doubleB64Controller = (decodedUri: string): string => {
+    if (!decodedUri) return decodedUri;
+
+    // Si ya es una URL con protocolo (http/https/protocol-relative), no requiere decodificación adicional
+    if (decodedUri.startsWith('http://') || decodedUri.startsWith('https://') || decodedUri.startsWith('//')) {
+        return decodedUri;
+    }
+
+    try {
+        const cleanUri = decodedUri.trim();
+        const base64Regex = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/;
+
+        if (base64Regex.test(cleanUri) || /^[A-Za-z0-9+/=]+$/.test(cleanUri)) {
+            const secondDecode = Buffer.from(cleanUri, 'base64').toString('utf-8');
+            if (
+                secondDecode.startsWith('http://') ||
+                secondDecode.startsWith('https://') ||
+                secondDecode.startsWith('//') ||
+                /[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/.test(secondDecode)
+            ) {
+                return secondDecode;
+            }
+        }
+    } catch {
+        // Si no es un base64 válido o falla la decodificación, mantenemos el valor actual
+    }
+
+    return decodedUri;
+};

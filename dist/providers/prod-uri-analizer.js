@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.filemoonAnalizer = exports.performMixdropAnalyzer = exports.wistTransform = exports.performLulustAnalyzer = exports.performLuluAnalyzer = exports.performWishAnalyzer = exports.abyssTransform = exports.performOkruAnalyzer = exports.performDoodAnalyzer = void 0;
+exports.doubleB64Controller = exports.filemoonAnalizer = exports.performMixdropAnalyzer = exports.wistTransform = exports.performLulustAnalyzer = exports.performLuluAnalyzer = exports.performWishAnalyzer = exports.abyssTransform = exports.performOkruAnalyzer = exports.performDoodAnalyzer = void 0;
 const performDoodAnalyzer = (decodedUri) => {
     if (decodedUri.includes("d-s.")) {
         const dood = {
@@ -150,3 +150,29 @@ const filemoonAnalizer = (decodedUri) => {
     return decodedUri.replace(matched, filemoon[matched]);
 };
 exports.filemoonAnalizer = filemoonAnalizer;
+const doubleB64Controller = (decodedUri) => {
+    if (!decodedUri)
+        return decodedUri;
+    // Si ya es una URL con protocolo (http/https/protocol-relative), no requiere decodificación adicional
+    if (decodedUri.startsWith('http://') || decodedUri.startsWith('https://') || decodedUri.startsWith('//')) {
+        return decodedUri;
+    }
+    try {
+        const cleanUri = decodedUri.trim();
+        const base64Regex = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/;
+        if (base64Regex.test(cleanUri) || /^[A-Za-z0-9+/=]+$/.test(cleanUri)) {
+            const secondDecode = Buffer.from(cleanUri, 'base64').toString('utf-8');
+            if (secondDecode.startsWith('http://') ||
+                secondDecode.startsWith('https://') ||
+                secondDecode.startsWith('//') ||
+                /[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/.test(secondDecode)) {
+                return secondDecode;
+            }
+        }
+    }
+    catch (_a) {
+        // Si no es un base64 válido o falla la decodificación, mantenemos el valor actual
+    }
+    return decodedUri;
+};
+exports.doubleB64Controller = doubleB64Controller;

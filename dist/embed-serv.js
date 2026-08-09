@@ -135,8 +135,11 @@ app.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             }
             return res.status(HTTP_STATUS.FORBIDDEN).redirect(ANIYAE_REDIRECT_URL);
         }
-        const base = Buffer.from(uriParameter, 'base64').toString('utf-8');
-        Logger.debug('Decoded base URI', { base });
+        let base = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        Logger.debug('Decoded base URI (1st pass)', { base });
+        // Primera fase de verificación: controlador para URLs con doble encriptación en B64
+        base = (0, index_1.doubleB64Controller)(base);
+        Logger.debug('Verified base URI (double B64 verified)', { base });
         const conmutatedValue = (0, conmuter_1.performConmutation)(base, json);
         Logger.debug('Conmutation result', { conmutatedValue });
         if (conmutatedValue) {

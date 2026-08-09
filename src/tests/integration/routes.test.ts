@@ -57,6 +57,18 @@ describe('Server Routes', () => {
       // Verificar que se devuelve HTML
       expect(response.headers['content-type']).toContain('text/html');
     });
+
+    test('should process double base64 encoded URI', async () => {
+      const validUri = 'https://doodstream.com/e/test123';
+      const singleEncoded = Buffer.from(validUri).toString('base64');
+      const doubleEncoded = Buffer.from(singleEncoded).toString('base64');
+
+      const response = await request(app)
+        .get(`/?testHash=${doubleEncoded}`)
+        .expect(200);
+
+      expect(response.headers['content-type']).toContain('text/html');
+    });
   });
 
   describe('GET /prod-general', () => {
