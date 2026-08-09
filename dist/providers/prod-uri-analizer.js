@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.doubleB64Controller = exports.filemoonAnalizer = exports.performMixdropAnalyzer = exports.wistTransform = exports.performLulustAnalyzer = exports.performLuluAnalyzer = exports.performWishAnalyzer = exports.abyssTransform = exports.performOkruAnalyzer = exports.performDoodAnalyzer = void 0;
+exports.decodeUriParameter = exports.doubleB64Controller = exports.filemoonAnalizer = exports.performMixdropAnalyzer = exports.wistTransform = exports.performLulustAnalyzer = exports.performLuluAnalyzer = exports.performWishAnalyzer = exports.abyssTransform = exports.performOkruAnalyzer = exports.performDoodAnalyzer = void 0;
 const performDoodAnalyzer = (decodedUri) => {
     if (decodedUri.includes("d-s.")) {
         const dood = {
@@ -176,3 +176,15 @@ const doubleB64Controller = (decodedUri) => {
     return decodedUri;
 };
 exports.doubleB64Controller = doubleB64Controller;
+const decodeUriParameter = (uriParameter) => {
+    if (!uriParameter)
+        return '';
+    try {
+        const firstDecode = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        return (0, exports.doubleB64Controller)(firstDecode);
+    }
+    catch (_a) {
+        return uriParameter;
+    }
+};
+exports.decodeUriParameter = decodeUriParameter;

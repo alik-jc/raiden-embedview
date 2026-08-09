@@ -25,7 +25,7 @@ import {
     performDoodAnalyzer,
     filemoonAnalizer,
     raidenZillaProxy,
-    doubleB64Controller,
+    decodeUriParameter,
 } from './index';
 
 import { performConmutation } from './conmuter';
@@ -187,18 +187,15 @@ app.get('/', async (req: Request, res: Response) => {
             return res.status(HTTP_STATUS.FORBIDDEN).redirect(ANIYAE_REDIRECT_URL);
         }
 
-        let base = Buffer.from(uriParameter, 'base64').toString('utf-8');
-        Logger.debug('Decoded base URI (1st pass)', { base });
-
-        // Primera fase de verificación: controlador para URLs con doble encriptación en B64
-        base = doubleB64Controller(base);
-        Logger.debug('Verified base URI (double B64 verified)', { base });
+        const base = decodeUriParameter(uriParameter);
+        Logger.debug('Decoded and verified base URI', { base });
 
         const conmutatedValue = performConmutation(base, json);
         Logger.debug('Conmutation result', { conmutatedValue });
 
         if (conmutatedValue) {
-            const response = '/' + conmutatedValue + '/?' + ANIYAE_HASH + '=' + uriParameter;
+            const singleEncodedHash = Buffer.from(base).toString('base64');
+            const response = '/' + conmutatedValue + '/?' + ANIYAE_HASH + '=' + singleEncodedHash;
             const playerPage = basePlayerPage(response, image, animeTitle);
             Logger.info('Successfully generated player page');
             return sendHtmlResponse(res, playerPage);
@@ -231,7 +228,7 @@ app.get('/prod-snbox', async (req: Request, res: Response) => {
         const uriParameter = req.query[ANIYAE_HASH] as string;
         Logger.debug('Processing prod-snbox', { uriParameter });
 
-        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        const decodedUri = decodeUriParameter(uriParameter);
         Logger.debug('URI decoded', { decodedUri });
 
         const renderContent = raidenSanbox(decodedUri);
@@ -250,7 +247,7 @@ app.get('/prod-general', async (req: Request, res: Response) => {
         const uriParameter = req.query[ANIYAE_HASH] as string;
         Logger.debug('Processing prod-general', { uriParameter });
 
-        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        const decodedUri = decodeUriParameter(uriParameter);
         const renderContent = raidenGeneral(decodedUri);
         Logger.info('prod-general rendered successfully');
         sendHtmlResponse(res, renderContent);
@@ -267,7 +264,7 @@ app.get('/prod-abyss', async (req: Request, res: Response) => {
         const uriParameter = req.query[ANIYAE_HASH] as string;
         Logger.debug('Processing prod-abyss', { uriParameter });
 
-        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        const decodedUri = decodeUriParameter(uriParameter);
         const abyssContent = abyssTransform(decodedUri);
         Logger.debug('Abyss content transformed', { abyssContent });
 
@@ -287,7 +284,7 @@ app.get('/moon-analizer', async (req: Request, res: Response) => {
         const uriParameter = req.query[ANIYAE_HASH] as string;
         Logger.debug('Processing moon-analizer', { uriParameter });
 
-        const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
+        const decodedUri = decodeUriParameter(uriParameter);
         const filemoonContent = filemoonAnalizer(decodedUri);
         Logger.debug('Filemoon content analyzed', { filemoonContent });
 
@@ -310,7 +307,7 @@ app.get('/prod-dood-analyzer', async (req: Request, res: Response) => {
         const uriParameter = req.query[ANIYAE_HASH] as string;
         Logger.debug('Processing prod-dood-analyzer', { uriParameter });
 
-        const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
+        const decodedUri = decodeUriParameter(uriParameter);
         const doodContent = performDoodAnalyzer(decodedUri);
         Logger.debug('Dood content analyzed', { doodContent });
 
@@ -330,7 +327,7 @@ app.get('/prod-analizer-ok', async (req: Request, res: Response) => {
         const uriParameter = req.query[ANIYAE_HASH] as string;
         Logger.debug('Processing prod-analizer-ok', { uriParameter });
 
-        const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
+        const decodedUri = decodeUriParameter(uriParameter);
         const OkContent = performOkruAnalyzer(decodedUri);
         Logger.debug('Okru content analyzed', { OkContent });
 
@@ -350,7 +347,7 @@ app.get('/prod-analizer-wish', async (req: Request, res: Response) => {
         const uriParameter = req.query[ANIYAE_HASH] as string;
         Logger.debug('Processing prod-analizer-wish', { uriParameter });
 
-        const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
+        const decodedUri = decodeUriParameter(uriParameter);
         const wishContent = performWishAnalyzer(decodedUri);
         Logger.debug('Wish content analyzed', { wishContent });
 
@@ -376,7 +373,7 @@ app.get('/prod-analizer-lulu', async (req: Request, res: Response) => {
         const uriParameter = req.query[ANIYAE_HASH] as string;
         Logger.debug('Processing prod-analizer-lulu', { uriParameter });
 
-        const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
+        const decodedUri = decodeUriParameter(uriParameter);
         const luluContent = performLuluAnalyzer(decodedUri);
         Logger.debug('Lulu content analyzed', { luluContent });
 
@@ -399,7 +396,7 @@ app.get('/prod-analizer-lulust', async (req: Request, res: Response) => {
         const uriParameter = req.query[ANIYAE_HASH] as string;
         Logger.debug('Processing prod-analizer-lulust', { uriParameter });
 
-        const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
+        const decodedUri = decodeUriParameter(uriParameter);
         const luluContent = performLulustAnalyzer(decodedUri);
         Logger.debug('Lulust content analyzed', { luluContent });
 
@@ -422,7 +419,7 @@ app.get('/prod-analizer-mixdrop', async (req: Request, res: Response) => {
         const uriParameter = req.query[ANIYAE_HASH] as string;
         Logger.debug('Processing prod-analizer-mixdrop', { uriParameter });
 
-        const decodedUri = Buffer.from(uriParameter || '', 'base64').toString('utf-8');
+        const decodedUri = decodeUriParameter(uriParameter);
         const mixdropContent = performMixdropAnalyzer(decodedUri);
         Logger.debug('Mixdrop content analyzed', { mixdropContent });
 
@@ -443,7 +440,7 @@ app.get('/prod-raidenplayer', async (req: Request, res: Response) => {
         const image = req.query.image as string;
         Logger.debug('Processing prod-raidenplayer', { uriParameter, image });
 
-        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        const decodedUri = decodeUriParameter(uriParameter);
         const renderContent = raidenPlayer(decodedUri, image);
         Logger.info('prod-raidenplayer rendered successfully');
         sendHtmlResponse(res, renderContent);
@@ -458,7 +455,7 @@ app.get('/prod-raidenplayer', async (req: Request, res: Response) => {
 app.get('/proxed-xn', async (req: Request, res: Response) => {
     try {
         const uriParameter = req.query[ANIYAE_HASH] as string;
-        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        const decodedUri = decodeUriParameter(uriParameter);
         Logger.debug('Processing proxed-xn route', { decodedUri });
 
         const setAnalyzer = await proxedXn(decodedUri);
@@ -556,7 +553,7 @@ app.get('/prod-zilla-proxy', async (req: Request, res: Response) => {
         const uriParameter = req.query[ANIYAE_HASH] as string;
         Logger.debug('Processing prod-zilla-proxy', { uriParameter });
 
-        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        const decodedUri = decodeUriParameter(uriParameter);
 
         // Extract hash from URL: /play/{hash} or /m3u8/{hash}
         const hashMatch = decodedUri.match(/\/(?:play|m3u8)\/([a-f0-9]{32})/);
@@ -580,7 +577,7 @@ app.get('/prod-zilla-proxy', async (req: Request, res: Response) => {
 app.get('/proxed', async (req: Request, res: Response) => {
     try {
         const uriParameter = req.query[ANIYAE_HASH] as string;
-        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        const decodedUri = decodeUriParameter(uriParameter);
         Logger.debug('Processing proxed route', { decodedUri });
 
         let setToAnalyzer: string;
@@ -617,7 +614,7 @@ app.get('/proxed', async (req: Request, res: Response) => {
 app.get('/ext', async (req: Request, res: Response) => {
     try {
         const uriParameter = req.query[ANIYAE_HASH] as string;
-        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        const decodedUri = decodeUriParameter(uriParameter);
         Logger.warn('Deprecated /ext route accessed', { uri: decodedUri });
 
         const response = {
@@ -639,7 +636,7 @@ app.get('/provisional', async (req: Request, res: Response) => {
         const animeTitle = req.query.animeTitle as string;
         Logger.debug('Processing provisional route', { uriParameter, animeTitle });
 
-        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        const decodedUri = decodeUriParameter(uriParameter);
         const renderContent = pilarDown(decodedUri, animeTitle);
         Logger.info('Provisional page rendered successfully');
         sendHtmlResponse(res, renderContent);
@@ -656,7 +653,7 @@ app.get('/prod-down', async (req: Request, res: Response) => {
         const uriParameter = req.query[ANIYAE_HASH] as string;
         Logger.debug('Processing prod-down route', { uriParameter });
 
-        const decodedUri = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        const decodedUri = decodeUriParameter(uriParameter);
         const renderContent = errorWebsite(decodedUri);
         Logger.info('prod-down page rendered successfully');
         sendHtmlResponse(res, renderContent);

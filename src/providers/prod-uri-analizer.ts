@@ -177,4 +177,14 @@ export const doubleB64Controller = (decodedUri: string): string => {
     }
 
     return decodedUri;
+};
+
+export const decodeUriParameter = (uriParameter: string): string => {
+    if (!uriParameter) return '';
+    try {
+        const firstDecode = Buffer.from(uriParameter, 'base64').toString('utf-8');
+        return doubleB64Controller(firstDecode);
+    } catch {
+        return uriParameter;
+    }
 };
