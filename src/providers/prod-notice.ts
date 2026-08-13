@@ -33,14 +33,14 @@ export const NOTICE_STYLES = `
             align-items: center;
             overflow: hidden;
             clip-path: inset(0 100% 0 0);
-            animation: logoRevealClip 0.8s cubic-bezier(0.77, 0, 0.175, 1) 6.2s forwards;
+            animation: logoRevealClip 0.8s cubic-bezier(0.77, 0, 0.175, 1) 16.0s forwards;
         }
 
         .logo-float-img {
             max-width: 80px;
             display: block;
             opacity: 0;
-            animation: logoImgReveal 0.3s cubic-bezier(0.25, 1, 0.5, 1) 6.6s forwards;
+            animation: logoImgReveal 0.3s cubic-bezier(0.25, 1, 0.5, 1) 16.4s forwards;
         }
 
         .logo-curtain {
@@ -56,19 +56,19 @@ export const NOTICE_STYLES = `
         .logo-curtain-1 {
             background-color: #4b00ff;
             z-index: 4;
-            animation: logoCurtainIn 0.8s cubic-bezier(0.77, 0, 0.175, 1) 6.2s forwards;
+            animation: logoCurtainIn 0.8s cubic-bezier(0.77, 0, 0.175, 1) 16.0s forwards;
         }
 
         .logo-curtain-2 {
             background-color: #ffffff;
             z-index: 3;
-            animation: logoCurtainIn 0.8s cubic-bezier(0.77, 0, 0.175, 1) 6.32s forwards;
+            animation: logoCurtainIn 0.8s cubic-bezier(0.77, 0, 0.175, 1) 16.12s forwards;
         }
 
         .logo-curtain-3 {
             background-color: #8b5cf6;
             z-index: 2;
-            animation: logoCurtainIn 0.8s cubic-bezier(0.77, 0, 0.175, 1) 6.44s forwards;
+            animation: logoCurtainIn 0.8s cubic-bezier(0.77, 0, 0.175, 1) 16.24s forwards;
         }
 
         /* --- AVISO / MENSAJE --- */
@@ -84,7 +84,7 @@ export const NOTICE_STYLES = `
             max-width: calc(100vw - 20px);
             box-sizing: border-box;
             clip-path: inset(0 100% 0 0);
-            animation: noticeWrapperClip 6.1s cubic-bezier(0.77, 0, 0.175, 1) 0.3s forwards;
+            animation: noticeWrapperClip 6.0s cubic-bezier(0.77, 0, 0.175, 1) 10.0s forwards;
         }
 
         .notice-bg {
@@ -108,7 +108,7 @@ export const NOTICE_STYLES = `
             letter-spacing: 0.3px;
             white-space: nowrap;
             opacity: 0;
-            animation: textReveal 0.3s cubic-bezier(0.25, 1, 0.5, 1) 0.85s forwards;
+            animation: textReveal 0.3s cubic-bezier(0.25, 1, 0.5, 1) 10.55s forwards;
         }
 
         .curtain-layer {
@@ -125,38 +125,38 @@ export const NOTICE_STYLES = `
         .curtain-in-1 {
             background-color: #4b00ff;
             z-index: 6;
-            animation: curtainIn 1.1s cubic-bezier(0.77, 0, 0.175, 1) 0.3s forwards;
+            animation: curtainIn 1.1s cubic-bezier(0.77, 0, 0.175, 1) 10.0s forwards;
         }
 
         .curtain-in-2 {
             background-color: #ffffff;
             z-index: 5;
-            animation: curtainIn 1.1s cubic-bezier(0.77, 0, 0.175, 1) 0.42s forwards;
+            animation: curtainIn 1.1s cubic-bezier(0.77, 0, 0.175, 1) 10.12s forwards;
         }
 
         .curtain-in-3 {
             background-color: #8b5cf6;
             z-index: 4;
-            animation: curtainIn 1.1s cubic-bezier(0.77, 0, 0.175, 1) 0.54s forwards;
+            animation: curtainIn 1.1s cubic-bezier(0.77, 0, 0.175, 1) 10.24s forwards;
         }
 
         .curtain-in-4 {
             background-color: #f3f0ff;
             z-index: 3;
-            animation: curtainIn 1.1s cubic-bezier(0.77, 0, 0.175, 1) 0.66s forwards;
+            animation: curtainIn 1.1s cubic-bezier(0.77, 0, 0.175, 1) 10.36s forwards;
         }
 
         /* 2 Cortinas de SALIDA del Aviso */
         .curtain-out-1 {
             background-color: #ffffff;
             z-index: 8;
-            animation: curtainOut 0.9s cubic-bezier(0.77, 0, 0.175, 1) 5.1s forwards;
+            animation: curtainOut 0.9s cubic-bezier(0.77, 0, 0.175, 1) 15.0s forwards;
         }
 
         .curtain-out-2 {
             background-color: #4b00ff;
             z-index: 9;
-            animation: curtainOut 0.9s cubic-bezier(0.77, 0, 0.175, 1) 5.25s forwards;
+            animation: curtainOut 0.9s cubic-bezier(0.77, 0, 0.175, 1) 15.15s forwards;
         }
 
         /* Keyframes Aviso */
