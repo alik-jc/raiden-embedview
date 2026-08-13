@@ -212,12 +212,32 @@ export const doubleB64Controller = (decodedUri: string): string => {
     return decodedUri;
 };
 
+export const sanitizeDomainTld = (uri: string): string => {
+    if (!uri) return uri;
+    // Corrige TLDs con sufijo 'p' u otros caracteres accidentales comunes (ej. .comp -> .com, .netp -> .net, .orgp -> .org)
+    return uri.replace(
+        /(\b[a-zA-Z0-9-]+)\.(comp|netp|orgp|top[a-z]|site[a-z]|online[a-z]|cloud[a-z])\b/gi,
+        (match, domain, tld) => {
+            const lowerTld = tld.toLowerCase();
+            if (lowerTld === 'comp') return `${domain}.com`;
+            if (lowerTld === 'netp') return `${domain}.net`;
+            if (lowerTld === 'orgp') return `${domain}.org`;
+            if (lowerTld.startsWith('top')) return `${domain}.top`;
+            if (lowerTld.startsWith('site')) return `${domain}.site`;
+            if (lowerTld.startsWith('online')) return `${domain}.online`;
+            if (lowerTld.startsWith('cloud')) return `${domain}.cloud`;
+            return match;
+        }
+    );
+};
+
 export const decodeUriParameter = (uriParameter: string): string => {
     if (!uriParameter) return '';
     try {
         const firstDecode = Buffer.from(uriParameter, 'base64').toString('utf-8');
-        return doubleB64Controller(firstDecode);
+        const decoded = doubleB64Controller(firstDecode);
+        return sanitizeDomainTld(decoded);
     } catch {
-        return uriParameter;
+        return sanitizeDomainTld(uriParameter);
     }
 };

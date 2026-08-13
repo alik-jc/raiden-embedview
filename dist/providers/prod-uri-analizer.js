@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.decodeUriParameter = exports.doubleB64Controller = exports.filemoonAnalizer = exports.extractMoonHash = exports.performMixdropAnalyzer = exports.wistTransform = exports.performLulustAnalyzer = exports.performLuluAnalyzer = exports.performWishAnalyzer = exports.abyssTransform = exports.performOkruAnalyzer = exports.performDoodAnalyzer = void 0;
+exports.decodeUriParameter = exports.sanitizeDomainTld = exports.doubleB64Controller = exports.filemoonAnalizer = exports.extractMoonHash = exports.performMixdropAnalyzer = exports.wistTransform = exports.performLulustAnalyzer = exports.performLuluAnalyzer = exports.performWishAnalyzer = exports.abyssTransform = exports.performOkruAnalyzer = exports.performDoodAnalyzer = void 0;
 const performDoodAnalyzer = (decodedUri) => {
     if (decodedUri.includes("d-s.")) {
         const dood = {
@@ -210,15 +210,40 @@ const doubleB64Controller = (decodedUri) => {
     return decodedUri;
 };
 exports.doubleB64Controller = doubleB64Controller;
+const sanitizeDomainTld = (uri) => {
+    if (!uri)
+        return uri;
+    // Corrige TLDs con sufijo 'p' u otros caracteres accidentales comunes (ej. .comp -> .com, .netp -> .net, .orgp -> .org)
+    return uri.replace(/(\b[a-zA-Z0-9-]+)\.(comp|netp|orgp|top[a-z]|site[a-z]|online[a-z]|cloud[a-z])\b/gi, (match, domain, tld) => {
+        const lowerTld = tld.toLowerCase();
+        if (lowerTld === 'comp')
+            return `${domain}.com`;
+        if (lowerTld === 'netp')
+            return `${domain}.net`;
+        if (lowerTld === 'orgp')
+            return `${domain}.org`;
+        if (lowerTld.startsWith('top'))
+            return `${domain}.top`;
+        if (lowerTld.startsWith('site'))
+            return `${domain}.site`;
+        if (lowerTld.startsWith('online'))
+            return `${domain}.online`;
+        if (lowerTld.startsWith('cloud'))
+            return `${domain}.cloud`;
+        return match;
+    });
+};
+exports.sanitizeDomainTld = sanitizeDomainTld;
 const decodeUriParameter = (uriParameter) => {
     if (!uriParameter)
         return '';
     try {
         const firstDecode = Buffer.from(uriParameter, 'base64').toString('utf-8');
-        return (0, exports.doubleB64Controller)(firstDecode);
+        const decoded = (0, exports.doubleB64Controller)(firstDecode);
+        return (0, exports.sanitizeDomainTld)(decoded);
     }
     catch (_a) {
-        return uriParameter;
+        return (0, exports.sanitizeDomainTld)(uriParameter);
     }
 };
 exports.decodeUriParameter = decodeUriParameter;

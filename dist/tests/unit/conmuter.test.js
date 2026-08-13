@@ -50,3 +50,15 @@ describe('doubleB64Controller', () => {
         expect((0, prod_uri_analizer_1.doubleB64Controller)('not-base64-plain-text')).toBe('not-base64-plain-text');
     });
 });
+describe('sanitizeDomainTld & decodeUriParameter', () => {
+    test('should sanitize malformed .comp and .netp domains', () => {
+        expect((0, prod_uri_analizer_1.sanitizeDomainTld)('https://mdy48tn97.comp/e/test')).toBe('https://mdy48tn97.com/e/test');
+        expect((0, prod_uri_analizer_1.sanitizeDomainTld)('https://example.netp/view/123')).toBe('https://example.net/view/123');
+        expect((0, prod_uri_analizer_1.sanitizeDomainTld)('https://example.orgp/view/123')).toBe('https://example.org/view/123');
+    });
+    test('should sanitize correctly when decoding URI parameter', () => {
+        const rawUrl = 'https://mdy48tn97.comp/e/test123';
+        const base64Url = Buffer.from(rawUrl).toString('base64');
+        expect((0, prod_uri_analizer_1.decodeUriParameter)(base64Url)).toBe('https://mdy48tn97.com/e/test123');
+    });
+});
