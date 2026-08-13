@@ -8,3 +8,4 @@ export * from './providers/prod-down';
 export * from './assets/assets';
 export * from './providers/prod-secure';
 export * from './providers/prod-zilla-proxy';
+export * from './providers/prod-notice';

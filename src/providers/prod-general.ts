@@ -1,5 +1,6 @@
-import { CAT_FRAME, ADS_PLAYER, ADS_GUARDIAN } from "../index";
-export function raidenGeneral(uriParameter: string): string {
+import { CAT_FRAME, ADS_PLAYER, ADS_GUARDIAN, NOTICE_STYLES, renderNoticeBanner } from "../index";
+export function raidenGeneral(uriParameter: string, version: string = 'default'): string {
+    const noticeHtml = renderNoticeBanner(version);
     const content = `
     <script>${CAT_FRAME}</script>
     <style>
@@ -25,21 +26,27 @@ export function raidenGeneral(uriParameter: string): string {
             position: absolute;
             top: 10px;
             left: 10px;
+            z-index: 100;
+            pointer-events: none;
         }
         .logo-float-container {
             display: flex;
             flex-direction: row;
-            justify-content: space-around;
+            justify-content: flex-start;
             align-items: center;
+            gap: 10px;
         }
         .logo-float-img {
             max-width: 80px;
+            display: block;
         }
+        ${NOTICE_STYLES}
     </style>
     <div class="container">
         <div class="logo-float">
             <div class="logo-float-container">
                 <img class="logo-float-img" src="//i0.aniyae.net/aniyae.net/wp-content/uploads/2022/04/AYLogoV4.png?fit=230%2C2047&ssl=1" alt="Aniyae Logo">
+                ${noticeHtml}
             </div>
         </div>
         <iframe allowfullscreen="yes" scrolling="no" src="${uriParameter}" autoplay="true"></iframe>

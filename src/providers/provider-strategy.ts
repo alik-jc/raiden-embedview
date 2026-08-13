@@ -19,7 +19,7 @@ import {
 export interface ProviderContext {
     decodedUri: string;
     image?: string;
-    animeTitle?: string;
+    version?: string;
 }
 
 export type ProviderHandler = (context: ProviderContext) => Promise<string> | string;
@@ -29,40 +29,40 @@ const providerHandlers: Record<string, ProviderHandler> = {
     // Doodstream
     'dood': async (context: ProviderContext) => {
         const doodContent = performDoodAnalyzer(context.decodedUri);
-        return raidenGeneral(doodContent || '');
+        return raidenGeneral(doodContent || '', context.version);
     },
 
     // Okru
     'ok': async (context: ProviderContext) => {
         const okContent = performOkruAnalyzer(context.decodedUri);
-        return raidenSanbox(okContent || '');
+        return raidenSanbox(okContent || '', context.version);
     },
 
     // Wishembed
     'wish': async (context: ProviderContext) => {
         const wishContent = performWishAnalyzer(context.decodedUri);
         const transformWish = wistTransform(wishContent);
-        return raidenGeneral(transformWish || '');
+        return raidenGeneral(transformWish || '', context.version);
     },
 
     // Lulu
     'lulu': async (context: ProviderContext) => {
         const luluContent = performLuluAnalyzer(context.decodedUri);
         const qlsContent = await luluProd(luluContent);
-        return raidenGeneral(qlsContent);
+        return raidenGeneral(qlsContent, context.version);
     },
 
     // Lulust
     'lulust': async (context: ProviderContext) => {
         const luluContent = performLulustAnalyzer(context.decodedUri);
         const qlsContent = await luluProd(luluContent);
-        return raidenGeneral(qlsContent);
+        return raidenGeneral(qlsContent, context.version);
     },
 
     // Mixdrop
     'mixdrop': async (context: ProviderContext) => {
         const mixdropContent = performMixdropAnalyzer(context.decodedUri);
-        return raidenGeneral(mixdropContent || '');
+        return raidenGeneral(mixdropContent || '', context.version);
     },
 
     // Raiden Player
@@ -73,23 +73,23 @@ const providerHandlers: Record<string, ProviderHandler> = {
     // Filemoon (moon)
     'moon': async (context: ProviderContext) => {
         const filemoonContent = filemoonAnalizer(context.decodedUri);
-        return raidenGeneral(filemoonContent || '');
+        return raidenGeneral(filemoonContent || '', context.version);
     },
 
     // Abyss
     'abyss': async (context: ProviderContext) => {
         const abyssContent = abyssTransform(context.decodedUri);
-        return raidenGeneral(abyssContent || '');
+        return raidenGeneral(abyssContent || '', context.version);
     },
 
     // General
     'general': async (context: ProviderContext) => {
-        return raidenGeneral(context.decodedUri);
+        return raidenGeneral(context.decodedUri, context.version);
     },
 
     // Sandbox
     'snbox': async (context: ProviderContext) => {
-        return raidenSanbox(context.decodedUri);
+        return raidenSanbox(context.decodedUri, context.version);
     },
 
     // Zilla Proxy - injects Referer for WAF-protected sites
