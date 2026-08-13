@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.proxedXn = exports.yandexProd = exports.wishHgProd = exports.fmoonProd = exports.uqloProd = exports.luluProd = void 0;
 const index_1 = require("../index");
+const prod_uri_analizer_1 = require("./prod-uri-analizer");
 const luluProd = (uriParameter) => __awaiter(void 0, void 0, void 0, function* () {
     const json = index_1.SET_CORE_URI;
     const urlSet = json.lulu;
@@ -55,8 +56,7 @@ exports.uqloProd = uqloProd;
 const fmoonProd = (uriParameter) => __awaiter(void 0, void 0, void 0, function* () {
     const json = index_1.SET_CORE_URI;
     const urlSet = json.fmoon;
-    const hashMatch = uriParameter.match(/e\/([^/]+)/);
-    const hash = hashMatch ? hashMatch[1] : '';
+    const hash = (0, prod_uri_analizer_1.extractMoonHash)(uriParameter);
     const urlResponse = hash
         ? urlSet + hash
         : urlSet + '/' + uriParameter;

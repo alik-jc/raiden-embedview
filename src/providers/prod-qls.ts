@@ -1,4 +1,5 @@
 import { SET_CORE_URI } from '../index';
+import { extractMoonHash } from './prod-uri-analizer';
 
 export const luluProd = async (uriParameter: string) => {
     const json = SET_CORE_URI;
@@ -53,8 +54,7 @@ export const fmoonProd = async (uriParameter: string) => {
     const json = SET_CORE_URI;
     const urlSet = json.fmoon;
 
-    const hashMatch = uriParameter.match(/e\/([^/]+)/);
-    const hash = hashMatch ? hashMatch[1] : '';
+    const hash = extractMoonHash(uriParameter);
 
     const urlResponse = hash
         ? urlSet + hash

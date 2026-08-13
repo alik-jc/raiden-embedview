@@ -1,6 +1,9 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.decodeUriParameter = exports.doubleB64Controller = exports.filemoonAnalizer = exports.performMixdropAnalyzer = exports.wistTransform = exports.performLulustAnalyzer = exports.performLuluAnalyzer = exports.performWishAnalyzer = exports.abyssTransform = exports.performOkruAnalyzer = exports.performDoodAnalyzer = void 0;
+exports.decodeUriParameter = exports.doubleB64Controller = exports.filemoonAnalizer = exports.extractMoonHash = exports.performMixdropAnalyzer = exports.wistTransform = exports.performLulustAnalyzer = exports.performLuluAnalyzer = exports.performWishAnalyzer = exports.abyssTransform = exports.performOkruAnalyzer = exports.performDoodAnalyzer = void 0;
 const performDoodAnalyzer = (decodedUri) => {
     if (decodedUri.includes("d-s.")) {
         const dood = {
@@ -133,21 +136,52 @@ const performMixdropAnalyzer = (decodedUri) => {
     return decodedUri;
 };
 exports.performMixdropAnalyzer = performMixdropAnalyzer;
+const set_core_json_1 = __importDefault(require("../assets/set-core.json"));
+/**
+ * Extrae el hash limpio de una URL de Moon (Filemoon / Byse)
+ * Soporta URLs fragmentadas/concatenadas (ej: bysewihe.comkoze.com/e/bfbzqnq4sewp),
+ * rutas /e/, /d/, /embed/, /download/, URLs en markdown o hashes directos.
+ */
+const extractMoonHash = (uri) => {
+    if (!uri)
+        return null;
+    // Limpiar markdown links y espacios
+    const cleanUri = uri
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$2')
+        .trim();
+    // Patrones de extracción
+    const patterns = [
+        /(?:\/|^)(?:e|d|embed|download)\/([a-zA-Z0-9]+)/i, // /e/HASH, /d/HASH, /embed/HASH, etc.
+        /[?&]id=([a-zA-Z0-9]+)/i, // ?id=HASH o &id=HASH
+        /\/([a-zA-Z0-9]{10,})$/i, // /HASH al final
+        /^([a-zA-Z0-9]{10,})$/i // Solo el hash
+    ];
+    for (const pattern of patterns) {
+        const match = cleanUri.match(pattern);
+        if (match && match[1]) {
+            return match[1];
+        }
+    }
+    return null;
+};
+exports.extractMoonHash = extractMoonHash;
 const filemoonAnalizer = (decodedUri) => {
-    if (decodedUri.includes('bysewihe.com'))
+    if (!decodedUri)
         return decodedUri;
-    const filemoon = {
-        "filemoon.nl": 'bysewihe.com',
-        "filemoon.sx": 'bysewihe.com',
-        "byse.sx": 'bysewihe.com',
-        "byse": 'bysewihe.com'
-    };
-    // Priorizar claves más largas (p. ej. "byse.sx" antes que "byse")
-    const keys = Object.keys(filemoon).sort((a, b) => b.length - a.length);
-    const matched = keys.find(k => decodedUri.includes(k));
-    if (!matched)
+    const hash = (0, exports.extractMoonHash)(decodedUri);
+    if (!hash) {
         return decodedUri;
-    return decodedUri.replace(matched, filemoon[matched]);
+    }
+    const baseCore = (set_core_json_1.default === null || set_core_json_1.default === void 0 ? void 0 : set_core_json_1.default.moon) || 'https://bysewihe.com/e/';
+    if (baseCore.endsWith('/e/') || baseCore.endsWith('=')) {
+        return `${baseCore}${hash}`;
+    }
+    else if (baseCore.endsWith('/')) {
+        return `${baseCore}e/${hash}`;
+    }
+    else {
+        return `${baseCore}/e/${hash}`;
+    }
 };
 exports.filemoonAnalizer = filemoonAnalizer;
 const doubleB64Controller = (decodedUri) => {

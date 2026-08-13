@@ -2,7 +2,8 @@ import {
     performDoodAnalyzer,
     performOkruAnalyzer,
     performWishAnalyzer,
-    performMixdropAnalyzer
+    filemoonAnalizer,
+    extractMoonHash
   } from '../../index';
   
   describe('Provider Analyzers', () => {
@@ -43,13 +44,40 @@ import {
       });
     });
   
-    describe('performMixdropAnalyzer', () => {
-      test('should transform mixdrop URL correctly', () => {
-        const input = 'https://mixdrop.co/e/test123';
-        const result = performMixdropAnalyzer(input);
-        
-        expect(result).toBeDefined();
-        expect(typeof result).toBe('string');
+    describe('filemoonAnalizer & extractMoonHash', () => {
+      test('should extract hash and reconstruct URL from fragmented provider URL', () => {
+        const fragmented = 'bysewihe.comkoze.com/e/bfbzqnq4sewp';
+        const result = filemoonAnalizer(fragmented);
+        expect(result).toBe('https://bysewihe.com/e/bfbzqnq4sewp');
+      });
+
+      test('should handle standard filemoon.sx URL', () => {
+        const input = 'https://filemoon.sx/e/bfbzqnq4sewp';
+        const result = filemoonAnalizer(input);
+        expect(result).toBe('https://bysewihe.com/e/bfbzqnq4sewp');
+      });
+
+      test('should handle byse.sx URL', () => {
+        const input = 'https://byse.sx/e/bfbzqnq4sewp';
+        const result = filemoonAnalizer(input);
+        expect(result).toBe('https://bysewihe.com/e/bfbzqnq4sewp');
+      });
+
+      test('should handle /d/ download route', () => {
+        const input = 'https://filemoon.nl/d/bfbzqnq4sewp';
+        const result = filemoonAnalizer(input);
+        expect(result).toBe('https://bysewihe.com/e/bfbzqnq4sewp');
+      });
+
+      test('should handle raw /e/ path', () => {
+        const input = '/e/bfbzqnq4sewp';
+        const result = filemoonAnalizer(input);
+        expect(result).toBe('https://bysewihe.com/e/bfbzqnq4sewp');
+      });
+
+      test('should extract clean hash directly', () => {
+        const hash = extractMoonHash('bysewihe.comkoze.com/e/bfbzqnq4sewp');
+        expect(hash).toBe('bfbzqnq4sewp');
       });
     });
   });

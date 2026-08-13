@@ -2,7 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.performConmutation = performConmutation;
 function performConmutation(base, findArray) {
-    const finded = findArray.find((item) => base.includes(item.key));
+    if (!base)
+        return null;
+    const lowerBase = base.toLowerCase();
+    const finded = findArray.find((item) => lowerBase.includes(item.key.toLowerCase()));
     if (finded) {
         return finded.value;
     }

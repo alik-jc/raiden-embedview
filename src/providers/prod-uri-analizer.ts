@@ -130,24 +130,57 @@ export const performMixdropAnalyzer = (decodedUri: string) => {
     return decodedUri;
 }
 
-export const filemoonAnalizer = (decodedUri: string) => {
-    if (decodedUri.includes('bysewihe.com')) return decodedUri;
+import SET_CORE_URI from '../assets/set-core.json';
 
-    const filemoon: domains = {
-        "filemoon.nl": 'bysewihe.com',
-        "filemoon.sx": 'bysewihe.com',
-        "byse.sx": 'bysewihe.com',
-        "byse": 'bysewihe.com'
-    };
+/**
+ * Extrae el hash limpio de una URL de Moon (Filemoon / Byse)
+ * Soporta URLs fragmentadas/concatenadas (ej: bysewihe.comkoze.com/e/bfbzqnq4sewp),
+ * rutas /e/, /d/, /embed/, /download/, URLs en markdown o hashes directos.
+ */
+export const extractMoonHash = (uri: string): string | null => {
+    if (!uri) return null;
 
-    // Priorizar claves más largas (p. ej. "byse.sx" antes que "byse")
-    const keys = Object.keys(filemoon).sort((a, b) => b.length - a.length);
-    const matched = keys.find(k => decodedUri.includes(k));
-    if (!matched) return decodedUri;
+    // Limpiar markdown links y espacios
+    const cleanUri = uri
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$2')
+        .trim();
 
-    return decodedUri.replace(matched, filemoon[matched]);
+    // Patrones de extracción
+    const patterns = [
+        /(?:\/|^)(?:e|d|embed|download)\/([a-zA-Z0-9]+)/i, // /e/HASH, /d/HASH, /embed/HASH, etc.
+        /[?&]id=([a-zA-Z0-9]+)/i,                          // ?id=HASH o &id=HASH
+        /\/([a-zA-Z0-9]{10,})$/i,                          // /HASH al final
+        /^([a-zA-Z0-9]{10,})$/i                            // Solo el hash
+    ];
 
-}
+    for (const pattern of patterns) {
+        const match = cleanUri.match(pattern);
+        if (match && match[1]) {
+            return match[1];
+        }
+    }
+
+    return null;
+};
+
+export const filemoonAnalizer = (decodedUri: string): string => {
+    if (!decodedUri) return decodedUri;
+
+    const hash = extractMoonHash(decodedUri);
+    if (!hash) {
+        return decodedUri;
+    }
+
+    const baseCore = SET_CORE_URI?.moon || 'https://bysewihe.com/e/';
+
+    if (baseCore.endsWith('/e/') || baseCore.endsWith('=')) {
+        return `${baseCore}${hash}`;
+    } else if (baseCore.endsWith('/')) {
+        return `${baseCore}e/${hash}`;
+    } else {
+        return `${baseCore}/e/${hash}`;
+    }
+};
 
 export const doubleB64Controller = (decodedUri: string): string => {
     if (!decodedUri) return decodedUri;

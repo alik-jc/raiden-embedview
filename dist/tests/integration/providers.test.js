@@ -31,12 +31,35 @@ describe('Provider Analyzers', () => {
             expect(typeof result).toBe('string');
         });
     });
-    describe('performMixdropAnalyzer', () => {
-        test('should transform mixdrop URL correctly', () => {
-            const input = 'https://mixdrop.co/e/test123';
-            const result = (0, index_1.performMixdropAnalyzer)(input);
-            expect(result).toBeDefined();
-            expect(typeof result).toBe('string');
+    describe('filemoonAnalizer & extractMoonHash', () => {
+        test('should extract hash and reconstruct URL from fragmented provider URL', () => {
+            const fragmented = 'bysewihe.comkoze.com/e/bfbzqnq4sewp';
+            const result = (0, index_1.filemoonAnalizer)(fragmented);
+            expect(result).toBe('https://bysewihe.com/e/bfbzqnq4sewp');
+        });
+        test('should handle standard filemoon.sx URL', () => {
+            const input = 'https://filemoon.sx/e/bfbzqnq4sewp';
+            const result = (0, index_1.filemoonAnalizer)(input);
+            expect(result).toBe('https://bysewihe.com/e/bfbzqnq4sewp');
+        });
+        test('should handle byse.sx URL', () => {
+            const input = 'https://byse.sx/e/bfbzqnq4sewp';
+            const result = (0, index_1.filemoonAnalizer)(input);
+            expect(result).toBe('https://bysewihe.com/e/bfbzqnq4sewp');
+        });
+        test('should handle /d/ download route', () => {
+            const input = 'https://filemoon.nl/d/bfbzqnq4sewp';
+            const result = (0, index_1.filemoonAnalizer)(input);
+            expect(result).toBe('https://bysewihe.com/e/bfbzqnq4sewp');
+        });
+        test('should handle raw /e/ path', () => {
+            const input = '/e/bfbzqnq4sewp';
+            const result = (0, index_1.filemoonAnalizer)(input);
+            expect(result).toBe('https://bysewihe.com/e/bfbzqnq4sewp');
+        });
+        test('should extract clean hash directly', () => {
+            const hash = (0, index_1.extractMoonHash)('bysewihe.comkoze.com/e/bfbzqnq4sewp');
+            expect(hash).toBe('bfbzqnq4sewp');
         });
     });
 });
