@@ -2,7 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.raidenGeneral = raidenGeneral;
 const index_1 = require("../index");
-function raidenGeneral(uriParameter) {
+function raidenGeneral(uriParameter, version = 'default') {
+    const noticeHtml = (0, index_1.renderNoticeBanner)(version);
     const content = `
     <script>${index_1.CAT_FRAME}</script>
     <style>
@@ -28,21 +29,27 @@ function raidenGeneral(uriParameter) {
             position: absolute;
             top: 10px;
             left: 10px;
+            z-index: 100;
+            pointer-events: none;
         }
         .logo-float-container {
             display: flex;
             flex-direction: row;
-            justify-content: space-around;
+            justify-content: flex-start;
             align-items: center;
+            gap: 10px;
         }
         .logo-float-img {
             max-width: 80px;
+            display: block;
         }
+        ${index_1.NOTICE_STYLES}
     </style>
     <div class="container">
         <div class="logo-float">
             <div class="logo-float-container">
                 <img class="logo-float-img" src="//i0.aniyae.net/aniyae.net/wp-content/uploads/2022/04/AYLogoV4.png?fit=230%2C2047&ssl=1" alt="Aniyae Logo">
+                ${noticeHtml}
             </div>
         </div>
         <iframe allowfullscreen="yes" scrolling="no" src="${uriParameter}" autoplay="true"></iframe>

@@ -126,7 +126,7 @@ app.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         Logger.debug('Processing main route', { query: req.query });
         const json = index_1.PROVIDERS_JSON;
         const image = req.query.image;
-        const animeTitle = req.query.animeTitle;
+        const version = req.query.version;
         const uriParameter = req.query[ANIYAE_HASH];
         if (!uriParameter) {
             Logger.warn('Missing URI parameter in main route');
@@ -140,9 +140,10 @@ app.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const conmutatedValue = (0, conmuter_1.performConmutation)(base, json);
         Logger.debug('Conmutation result', { conmutatedValue });
         if (conmutatedValue) {
+            const resolvedVersion = version || (conmutatedValue.includes('snbox') || conmutatedValue.includes('ok') ? 'snbox' : 'default');
             const singleEncodedHash = Buffer.from(base).toString('base64');
             const response = '/' + conmutatedValue + '/?' + ANIYAE_HASH + '=' + singleEncodedHash;
-            const playerPage = (0, index_1.basePlayerPage)(response, image, animeTitle);
+            const playerPage = (0, index_1.basePlayerPage)(response, image, resolvedVersion);
             Logger.info('Successfully generated player page');
             return sendHtmlResponse(res, playerPage);
         }
@@ -166,10 +167,11 @@ app.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 app.get('/prod-snbox', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const uriParameter = req.query[ANIYAE_HASH];
-        Logger.debug('Processing prod-snbox', { uriParameter });
+        const version = req.query.version;
+        Logger.debug('Processing prod-snbox', { uriParameter, version });
         const decodedUri = (0, index_1.decodeUriParameter)(uriParameter);
         Logger.debug('URI decoded', { decodedUri });
-        const renderContent = (0, index_1.raidenSanbox)(decodedUri);
+        const renderContent = (0, index_1.raidenSanbox)(decodedUri, version);
         Logger.info('prod-snbox rendered successfully');
         sendHtmlResponse(res, renderContent);
     }
@@ -183,9 +185,10 @@ app.get('/prod-snbox', (req, res) => __awaiter(void 0, void 0, void 0, function*
 app.get('/prod-general', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const uriParameter = req.query[ANIYAE_HASH];
-        Logger.debug('Processing prod-general', { uriParameter });
+        const version = req.query.version;
+        Logger.debug('Processing prod-general', { uriParameter, version });
         const decodedUri = (0, index_1.decodeUriParameter)(uriParameter);
-        const renderContent = (0, index_1.raidenGeneral)(decodedUri);
+        const renderContent = (0, index_1.raidenGeneral)(decodedUri, version);
         Logger.info('prod-general rendered successfully');
         sendHtmlResponse(res, renderContent);
     }
@@ -199,11 +202,12 @@ app.get('/prod-general', (req, res) => __awaiter(void 0, void 0, void 0, functio
 app.get('/prod-abyss', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const uriParameter = req.query[ANIYAE_HASH];
-        Logger.debug('Processing prod-abyss', { uriParameter });
+        const version = req.query.version;
+        Logger.debug('Processing prod-abyss', { uriParameter, version });
         const decodedUri = (0, index_1.decodeUriParameter)(uriParameter);
         const abyssContent = (0, index_1.abyssTransform)(decodedUri);
         Logger.debug('Abyss content transformed', { abyssContent });
-        const renderContent = (0, index_1.raidenGeneral)(abyssContent || '');
+        const renderContent = (0, index_1.raidenGeneral)(abyssContent || '', version);
         Logger.info('prod-abyss rendered successfully');
         sendHtmlResponse(res, renderContent);
     }
@@ -217,13 +221,14 @@ app.get('/prod-abyss', (req, res) => __awaiter(void 0, void 0, void 0, function*
 app.get('/moon-analizer', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const uriParameter = req.query[ANIYAE_HASH];
-        Logger.debug('Processing moon-analizer', { uriParameter });
+        const version = req.query.version;
+        Logger.debug('Processing moon-analizer', { uriParameter, version });
         const decodedUri = (0, index_1.decodeUriParameter)(uriParameter);
         const filemoonContent = (0, index_1.filemoonAnalizer)(decodedUri);
         Logger.debug('Filemoon content analyzed', { filemoonContent });
         //const proxedContent = await fmoonProd(filemoonContent || '');
         //Logger.debug('Filemoon proxied content generated', { proxedContent });
-        const renderContent = (0, index_1.raidenGeneral)(filemoonContent || '');
+        const renderContent = (0, index_1.raidenGeneral)(filemoonContent || '', version);
         Logger.info('moon-analizer rendered successfully');
         sendHtmlResponse(res, renderContent);
     }
@@ -237,11 +242,12 @@ app.get('/moon-analizer', (req, res) => __awaiter(void 0, void 0, void 0, functi
 app.get('/prod-dood-analyzer', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const uriParameter = req.query[ANIYAE_HASH];
-        Logger.debug('Processing prod-dood-analyzer', { uriParameter });
+        const version = req.query.version;
+        Logger.debug('Processing prod-dood-analyzer', { uriParameter, version });
         const decodedUri = (0, index_1.decodeUriParameter)(uriParameter);
         const doodContent = (0, index_1.performDoodAnalyzer)(decodedUri);
         Logger.debug('Dood content analyzed', { doodContent });
-        const renderContent = (0, index_1.raidenGeneral)(doodContent || '');
+        const renderContent = (0, index_1.raidenGeneral)(doodContent || '', version);
         Logger.info('prod-dood-analyzer rendered successfully');
         sendHtmlResponse(res, renderContent);
     }
@@ -255,11 +261,12 @@ app.get('/prod-dood-analyzer', (req, res) => __awaiter(void 0, void 0, void 0, f
 app.get('/prod-analizer-ok', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const uriParameter = req.query[ANIYAE_HASH];
-        Logger.debug('Processing prod-analizer-ok', { uriParameter });
+        const version = req.query.version;
+        Logger.debug('Processing prod-analizer-ok', { uriParameter, version });
         const decodedUri = (0, index_1.decodeUriParameter)(uriParameter);
         const OkContent = (0, index_1.performOkruAnalyzer)(decodedUri);
         Logger.debug('Okru content analyzed', { OkContent });
-        const renderContent = (0, index_1.raidenSanbox)(OkContent || '');
+        const renderContent = (0, index_1.raidenSanbox)(OkContent || '', version);
         Logger.info('prod-analizer-ok rendered successfully');
         sendHtmlResponse(res, renderContent);
     }
@@ -273,7 +280,8 @@ app.get('/prod-analizer-ok', (req, res) => __awaiter(void 0, void 0, void 0, fun
 app.get('/prod-analizer-wish', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const uriParameter = req.query[ANIYAE_HASH];
-        Logger.debug('Processing prod-analizer-wish', { uriParameter });
+        const version = req.query.version;
+        Logger.debug('Processing prod-analizer-wish', { uriParameter, version });
         const decodedUri = (0, index_1.decodeUriParameter)(uriParameter);
         const wishContent = (0, index_1.performWishAnalyzer)(decodedUri);
         Logger.debug('Wish content analyzed', { wishContent });
@@ -281,7 +289,7 @@ app.get('/prod-analizer-wish', (req, res) => __awaiter(void 0, void 0, void 0, f
         Logger.debug('Wish content transformed', { transformWish });
         //const proxedWish = await wishHgProd(transformWish);
         //Logger.debug('Wish QLS content generated', { proxedWish });
-        const renderContent = (0, index_1.raidenGeneral)(transformWish || '');
+        const renderContent = (0, index_1.raidenGeneral)(transformWish || '', version);
         Logger.info('prod-analizer-wish rendered successfully');
         sendHtmlResponse(res, renderContent);
     }
@@ -295,13 +303,14 @@ app.get('/prod-analizer-wish', (req, res) => __awaiter(void 0, void 0, void 0, f
 app.get('/prod-analizer-lulu', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const uriParameter = req.query[ANIYAE_HASH];
-        Logger.debug('Processing prod-analizer-lulu', { uriParameter });
+        const version = req.query.version;
+        Logger.debug('Processing prod-analizer-lulu', { uriParameter, version });
         const decodedUri = (0, index_1.decodeUriParameter)(uriParameter);
         const luluContent = (0, index_1.performLuluAnalyzer)(decodedUri);
         Logger.debug('Lulu content analyzed', { luluContent });
         //const proxedLulu = await luluProd(luluContent);
         //Logger.debug('Lulu QLS content generated', { proxedLulu });
-        const renderContent = (0, index_1.raidenGeneral)(luluContent || '');
+        const renderContent = (0, index_1.raidenGeneral)(luluContent || '', version);
         Logger.info('prod-analizer-lulu rendered successfully');
         sendHtmlResponse(res, renderContent);
     }
@@ -315,13 +324,14 @@ app.get('/prod-analizer-lulu', (req, res) => __awaiter(void 0, void 0, void 0, f
 app.get('/prod-analizer-lulust', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const uriParameter = req.query[ANIYAE_HASH];
-        Logger.debug('Processing prod-analizer-lulust', { uriParameter });
+        const version = req.query.version;
+        Logger.debug('Processing prod-analizer-lulust', { uriParameter, version });
         const decodedUri = (0, index_1.decodeUriParameter)(uriParameter);
         const luluContent = (0, index_1.performLulustAnalyzer)(decodedUri);
         Logger.debug('Lulust content analyzed', { luluContent });
         //const proxedLulu = await luluProd(luluContent);
         //Logger.debug('Lulust QLS content generated', { proxedLulu });
-        const renderContent = (0, index_1.raidenGeneral)(luluContent || '');
+        const renderContent = (0, index_1.raidenGeneral)(luluContent || '', version);
         Logger.info('prod-analizer-lulust rendered successfully');
         sendHtmlResponse(res, renderContent);
     }
@@ -335,11 +345,12 @@ app.get('/prod-analizer-lulust', (req, res) => __awaiter(void 0, void 0, void 0,
 app.get('/prod-analizer-mixdrop', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const uriParameter = req.query[ANIYAE_HASH];
-        Logger.debug('Processing prod-analizer-mixdrop', { uriParameter });
+        const version = req.query.version;
+        Logger.debug('Processing prod-analizer-mixdrop', { uriParameter, version });
         const decodedUri = (0, index_1.decodeUriParameter)(uriParameter);
         const mixdropContent = (0, index_1.performMixdropAnalyzer)(decodedUri);
         Logger.debug('Mixdrop content analyzed', { mixdropContent });
-        const renderContent = (0, index_1.raidenGeneral)(mixdropContent || '');
+        const renderContent = (0, index_1.raidenGeneral)(mixdropContent || '', version);
         Logger.info('prod-analizer-mixdrop rendered successfully');
         sendHtmlResponse(res, renderContent);
     }
@@ -370,11 +381,12 @@ app.get('/prod-raidenplayer', (req, res) => __awaiter(void 0, void 0, void 0, fu
 app.get('/proxed-xn', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const uriParameter = req.query[ANIYAE_HASH];
+        const version = req.query.version;
         const decodedUri = (0, index_1.decodeUriParameter)(uriParameter);
-        Logger.debug('Processing proxed-xn route', { decodedUri });
+        Logger.debug('Processing proxed-xn route', { decodedUri, version });
         const setAnalyzer = yield (0, index_1.proxedXn)(decodedUri);
         Logger.debug('Proxed-XN content generated', { setAnalyzer });
-        const renderContent = (0, index_1.raidenGeneral)(setAnalyzer);
+        const renderContent = (0, index_1.raidenGeneral)(setAnalyzer, version);
         Logger.info('Proxed-XN route rendered successfully');
         sendHtmlResponse(res, renderContent);
     }
@@ -473,8 +485,9 @@ app.get('/prod-zilla-proxy', (req, res) => __awaiter(void 0, void 0, void 0, fun
 app.get('/proxed', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const uriParameter = req.query[ANIYAE_HASH];
+        const version = req.query.version;
         const decodedUri = (0, index_1.decodeUriParameter)(uriParameter);
-        Logger.debug('Processing proxed route', { decodedUri });
+        Logger.debug('Processing proxed route', { decodedUri, version });
         let setToAnalyzer;
         let provider;
         if (decodedUri.includes('lulu')) {
@@ -497,7 +510,7 @@ app.get('/proxed', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             throw new Error('Invalid provider name');
         }
         Logger.debug('Provider content generated', { provider, setToAnalyzer });
-        const renderContent = (0, index_1.raidenGeneral)(setToAnalyzer);
+        const renderContent = (0, index_1.raidenGeneral)(setToAnalyzer, version);
         Logger.info(`Proxed route rendered successfully for ${provider}`);
         sendHtmlResponse(res, renderContent);
     }
