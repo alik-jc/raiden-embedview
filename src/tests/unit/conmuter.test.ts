@@ -1,12 +1,15 @@
 import { performConmutation } from '../../conmuter';
-import { doubleB64Controller, sanitizeDomainTld, decodeUriParameter } from '../../providers/prod-uri-analizer';
+import { doubleB64Controller, sanitizeDomainTld, decodeUriParameter, performMixdropAnalyzer } from '../../providers/prod-uri-analizer';
 
 describe('performConmutation', () => {
   const mockProviders = [
     { key: 'doodstream.com', value: 'prod-dood-analyzer' },
     { key: 'ok.ru', value: 'prod-analizer-ok' },
     { key: 'wishembed.pro', value: 'prod-analizer-wish' },
-    { key: 'lulustream.com', value: 'prod-analizer-lulu' }
+    { key: 'lulustream.com', value: 'prod-analizer-lulu' },
+    { key: 'mixdrop', value: 'prod-analizer-mixdrop' },
+    { key: 'mxdrop', value: 'prod-analizer-mixdrop' },
+    { key: 'mdy48tn97', value: 'prod-analizer-mixdrop' }
   ];
 
   test('should return correct provider for doodstream', () => {
@@ -19,6 +22,11 @@ describe('performConmutation', () => {
     const uri = 'https://ok.ru/video/123456';
     const result = performConmutation(uri, mockProviders);
     expect(result).toBe('prod-analizer-ok');
+  });
+
+  test('should return correct provider for mdy48tn97 and mixdrop', () => {
+    expect(performConmutation('https://mdy48tn97.comp/e/test', mockProviders)).toBe('prod-analizer-mixdrop');
+    expect(performConmutation('https://mixdrop.co/e/test', mockProviders)).toBe('prod-analizer-mixdrop');
   });
 
   test('should return null for unsupported provider', () => {
@@ -56,6 +64,14 @@ describe('doubleB64Controller', () => {
   test('should handle empty or invalid inputs gracefully', () => {
     expect(doubleB64Controller('')).toBe('');
     expect(doubleB64Controller('not-base64-plain-text')).toBe('not-base64-plain-text');
+  });
+});
+
+describe('performMixdropAnalyzer', () => {
+  test('should transform mdy48tn97.comp and other drop variants to mdy48tn97.com', () => {
+    expect(performMixdropAnalyzer('https://mdy48tn97.comp/e/12345')).toBe('https://mdy48tn97.com/e/12345');
+    expect(performMixdropAnalyzer('https://mixdrop.co/e/12345')).toBe('https://mdy48tn97.com/e/12345');
+    expect(performMixdropAnalyzer('https://mixdrop.to/e/12345')).toBe('https://mdy48tn97.com/e/12345');
   });
 });
 
