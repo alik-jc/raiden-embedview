@@ -118,9 +118,11 @@ const wistTransform = (decodedUri) => {
 };
 exports.wistTransform = wistTransform;
 const performMixdropAnalyzer = (decodedUri) => {
-    // Si tiene la extensión mal escrita (.comp), corregirla a .com
-    if (decodedUri.includes('.comp')) {
-        return decodedUri.replace('.comp', '.com');
+    if (!decodedUri)
+        return decodedUri;
+    // Caso específico mdy48tn97.comp -> mdy48tn97.com
+    if (decodedUri.includes('mdy48tn97.comp')) {
+        return decodedUri.replace('mdy48tn97.comp', 'mdy48tn97.com');
     }
     if (decodedUri.includes('mixdrop')) {
         const mixdrop = {
